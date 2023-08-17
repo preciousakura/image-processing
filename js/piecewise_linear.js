@@ -52,7 +52,7 @@ function dragCircle(e) {
     if (circleSelected === 1 && interval_line_coordinates[0][0] > x)
       x = interval_line_coordinates[0][0];
     else if (circleSelected === 0 && interval_line_coordinates[1][0] < x)
-      x = interval_line_coordinates[0][0];
+      x = interval_line_coordinates[1][0];
 
     interval_line_coordinates[circleSelected] = [x, y];
     removeLine();
