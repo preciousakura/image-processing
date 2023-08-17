@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Processamento de Imagens</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main>
+      <nav>
+        <ul>
+          <li class="archive">
+            <h4>Arquivo</h4>
+            <div class="submenu">
+              <div>
+                <label for="archive"><h4>Carregar</h4></label>
+                <input
+                  id="archive"
+                  name="archive"
+                  type="file"
+                  accept="image/*"
+                  onchange="loadImage(event)"
+                />
+              </div>
+
+              <h4>Salvar</h4>
+            </div>
+          </li>
+          <li><h4>Transformações</h4></li>
+          <li><h4>Histograma</h4></li>
+          <li><h4>Desfazer mudanças</h4></li>
+        </ul>
+      </nav>
+      <div class="content">
+        <canvas id="image" width="400" height="400"></canvas>
+        <canvas id="interval-control" width="400" height="400"></canvas>
+      </div>
+    </main>
+    <script src="graph.js"></script>
+    <script src="uploadImage.js"></script>
+    <script src="image.js"></script>
+  </body>
+</html>
