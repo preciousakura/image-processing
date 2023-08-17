@@ -46,18 +46,15 @@ function canvaClick(event) {
     if (isBegin) {
       if (interval_line_coordinates[1][0] < x)
         x = interval_line_coordinates[0][0];
-      circleSelected = 0;
       interval_line_coordinates[0] = [x, y];
       isBegin = false;
     } else {
       if (interval_line_coordinates[0][0] > x)
         x = interval_line_coordinates[0][0];
-      circleSelected = 1;
       interval_line_coordinates[1] = [x, y];
       isBegin = true;
     }
 
-    isDragging = true;
     drawLine();
     drawCircle();
   }
