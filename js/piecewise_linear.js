@@ -1,9 +1,16 @@
-const canvas_piecewise_linear = document.getElementById("piecewise-linear-window");
-const context_piecewise_linear = canvas_piecewise_linear.getContext('2d', { willReadFrequently: true });
-let interval_line_coordinates = [[0, 400], [400, 0]],
-    isDragging = false,
-    isBegin = true,
-    circleSelected = -1;
+const canvas_piecewise_linear = document.getElementById(
+  "piecewise-linear-window"
+);
+const context_piecewise_linear = canvas_piecewise_linear.getContext("2d", {
+  willReadFrequently: true,
+});
+let interval_line_coordinates = [
+    [0, 400],
+    [400, 0],
+  ],
+  isDragging = false,
+  isBegin = true,
+  circleSelected = -1;
 
 window.onload = function () {
   removeLine();
@@ -18,7 +25,7 @@ window.onload = function () {
 
 function canvaClick(event) {
   const rect = canvas_piecewise_linear.getBoundingClientRect();
-  const x = event.clientX - rect.left,
+  let x = event.clientX - rect.left,
     y = event.clientY - rect.top;
 
   for (let i = 0; i < interval_line_coordinates.length; i++) {
@@ -37,10 +44,14 @@ function canvaClick(event) {
   if (circleSelected == -1) {
     removeLine();
     if (isBegin) {
+      if (interval_line_coordinates[1][0] < x)
+        x = interval_line_coordinates[0][0];
       circleSelected = 0;
       interval_line_coordinates[0] = [x, y];
       isBegin = false;
     } else {
+      if (interval_line_coordinates[0][0] > x)
+        x = interval_line_coordinates[0][0];
       circleSelected = 1;
       interval_line_coordinates[1] = [x, y];
       isBegin = true;
@@ -60,6 +71,12 @@ function dragCircle(e) {
   if (isDragging == true && circleSelected != -1) {
     let x = e.pageX - canvas_piecewise_linear.offsetLeft;
     let y = e.pageY - canvas_piecewise_linear.offsetTop;
+
+    if (circleSelected === 1 && interval_line_coordinates[0][0] > x)
+      x = interval_line_coordinates[0][0];
+    else if (circleSelected === 0 && interval_line_coordinates[1][0] < x)
+      x = interval_line_coordinates[0][0];
+
     interval_line_coordinates[circleSelected] = [x, y];
     removeLine();
     drawLine();
@@ -68,7 +85,12 @@ function dragCircle(e) {
 }
 
 function removeLine() {
-  context_piecewise_linear.clearRect(0, 0, canvas_piecewise_linear.width, canvas_piecewise_linear.height);
+  context_piecewise_linear.clearRect(
+    0,
+    0,
+    canvas_piecewise_linear.width,
+    canvas_piecewise_linear.height
+  );
   context_piecewise_linear.strokeStyle = "#2d3748";
   context_piecewise_linear.lineWidth = 2;
 
