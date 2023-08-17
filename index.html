@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Processamento de Imagens</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/piecewise_linear.css" />
+    <link rel="stylesheet" href="style/histogram.css" />
+    <link rel="stylesheet" href="style/menu.css" />
   </head>
 
   <body>
@@ -33,13 +36,16 @@
           <li><h4>Desfazer mudanças</h4></li>
         </ul>
       </nav>
-      <div class="content">
+
+      <section>
         <canvas id="image" width="400" height="400"></canvas>
-        <canvas id="interval-control" width="400" height="400"></canvas>
-      </div>
+        <canvas id="piecewise-linear-window" width="400" height="400"></canvas>
+        <canvas id="histogram-window" width="250" height="400"></canvas>
+      </section>
     </main>
-    <script src="graph.js"></script>
-    <script src="uploadImage.js"></script>
-    <script src="image.js"></script>
+    <script src="js/uploadImage.js"></script>
+    <script src="js/piecewise_linear.js"></script>
+    <script src="js/image.js"></script>
+    <script src="js/histogram.js"></script>
   </body>
 </html>
