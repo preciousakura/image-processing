@@ -1,21 +1,12 @@
-const canvas_piecewise_linear = document.getElementById(
-  "piecewise-linear-window"
-);
-const context_piecewise_linear = canvas_piecewise_linear.getContext("2d", {
-  willReadFrequently: true,
-});
-let interval_line_coordinates = [
-    [0, 400],
-    [400, 0],
-  ],
-  isDragging = false,
-  isBegin = true,
-  circleSelected = -1;
+const canvas_piecewise_linear = document.getElementById("piecewise-linear-window");
+const context_piecewise_linear = canvas_piecewise_linear.getContext("2d", { willReadFrequently: true });
+let interval_line_coordinates = [],
+    isDragging = false,
+    circleSelected = -1;
 
 window.onload = function () {
   removeLine();
   drawLine();
-  drawCircle();
 
   canvas_piecewise_linear.onmousedown = canvaClick;
   canvas_piecewise_linear.onmouseup = stopDragging;
@@ -25,14 +16,11 @@ window.onload = function () {
 
 function canvaClick(event) {
   const rect = canvas_piecewise_linear.getBoundingClientRect();
-  let x = event.clientX - rect.left,
-    y = event.clientY - rect.top;
+  let x = event.clientX - rect.left, y = event.clientY - rect.top;
 
   for (let i = 0; i < interval_line_coordinates.length; i++) {
     const circle = interval_line_coordinates[i];
-    const distance_center = Math.sqrt(
-      Math.pow(circle[0] - x, 2) + Math.pow(circle[1] - y, 2)
-    );
+    const distance_center = Math.sqrt(Math.pow(circle[0] - x, 2) + Math.pow(circle[1] - y, 2));
 
     if (distance_center <= 10) {
       circleSelected = i;
@@ -41,23 +29,15 @@ function canvaClick(event) {
     } else circleSelected = -1;
   }
 
-  if (circleSelected == -1) {
-    removeLine();
-    if (isBegin) {
-      if (interval_line_coordinates[1][0] < x)
-        x = interval_line_coordinates[0][0];
-      interval_line_coordinates[0] = [x, y];
-      isBegin = false;
-    } else {
-      if (interval_line_coordinates[0][0] > x)
-        x = interval_line_coordinates[0][0];
-      interval_line_coordinates[1] = [x, y];
-      isBegin = true;
-    }
-
-    drawLine();
-    drawCircle();
+  if (circleSelected == -1 && interval_line_coordinates.length < 2) {
+    if (interval_line_coordinates.length > 0 && interval_line_coordinates[0][0] > x)
+      x = interval_line_coordinates[0][0];
+    interval_line_coordinates.push([x, y]);
   }
+
+  removeLine();
+  drawLine();
+  drawCircle();
 }
 
 function stopDragging() {
@@ -82,12 +62,7 @@ function dragCircle(e) {
 }
 
 function removeLine() {
-  context_piecewise_linear.clearRect(
-    0,
-    0,
-    canvas_piecewise_linear.width,
-    canvas_piecewise_linear.height
-  );
+  context_piecewise_linear.clearRect(0, 0, canvas_piecewise_linear.width, canvas_piecewise_linear.height);
   context_piecewise_linear.strokeStyle = "#2d3748";
   context_piecewise_linear.lineWidth = 2;
 
@@ -117,14 +92,7 @@ function drawCircle() {
 
   for (let i = 0; i < interval_line_coordinates.length; i++) {
     context_piecewise_linear.beginPath();
-    context_piecewise_linear.arc(
-      interval_line_coordinates[i][0],
-      interval_line_coordinates[i][1],
-      circleSize,
-      0,
-      Math.PI * 2,
-      true
-    );
+    context_piecewise_linear.arc(interval_line_coordinates[i][0], interval_line_coordinates[i][1], circleSize, 0, Math.PI * 2, true);
     context_piecewise_linear.fill();
     context_piecewise_linear.stroke();
   }
