@@ -45,7 +45,7 @@ function stopDragging() {
 }
 
 function dragCircle(e) {
-  if (isDragging == true && circleSelected != -1) {
+  if (isDragging  && circleSelected != -1) {
     let x = e.pageX - canvas_piecewise_linear.offsetLeft;
     let y = e.pageY - canvas_piecewise_linear.offsetTop;
 

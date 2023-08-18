@@ -7,6 +7,7 @@ class ImageCanva {
     this.histogram = new Array(256).fill(0);
     this.maxBrightness = 0;
     this.data = [...this.pixels.data];
+    this.dataOrigin = this.data;
 
     // tranform pixels to [0, 1]
     for (let i = 0; i < this.data.length; i += 4) {
@@ -17,6 +18,7 @@ class ImageCanva {
   }
 
   processHistogram() {
+    this.histogram = new Array(256).fill(0);
     const pixel = new Uint32Array(this.pixels.data.buffer);
 
     for (let i = 0; i < pixel.length; i++) {
@@ -74,11 +76,22 @@ class ImageCanva {
     this.updatePixel();
   }
 
-  logTransform() {
+  logTransform(c) {
+    this.data = [...this.dataOrigin];
     for (let i = 0; i < this.data.length; i += 4) {
-      this.data[i] = Math.log2(1 + this.data[i]);
-      this.data[i + 1] = Math.log2(1 + this.data[i + 1]);
-      this.data[i + 2] = Math.log2(1 + this.data[i + 2]);
+      this.data[i] = c * Math.log2(1 + this.data[i]);
+      this.data[i + 1] = c * Math.log2(1 + this.data[i + 1]);
+      this.data[i + 2] = c * Math.log2(1 + this.data[i + 2]);
+    }
+    this.updatePixel();
+  }
+
+  gamaCorrection(c) {
+    this.data = [...this.dataOrigin];
+    for (let i = 0; i < this.data.length; i += 4) {
+      this.data[i] = Math.pow(this.data[i], c);
+      this.data[i + 1] = Math.pow(this.data[i + 1], c);
+      this.data[i + 2] = Math.pow(this.data[i + 2], c);
     }
     this.updatePixel();
   }
