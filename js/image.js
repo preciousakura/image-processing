@@ -50,7 +50,7 @@ class ImageCanva {
     }
 
     this.ctx.putImageData(this.pixels, 0, 0, 0, 0, this.width, this.height);
-    this.histogram();
+    this.processHistogram();
   }
 
   toGray() {
@@ -76,9 +76,9 @@ class ImageCanva {
 
   logTransform() {
     for (let i = 0; i < this.data.length; i += 4) {
-      this.data[i] = Math.log(1 + this.data[i]);
-      this.data[i + 1] = Math.log(1 + this.data[i + 1]);
-      this.data[i + 2] = Math.log(1 + this.data[i + 2]);
+      this.data[i] = Math.log2(1 + this.data[i]);
+      this.data[i + 1] = Math.log2(1 + this.data[i + 1]);
+      this.data[i + 2] = Math.log2(1 + this.data[i + 2]);
     }
     this.updatePixel();
   }
