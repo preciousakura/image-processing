@@ -7,7 +7,6 @@ class ImageCanva {
     this.histogram = new Array(256).fill(0);
     this.maxBrightness = 0;
     this.data = [...this.pixels.data];
-    this.dataOrigin = this.data;
 
     // tranform pixels to [0, 1]
     for (let i = 0; i < this.data.length; i += 4) {
@@ -33,22 +32,21 @@ class ImageCanva {
 
     let max = 0;
     for (let i = 1; i < 256; i++) {
-      if (max < this.histogram[i]) {
-        max = this.histogram[i];
-      }
+      if (max < this.histogram[i]) max = this.histogram[i];
     }
 
     this.maxBrightness = max;
   }
 
   // transform pixels to [0, 255]
-  updatePixel() {
+  updatePixel(tranformFunction) {
     const pixelsData = this.pixels;
 
     for (let i = 0; i < pixelsData.data.length; i += 4) {
-      pixelsData.data[i] = this.data[i] * 255;
-      pixelsData.data[i + 1] = this.data[i + 1] * 255;
-      pixelsData.data[i + 2] = this.data[i + 2] * 255;
+      const result = tranformFunction(this.data[i], this.data[i + 1], this.data[i + 2]);
+      pixelsData.data[i] = result[0] * 255;
+      pixelsData.data[i + 1] = result[1] * 255;
+      pixelsData.data[i + 2] = result[2] * 255;
     }
 
     this.ctx.putImageData(this.pixels, 0, 0, 0, 0, this.width, this.height);
@@ -56,43 +54,27 @@ class ImageCanva {
   }
 
   toGray() {
-    for (let i = 0; i < this.data.length; i += 4) {
-      const avg = (this.data[i] + this.data[i + 1] + this.data[i + 2]) / 3;
-      this.data[i] = avg;
-      this.data[i + 1] = avg;
-      this.data[i + 2] = avg;
-    }
-
-    this.updatePixel();
+    this.updatePixel((r, g, b) => {
+      const avg = (r + g + b) / 3;
+      return [avg, avg, avg];
+    });
   }
 
-  invert() {
-    for (let i = 0; i < this.data.length; i += 4) {
-      this.data[i] = 1 - this.data[i];
-      this.data[i + 1] = 1 - this.data[i + 1];
-      this.data[i + 2] = 1 - this.data[i + 2];
-    }
-
-    this.updatePixel();
+  negative() {
+    this.updatePixel((r, g, b) => {
+      return [1 - r, 1 - g, 1 - b];
+    });
   }
 
   logTransform(c) {
-    this.data = [...this.dataOrigin];
-    for (let i = 0; i < this.data.length; i += 4) {
-      this.data[i] = c * Math.log2(1 + this.data[i]);
-      this.data[i + 1] = c * Math.log2(1 + this.data[i + 1]);
-      this.data[i + 2] = c * Math.log2(1 + this.data[i + 2]);
-    }
-    this.updatePixel();
+    this.updatePixel((r, g, b) => {
+      return [c * Math.log2(1 + r), c * Math.log2(1 + g), c * Math.log2(1 + b)];
+    });
   }
 
   gamaCorrection(c) {
-    this.data = [...this.dataOrigin];
-    for (let i = 0; i < this.data.length; i += 4) {
-      this.data[i] = Math.pow(this.data[i], c);
-      this.data[i + 1] = Math.pow(this.data[i + 1], c);
-      this.data[i + 2] = Math.pow(this.data[i + 2], c);
-    }
-    this.updatePixel();
+    this.updatePixel((r, g, b) => {
+      return [Math.pow(r, c), Math.pow(g, c), Math.pow(b, c)];
+    });
   }
 }
