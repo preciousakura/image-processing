@@ -6,7 +6,6 @@ class ImageCanva {
     this.pixels = pixels;
     this.histogram = new Array(256).fill(0);
     this.maxBrightness = 0;
-    this.data = [...this.pixels.data];
   }
 
   processHistogram() {
@@ -33,13 +32,13 @@ class ImageCanva {
 
   // transform pixels to [0, 255]
   updatePixel(tranformFunction) {
-    const pixelsData = this.pixels;
+    const pixelsData = this.pixels.data;
 
-    for (let i = 0; i < pixelsData.data.length; i += 4) {
+    for (let i = 0; i < pixelsData.length; i += 4) {
       const result = tranformFunction(this.data[i], this.data[i + 1], this.data[i + 2]);
-      pixelsData.data[i] = result[0];
-      pixelsData.data[i + 1] = result[1];
-      pixelsData.data[i + 2] = result[2];
+      pixelsData[i] = result[0];
+      pixelsData[i + 1] = result[1];
+      pixelsData[i + 2] = result[2];
     }
 
     this.ctx.putImageData(this.pixels, 0, 0, 0, 0, this.width, this.height);
