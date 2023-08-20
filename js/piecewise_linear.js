@@ -3,7 +3,7 @@ const context_piecewise_linear = canvas_piecewise_linear.getContext("2d", { will
 let interval_line_coordinates = [],
     isDragging = false,
     circleSelected = -1;
-
+  
 window.onload = function () {
   removeLine();
   drawLine();
@@ -78,8 +78,8 @@ function removeLine() {
   context_piecewise_linear.lineWidth = 2;
 
   context_piecewise_linear.beginPath();
-  context_piecewise_linear.moveTo(0, 400);
-  context_piecewise_linear.lineTo(400, 0);
+  context_piecewise_linear.moveTo(0, 392);
+  context_piecewise_linear.lineTo(392, 0);
   context_piecewise_linear.stroke();
 }
 
@@ -88,10 +88,10 @@ function drawLine() {
   context_piecewise_linear.lineWidth = 2;
 
   context_piecewise_linear.beginPath();
-  context_piecewise_linear.moveTo(0, 400);
+  context_piecewise_linear.moveTo(0, 392);
   for (let i = 0; i < interval_line_coordinates.length; i++)
     context_piecewise_linear.lineTo(...interval_line_coordinates[i]);
-  context_piecewise_linear.lineTo(400, 0);
+  context_piecewise_linear.lineTo(392, 0);
   context_piecewise_linear.stroke();
 }
 

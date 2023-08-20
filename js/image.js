@@ -83,8 +83,9 @@ class ImageCanva {
   }
 
   piecewiseLinear(begin, final) {
-    const begin_point = begin ? {x: (begin[0] * 0.6375) / 255, y: (Math.abs((begin[1] - 400) * 0.6375)) / 255} : undefined
-    const final_point = final ? {x: (final[0] * 0.6375) / 255, y: (Math.abs((final[1] - 400) * 0.6375)) / 255} : undefined
+    const begin_point = begin ? {x: Math.abs((begin[0] * (255/392)) / 255), y: (Math.abs((begin[1] - 392) * (255/392))) / 255} : undefined
+    const final_point = final ? {x: Math.abs((final[0] * (255/392)) / 255), y: (Math.abs((final[1] - 392) * (255/392))) / 255} : undefined
+    console.log(begin_point)
     
     const a_i = begin_point.y / begin_point.x;
     const b_i = 0;

@@ -1,6 +1,30 @@
 #piecewise-linear-window {
-    background: #1a202c;
-    background-size: 50px 50px;
-    background-image: linear-gradient(to right, #222832a6 1px, transparent 1px),
-      linear-gradient(to bottom, #222832a6 1px, transparent 1px);
-  }
+  background: #1a202c;
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, #222832a6 1px, transparent 1px),
+    linear-gradient(to bottom, #222832a6 1px, transparent 1px);
+  grid-area: graph;
+}
+
+#axis-x {
+  background-image: linear-gradient(to bottom, white, black);
+  width: 8px;
+  height: 392px;
+
+  grid-area: axis-x;
+}
+
+#axis-y {
+  background-image: linear-gradient(to left, white, black);
+  width: 392px;
+  height: 8px;
+  grid-area: axis-y;
+  margin-left: 8px;
+}
+
+#piecewise {
+  display: grid;
+  grid-template-areas:
+    "axis-x graph"
+    "axis-y axis-y";
+}
