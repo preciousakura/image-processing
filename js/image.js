@@ -36,11 +36,7 @@ class ImageCanva {
     const pixelsData = this.pixels;
 
     for (let i = 0; i < pixelsData.data.length; i += 4) {
-      const result = tranformFunction(
-        this.data[i],
-        this.data[i + 1],
-        this.data[i + 2]
-      );
+      const result = tranformFunction(this.data[i], this.data[i + 1], this.data[i + 2]);
       pixelsData.data[i] = result[0];
       pixelsData.data[i + 1] = result[1];
       pixelsData.data[i + 2] = result[2];
@@ -106,16 +102,16 @@ class ImageCanva {
       });
     } else {    
       const a_f = (255 - begin_point.y) / (255 - begin_point.x);
-      const b_f = begin_point.y;
+      const b_f = begin_point.y - a_f * begin_point.x;;
     
       this.updatePixel((r, g, b) => {
-        if (r < begin_point.x) r = a_i * r + b_i;
+        if (r <= begin_point.x) r = a_i * r + b_i;
         else r = a_f * r + b_f;
 
-        if (g < begin_point.x) g = a_i * g + b_i;
+        if (g <= begin_point.x) g = a_i * g + b_i;
         else g = a_f * g + b_f;
 
-        if (b < begin_point.x) b = a_i * b + b_i;
+        if (b <= begin_point.x) b = a_i * b + b_i;
         else b = a_f * b + b_f;
 
         return [r, g, b];
