@@ -6,6 +6,7 @@ class ImageCanva {
     this.pixels = pixels;
     this.histogram = new Array(256).fill(0);
     this.maxBrightness = 0;
+    this.data = [...this.pixels.data];
   }
 
   processHistogram() {
