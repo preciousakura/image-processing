@@ -43,7 +43,11 @@ class ImageCanva {
     const pixelsData = this.pixels;
 
     for (let i = 0; i < pixelsData.data.length; i += 4) {
-      const result = tranformFunction(this.data[i], this.data[i + 1], this.data[i + 2]);
+      const result = tranformFunction(
+        this.data[i],
+        this.data[i + 1],
+        this.data[i + 2]
+      );
       pixelsData.data[i] = result[0] * 255;
       pixelsData.data[i + 1] = result[1] * 255;
       pixelsData.data[i + 2] = result[2] * 255;
@@ -72,9 +76,57 @@ class ImageCanva {
     });
   }
 
-  gamaCorrection(c) {
+  gammaCorrection(c) {
     this.updatePixel((r, g, b) => {
       return [Math.pow(r, c), Math.pow(g, c), Math.pow(b, c)];
     });
+  }
+
+  piecewiseLinear(begin, final) {
+    const begin_point = begin ? {x: (begin[0] * 0.6375) / 255, y: (Math.abs((begin[1] - 400) * 0.6375)) / 255} : undefined
+    const final_point = final ? {x: (final[0] * 0.6375) / 255, y: (Math.abs((final[1] - 400) * 0.6375)) / 255} : undefined
+    
+    const a_i = begin_point.y / begin_point.x;
+    const b_i = 0;
+    
+    if (final_point) {
+      const a_m = (final_point.y - begin_point.y) / (final_point.x - begin_point.x);
+      const b_m = begin_point.y - a_m * begin_point.x;
+
+      const a_f = (255 - final_point.y) / (255 - final_point.x);
+      const b_f = final_point.y - a_f * final_point.x;
+
+      this.updatePixel((r, g, b) => {
+        if (r < begin_point.x) r = a_i * r + b_i;
+        else if (r >= begin_point.x && r <= final_point.x) r = a_m * r + b_m;
+        else r = a_f * r + b_f;
+
+        if (g < begin_point.x) g = a_i * g + b_i;
+        else if (g >= begin_point.x && g <= final_point.x) g = a_m * g + b_m;
+        else g = a_f * g + b_f;
+
+        if (b < begin_point.x) b = a_i * b + b_i;
+        else if (b >= begin_point.x && b <= final_point.x) b = a_m * b + b_m;
+        else b = a_f * b + b_f;
+
+        return [r, g, b];
+      });
+    } else {    
+      const a_f = (255 - begin_point.y) / (255 - begin_point.x);
+      const b_f = begin_point.y;
+    
+      this.updatePixel((r, g, b) => {
+        if (r < begin_point.x) r = a_i * r + b_i;
+        else r = a_f * r + b_f;
+
+        if (g < begin_point.x) g = a_i * g + b_i;
+        else g = a_f * g + b_f;
+
+        if (b < begin_point.x) b = a_i * b + b_i;
+        else b = a_f * b + b_f;
+
+        return [r, g, b];
+      });
+    }
   }
 }

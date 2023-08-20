@@ -15,29 +15,35 @@ window.onload = function () {
 };
 
 function canvaClick(event) {
-  const rect = canvas_piecewise_linear.getBoundingClientRect();
-  let x = event.clientX - rect.left, y = event.clientY - rect.top;
-
-  for (let i = 0; i < interval_line_coordinates.length; i++) {
-    const circle = interval_line_coordinates[i];
-    const distance_center = Math.sqrt(Math.pow(circle[0] - x, 2) + Math.pow(circle[1] - y, 2));
-
-    if (distance_center <= 10) {
-      circleSelected = i;
-      isDragging = true;
-      return;
-    } else circleSelected = -1;
+  if(image) {
+    const rect = canvas_piecewise_linear.getBoundingClientRect();
+    let x = event.clientX - rect.left, y = event.clientY - rect.top;
+    
+    for (let i = 0; i < interval_line_coordinates.length; i++) {
+      const circle = interval_line_coordinates[i];
+      const distance_center = Math.sqrt(Math.pow(circle[0] - x, 2) + Math.pow(circle[1] - y, 2));
+    
+      if (distance_center <= 10) {
+        circleSelected = i;
+        isDragging = true;
+        return;
+      } else circleSelected = -1;
+    }
+    
+    if (circleSelected == -1 && interval_line_coordinates.length < 2) {
+      if (interval_line_coordinates.length > 0 && interval_line_coordinates[0][0] > x)
+        x = interval_line_coordinates[0][0];
+      interval_line_coordinates.push([x, y]);
+      
+      if(interval_line_coordinates.length > 1) image.piecewiseLinear(interval_line_coordinates[0], interval_line_coordinates[1]);
+      else image.piecewiseLinear(interval_line_coordinates[0], undefined);
+      drawHistogram();
+    }
+    
+    removeLine();
+    drawLine();
+    drawCircle();
   }
-
-  if (circleSelected == -1 && interval_line_coordinates.length < 2) {
-    if (interval_line_coordinates.length > 0 && interval_line_coordinates[0][0] > x)
-      x = interval_line_coordinates[0][0];
-    interval_line_coordinates.push([x, y]);
-  }
-
-  removeLine();
-  drawLine();
-  drawCircle();
 }
 
 function stopDragging() {
@@ -55,6 +61,11 @@ function dragCircle(e) {
       x = interval_line_coordinates[1][0];
 
     interval_line_coordinates[circleSelected] = [x, y];
+    
+    if(interval_line_coordinates.length > 1) image.piecewiseLinear(interval_line_coordinates[0], interval_line_coordinates[1]);
+    else image.piecewiseLinear(interval_line_coordinates[0], undefined);
+    drawHistogram();
+    
     removeLine();
     drawLine();
     drawCircle();
