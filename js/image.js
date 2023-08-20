@@ -7,13 +7,6 @@ class ImageCanva {
     this.histogram = new Array(256).fill(0);
     this.maxBrightness = 0;
     this.data = [...this.pixels.data];
-
-    // tranform pixels to [0, 1]
-    for (let i = 0; i < this.data.length; i += 4) {
-      this.data[i] = this.data[i] / 255.0;
-      this.data[i + 1] = this.data[i + 1] / 255.0;
-      this.data[i + 2] = this.data[i + 2] / 255.0;
-    }
   }
 
   processHistogram() {
@@ -48,9 +41,9 @@ class ImageCanva {
         this.data[i + 1],
         this.data[i + 2]
       );
-      pixelsData.data[i] = result[0] * 255;
-      pixelsData.data[i + 1] = result[1] * 255;
-      pixelsData.data[i + 2] = result[2] * 255;
+      pixelsData.data[i] = result[0];
+      pixelsData.data[i + 1] = result[1];
+      pixelsData.data[i + 2] = result[2];
     }
 
     this.ctx.putImageData(this.pixels, 0, 0, 0, 0, this.width, this.height);
@@ -83,9 +76,8 @@ class ImageCanva {
   }
 
   piecewiseLinear(begin, final) {
-    const begin_point = begin ? {x: Math.abs((begin[0] * (255/392)) / 255), y: (Math.abs(begin[1] - 392) * (255/392)) / 255} : undefined
-    const final_point = final ? {x: Math.abs((final[0] * (255/392)) / 255), y: (Math.abs(final[1] - 392) * (255/392)) / 255} : undefined
-    console.log(begin_point)
+    const begin_point = begin ? {x: Math.abs((begin[0] * (255/392))), y: (Math.abs(begin[1] - 392) * (255/392))} : undefined
+    const final_point = final ? {x: Math.abs((final[0] * (255/392))), y: (Math.abs(final[1] - 392) * (255/392))} : undefined
     
     const a_i = begin_point.y / begin_point.x;
     const b_i = 0;
