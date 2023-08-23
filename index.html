@@ -16,18 +16,18 @@
       <nav>
         <ul>
           <li class="archive">
-            <h4>Arquivo</h4>
+            <a>Arquivo</a>
             <div class="submenu">
               <div>
-                <label for="archive"><h4>Carregar</h4></label>
+                <label for="archive"><a>Carregar</a></label>
                 <input id="archive" name="archive" type="file" accept="image/*" onchange="loadImage(event)"/>
               </div>
-              <h4>Salvar</h4>
+              <div><a id="save" onclick="saveImage()">Salvar</a></div>
             </div>
           </li>
-          <li><h4>Transformações</h4></li>
-          <li><h4>Histograma</h4></li>
-          <li><h4 onclick="undo()">Desfazer mudanças</h4></li>
+          <li><a>Transformações</a></li>
+          <li><a>Histograma</a></li>
+          <li><a onclick="undo()">Desfazer mudanças</a></li>
         </ul>
       </nav>
 

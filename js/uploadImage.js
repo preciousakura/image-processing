@@ -21,3 +21,12 @@ const loadImage = function (event) {
     });
   }
 };
+
+const saveImage = () => {
+  if(image) {
+    const link = document.getElementById("save");
+    link.setAttribute("download", "result.png");
+    link.setAttribute('href', canvas_img.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+    link.click();
+  }
+}

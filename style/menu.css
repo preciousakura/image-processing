@@ -5,35 +5,36 @@ nav ul {
 
 nav ul li {
   list-style: none;
-  min-width: 100px;
   font-size: 14px;
   position: relative;
+  padding: 0.5rem 1rem;
 }
 
-nav ul li h4 {
-  padding: 0.5rem 1rem;
+nav ul li a {
   color: #e2e8f0;
   cursor: pointer;
   font-weight: 100;
 }
 
-nav ul li h4:hover {
+nav ul li a:hover {
   filter: brightness(0.9);
 }
 
 nav ul li.archive:hover .submenu {
   display: flex;
   flex-direction: column;
-
   position: absolute;
+  top: 2rem;
+  left: 0;
 }
 
 nav ul li .submenu {
   display: none;
+  background: #4a5568;
 }
 
-nav ul li .submenu {
-  background: #4a5568;
+nav ul li .submenu div{
+  padding: 0.5rem 1rem;
 }
 
 input[type="file"] {
