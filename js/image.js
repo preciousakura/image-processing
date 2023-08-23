@@ -33,11 +33,11 @@ class ImageCanva {
     this.maxBrightness = max;
   }
 
-  updatePixel(tranformFunction) {
+  updatePixel(tranformFunction, data = this.data) {
     const pixelsData = this.pixels.data;
 
     for (let i = 0; i < pixelsData.length; i += 4) {
-      const result = tranformFunction(this.data[i], this.data[i + 1], this.data[i + 2]);
+      const result = tranformFunction(data[i], data[i + 1], data[i + 2]);
       pixelsData[i] = result[0];
       pixelsData[i + 1] = result[1];
       pixelsData[i + 2] = result[2];
@@ -61,8 +61,8 @@ class ImageCanva {
 
   negative() {
     this.updatePixel((r, g, b) => {
-      return [1 - r, 1 - g, 1 - b];
-    });
+      return [255 - r, 255 - g, 255 - b];
+    }, this.pixels.data);
   }
 
   logTransform(c) {
@@ -71,7 +71,7 @@ class ImageCanva {
     });
   }
 
-  gammaCorrection(c) {
+  gammaTransform(c) {
     this.updatePixel((r, g, b) => {
       return [Math.pow(r, c), Math.pow(g, c), Math.pow(b, c)];
     });

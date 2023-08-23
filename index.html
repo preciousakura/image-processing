@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Processamento de Imagens</title>
+    <title>image processing</title>
     <link rel="stylesheet" href="style/style.css" />
     <link rel="stylesheet" href="style/piecewise_linear.css" />
     <link rel="stylesheet" href="style/histogram.css" />
@@ -16,18 +16,18 @@
       <nav>
         <ul>
           <li class="archive">
-            <a>Arquivo</a>
+            <a>File</a>
             <div class="submenu">
               <div>
-                <label for="archive"><a>Carregar</a></label>
+                <label for="archive"><a>Open</a></label>
                 <input id="archive" name="archive" type="file" accept="image/*" onchange="loadImage(event)"/>
               </div>
-              <div><a id="save" onclick="saveImage()">Salvar</a></div>
+              <div><a id="save" onclick="saveImage()">Save</a></div>
             </div>
           </li>
-          <li><a>Transformações</a></li>
-          <li><a>Histograma</a></li>
-          <li><a onclick="undo()">Desfazer mudanças</a></li>
+          <li><a>Transformations</a></li>
+          <li><a>Histogram</a></li>
+          <li><a onclick="undo()">Undo changes</a></li>
         </ul>
       </nav>
 
@@ -39,7 +39,30 @@
           <canvas id="piecewise-linear-window" width="392" height="392"></canvas>
           <div id="axis-y"></div>
         </div>
-        <!-- <canvas id="transformations-window" width="400" height="400"></canvas> -->
+        <div id="transformations">
+          <h3>Transformations</h3>
+          <label>
+            gamma:
+            <input type="number" max="100" min="-100" step=".15" onchange="gamma(event.target.value)" value="1"/>
+          </label>
+          
+          <label>
+            log:
+            <input type="number" max="100" min="-100" step=".15" onchange="log(event.target.value)"/>
+          </label>
+          
+          <label>
+            negative:
+            <input type="checkbox" onchange="negative()" />
+          </label>
+          
+          <label>
+            gray scale:
+            <input type="checkbox" onchange="toGray()"/>
+          </label>
+          
+          <button type="button">Apply changes</button>
+        </div>
       </section>
     </main>
     <script src="js/canvas.js"></script>
@@ -47,6 +70,6 @@
     <script src="js/uploadImage.js"></script>
     <script src="js/piecewise_linear.js"></script>
     <script src="js/histogram.js"></script>
-    <!-- <script src="js/transformations.js"></script> -->
+    <script src="js/transformations.js"></script>
   </body>
 </html>

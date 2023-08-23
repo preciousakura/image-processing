@@ -1,3 +1,18 @@
-#transformations-window {
-    background: #1a202c;
-  }
+#transformations {
+  background: #1a202c;
+  padding: 1rem;
+}
+
+#transformations h3 {
+  margin-bottom: 1rem;
+  color: white;
+}
+
+#transformations label {
+  justify-content: space-between;
+  color: white;
+  display: flex;
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+}
