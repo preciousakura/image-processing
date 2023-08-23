@@ -20,21 +20,14 @@
             <div class="submenu">
               <div>
                 <label for="archive"><h4>Carregar</h4></label>
-                <input
-                  id="archive"
-                  name="archive"
-                  type="file"
-                  accept="image/*"
-                  onchange="loadImage(event)"
-                />
+                <input id="archive" name="archive" type="file" accept="image/*" onchange="loadImage(event)"/>
               </div>
-
               <h4>Salvar</h4>
             </div>
           </li>
           <li><h4>Transformações</h4></li>
           <li><h4>Histograma</h4></li>
-          <li><h4>Desfazer mudanças</h4></li>
+          <li><h4 onclick="undo()">Desfazer mudanças</h4></li>
         </ul>
       </nav>
 
@@ -49,9 +42,10 @@
         <!-- <canvas id="transformations-window" width="400" height="400"></canvas> -->
       </section>
     </main>
-    <script src="js/piecewise_linear.js"></script>
-    <script src="js/uploadImage.js"></script>
+    <script src="js/canvas.js"></script>
     <script src="js/image.js"></script>
+    <script src="js/uploadImage.js"></script>
+    <script src="js/piecewise_linear.js"></script>
     <script src="js/histogram.js"></script>
     <!-- <script src="js/transformations.js"></script> -->
   </body>

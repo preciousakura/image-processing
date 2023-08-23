@@ -1,110 +1,90 @@
-const canvas_piecewise_linear = document.getElementById("piecewise-linear-window");
-const context_piecewise_linear = canvas_piecewise_linear.getContext("2d", { willReadFrequently: true });
-let interval_line_coordinates = [],
-    isDragging = false,
-    circleSelected = -1;
-  
-window.onload = function () {
-  removeLine();
-  drawLine();
-
-  canvas_piecewise_linear.onmousedown = canvaClick;
-  canvas_piecewise_linear.onmouseup = stopDragging;
-  canvas_piecewise_linear.onmouseout = stopDragging;
-  canvas_piecewise_linear.onmousemove = dragCircle;
-};
-
-function canvaClick(event) {
+function hold(event) {
   if(image) {
-    const rect = canvas_piecewise_linear.getBoundingClientRect();
+    const rect = canvas_pl.getBoundingClientRect();
     let x = event.clientX - rect.left, y = event.clientY - rect.top;
     
-    for (let i = 0; i < interval_line_coordinates.length; i++) {
-      const circle = interval_line_coordinates[i];
+    for (let i = 0; i < circles.length; i++) {
+      const circle = circles[i];
       const distance_center = Math.sqrt(Math.pow(circle[0] - x, 2) + Math.pow(circle[1] - y, 2));
     
       if (distance_center <= 10) {
-        circleSelected = i;
+        selectedCircle = i;
         isDragging = true;
         return;
-      } else circleSelected = -1;
+      } 
     }
     
-    if (circleSelected == -1 && interval_line_coordinates.length < 2) {
-      if (interval_line_coordinates.length > 0 && interval_line_coordinates[0][0] > x)
-        x = interval_line_coordinates[0][0];
-      interval_line_coordinates.push([x, y]);
-      
-      if(interval_line_coordinates.length > 1) image.piecewiseLinear(interval_line_coordinates[0], interval_line_coordinates[1]);
-      else image.piecewiseLinear(interval_line_coordinates[0], undefined);
+    if (selectedCircle == -1 && circles.length < 2) {
+      if (circles.length > 0 && circles[0][0] > x)
+        x = circles[0][0];
+      circles.push([x, y]);
+    }
+    applyChanges();
+  }
+}
+
+function drop() {
+  isDragging = false;
+  selectedCircle = -1;
+}
+
+function drag(e) {
+  if (isDragging  && selectedCircle != -1) {
+    let x = e.pageX - canvas_pl.offsetLeft;
+    let y = e.pageY - canvas_pl.offsetTop;
+
+    if (selectedCircle === 1 && circles[0][0] > x)
+      x = circles[0][0];
+    else if (selectedCircle === 0 && circles.length > 1 && circles[1][0] < x)
+      x = circles[1][0];
+
+    circles[selectedCircle] = [x, y];
+    applyChanges();
+  }
+}
+
+function applyChanges() {
+  context_pl.clearRect(0, 0, canvas_pl.width, canvas_pl.height);
+  drawLine();
+  
+  if(circles.length > 0) {
+    drawCircle();
+    if(image) {
+      if(circles.length > 1) image.piecewiseLinear(circles[0], circles[1], canvas_pl.width, canvas_pl.height);
+      else image.piecewiseLinear(circles[0], undefined, canvas_pl.width, canvas_pl.height);
       drawHistogram();
     }
-    
-    removeLine();
-    drawLine();
-    drawCircle();
-  }
-}
-
-function stopDragging() {
-  isDragging = false;
-}
-
-function dragCircle(e) {
-  if (isDragging  && circleSelected != -1) {
-    let x = e.pageX - canvas_piecewise_linear.offsetLeft;
-    let y = e.pageY - canvas_piecewise_linear.offsetTop;
-
-    if (circleSelected === 1 && interval_line_coordinates[0][0] > x)
-      x = interval_line_coordinates[0][0];
-    else if (circleSelected === 0 && interval_line_coordinates.length > 1 && interval_line_coordinates[1][0] < x)
-      x = interval_line_coordinates[1][0];
-
-    interval_line_coordinates[circleSelected] = [x, y];
-    
-    if(interval_line_coordinates.length > 1) image.piecewiseLinear(interval_line_coordinates[0], interval_line_coordinates[1]);
-    else image.piecewiseLinear(interval_line_coordinates[0], undefined);
-    drawHistogram();
-    
-    removeLine();
-    drawLine();
-    drawCircle();
-  }
-}
-
-function removeLine() {
-  context_piecewise_linear.clearRect(0, 0, canvas_piecewise_linear.width, canvas_piecewise_linear.height);
-  context_piecewise_linear.strokeStyle = "#2d3748";
-  context_piecewise_linear.lineWidth = 2;
-
-  context_piecewise_linear.beginPath();
-  context_piecewise_linear.moveTo(0, 392);
-  context_piecewise_linear.lineTo(392, 0);
-  context_piecewise_linear.stroke();
+  } 
 }
 
 function drawLine() {
-  context_piecewise_linear.strokeStyle = "#a0aec0";
-  context_piecewise_linear.lineWidth = 2;
+  context_pl.lineWidth = 2;
 
-  context_piecewise_linear.beginPath();
-  context_piecewise_linear.moveTo(0, 392);
-  for (let i = 0; i < interval_line_coordinates.length; i++)
-    context_piecewise_linear.lineTo(...interval_line_coordinates[i]);
-  context_piecewise_linear.lineTo(392, 0);
-  context_piecewise_linear.stroke();
+  context_pl.strokeStyle = "#2d3748";
+  context_pl.beginPath();
+  context_pl.moveTo(0, canvas_pl.height);
+  context_pl.lineTo(canvas_pl.width, 0);
+  context_pl.stroke();
+  
+  context_pl.strokeStyle = "#a0aec0";
+  context_pl.beginPath();
+  context_pl.moveTo(0, canvas_pl.height);
+  for (let i = 0; i < circles.length; i++)
+    context_pl.lineTo(...circles[i]);
+  context_pl.lineTo(canvas_pl.width, 0);
+  context_pl.stroke();
 }
 
 function drawCircle() {
   const circleSize = 4;
-  context_piecewise_linear.fillStyle = "#718096";
-  context_piecewise_linear.strokeStyle = "#a0aec0";
-  context_piecewise_linear.lineWidth = 2;
+  context_pl.fillStyle = "#718096";
+  context_pl.strokeStyle = "#a0aec0";
+  context_pl.lineWidth = 2;
 
-  for (let i = 0; i < interval_line_coordinates.length; i++) {
-    context_piecewise_linear.beginPath();
-    context_piecewise_linear.arc(interval_line_coordinates[i][0], interval_line_coordinates[i][1], circleSize, 0, Math.PI * 2, true);
-    context_piecewise_linear.fill();
-    context_piecewise_linear.stroke();
+  for (let i = 0; i < circles.length; i++) {
+    context_pl.beginPath();
+    context_pl.arc(circles[i][0], circles[i][1], circleSize, 0, Math.PI * 2, true);
+    context_pl.fill();
+    context_pl.stroke();
   }
 }

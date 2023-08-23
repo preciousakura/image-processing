@@ -1,12 +1,14 @@
 class ImageCanva {
-  constructor(width, height, pixels, ctx) {
-    this.ctx = ctx;
+  constructor(width, height, pixels, context) {
     this.width = width;
     this.height = height;
     this.pixels = pixels;
+    this.context = context;
+    this.originImage = [...pixels.data];
+    
+    this.data = [...pixels.data];
     this.histogram = new Array(256).fill(0);
     this.maxBrightness = 0;
-    this.data = [...this.pixels.data];
   }
 
   processHistogram() {
@@ -31,7 +33,6 @@ class ImageCanva {
     this.maxBrightness = max;
   }
 
-  // transform pixels to [0, 255]
   updatePixel(tranformFunction) {
     const pixelsData = this.pixels.data;
 
@@ -42,8 +43,13 @@ class ImageCanva {
       pixelsData[i + 2] = result[2];
     }
 
-    this.ctx.putImageData(this.pixels, 0, 0, 0, 0, this.width, this.height);
+    this.context.putImageData(this.pixels, 0, 0, 0, 0, this.width, this.height);
     this.processHistogram();
+  }
+  
+  undo() {
+    this.data = this.originImage;
+    this.updatePixel((r,g,b) => { return [r, g, b] })
   }
 
   toGray() {
@@ -71,9 +77,9 @@ class ImageCanva {
     });
   }
 
-  piecewiseLinear(begin, final) {
-    const begin_point = begin ? {x: Math.abs((begin[0] * (255/392))), y: (Math.abs(begin[1] - 392) * (255/392))} : undefined
-    const final_point = final ? {x: Math.abs((final[0] * (255/392))), y: (Math.abs(final[1] - 392) * (255/392))} : undefined
+  piecewiseLinear(begin, final, canvasw, canvash) {
+    const begin_point = begin ? {x: Math.abs((begin[0] * (255/canvasw))), y: (Math.abs(begin[1] - canvash) * (255/canvash))} : undefined
+    const final_point = final ? {x: Math.abs((final[0] * (255/canvasw))), y: (Math.abs(final[1] - canvash) * (255/canvash))} : undefined
     
     const a_i = begin_point.y / begin_point.x;
     const b_i = 0;
