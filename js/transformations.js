@@ -1,15 +1,27 @@
 function gamma(c) {
-  image.gammaTransform(c);
+  if(image) {
+    image.gammaTransform(c);
+    drawHistogram();
+  }
 }
 
 function log(c) {
-  image.logTransform(c);
+  if(image) {
+    image.logTransform(c);
+    drawHistogram();
+  }
 }
 
-function negative() {
-  image.negative();
+function negative(value) {
+  if(image) {
+    image.negative(value);
+    drawHistogram();
+  }
 }
 
-function toGray() {
-  image.toGray();
+function toGray(value) {
+  if(image) {
+    image.toGray(value);
+    drawHistogram();
+  }
 }

@@ -53,12 +53,12 @@
           
           <label>
             negative:
-            <input type="checkbox" onchange="negative()" />
+            <input type="checkbox" onchange="negative(event.target.checked)" />
           </label>
           
           <label>
             gray scale:
-            <input type="checkbox" onchange="toGray()"/>
+            <input type="checkbox" onchange="toGray(event.target.checked)"/>
           </label>
           
           <button type="button">Apply changes</button>
