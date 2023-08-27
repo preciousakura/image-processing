@@ -148,14 +148,7 @@ function drawCircle() {
     else context_pl.fillStyle = "#718096";
     
     context_pl.beginPath();
-    context_pl.arc(
-      circles[i][0],
-      circles[i][1],
-      circleSize,
-      0,
-      Math.PI * 2,
-      true
-    );
+    context_pl.arc(circles[i][0], circles[i][1], circleSize, 0, Math.PI * 2, true);
     context_pl.fill();
   }
 }
