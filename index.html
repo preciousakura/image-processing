@@ -43,33 +43,42 @@
           <h3>Transformations</h3>
           <label>
             gamma:
-            <input type="number" max="100" min="-100" step=".15" onchange="gamma(event.target.value)" value="1"/>
+            <input type="number" max="100" min="-100" step=".15" id="cGamma" value="1"/>
+            <input type="number" max="100" min="-100" step=".15" id="expGamma" value="1"/>
           </label>
-          
+          <button type="button" onclick="orchestrator.do()">Apply Gamma</button>
+
           <label>
             log:
-            <input type="number" max="100" min="-100" step=".15" onchange="log(event.target.value)"/>
+            <input type="number" max="100" min="-100" step=".15" id="cLog" value="1"/>
           </label>
-          
-          <label>
-            negative:
-            <input type="checkbox" onchange="negative(event.target.checked)" />
-          </label>
-          
-          <label>
-            gray scale:
-            <input type="checkbox" onchange="toGray(event.target.checked)"/>
-          </label>
-          
-          <button type="button">Apply changes</button>
+          <button type="button" onclick="orchestrator.do()">Apply Log</button>
+
+          <button type="button" id="negativeButton">Apply Negative</button>
+
+          <button type="button" id="toGrayButton">Apply To Gray</button>
+
+          <button type="button" id="normalizeButton">Normalize Button</button>
+
+          <button type="button" id="histogramEqualizationButton">Histogram Equalization</button>
+
+          <label for="ste">Steganography:</label><br>
+          <textarea id="steganographyText" rows="4" cols="50"></textarea><br>
+          <button id="steganographyEncryptButton">Encrypt</button>
+          <button id="steganographyDecryptButton">Decrypt</button>
+ 
         </div>
       </section>
     </main>
     <script src="js/canvas.js"></script>
-    <script src="js/image.js"></script>
     <script src="js/uploadImage.js"></script>
     <script src="js/piecewise_linear.js"></script>
     <script src="js/histogram.js"></script>
     <script src="js/transformations.js"></script>
+
+    <script src="js/pixel.js"></script>
+    <script src="js/image.js"></script>
+    <script src="js/imageOrchestrator.js"></script>
+    <script src="js/inputHandlers.js"></script>
   </body>
 </html>

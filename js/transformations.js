@@ -1,27 +1,27 @@
-function gamma(c) {
-  if(image) {
-    image.gammaTransform(c);
-    drawHistogram();
-  }
+function toGray(px){
+    let mean = (px.r + px.g + px.b)/3.0;
+    return new pixel(mean, mean, mean, 1.0);
 }
 
-function log(c) {
-  if(image) {
-    image.logTransform(c);
-    drawHistogram();
-  }
+function negative(px){
+    return new pixel(1.0-px.r, 1.0-px.g, 1.0-px.b, 1.0);
 }
 
-function negative(value) {
-  if(image) {
-    image.negative(value);
-    drawHistogram();
-  }
+function gamma(c, exp){
+    return function(px){
+        return new pixel(c*Math.pow(px.r, exp), c*Math.pow(px.g, exp), c*Math.pow(px.b, exp), 1.0);
+    }
 }
 
-function toGray(value) {
-  if(image) {
-    image.toGray(value);
-    drawHistogram();
-  }
+function log2(c){
+    return function(px){
+        return new pixel(c*Math.log2(1+px.r), c*Math.log2(1+px.g), c*Math.log2(1+px.b), 1.0);
+    }
+}
+
+function normalize(divisor){
+    return function(px){
+        if(divisor == 0) return px;
+        return new pixel(px.r/divisor, px.g/divisor, px.b/divisor, 1.0);
+    }
 }

@@ -1,5 +1,5 @@
 // image
-var image;
+var orchestrator;
 var canvas_img = document.getElementById("image");
 var context_img = canvas_img.getContext("2d", { willReadFrequently: true });
 
@@ -21,8 +21,7 @@ window.onload = function () {
 };
 
 function undo() {
-  image.undo();
+  if(!orchestrator) return;
+  orchestrator.undo();
   circles = [];
-  applyChanges();
-  drawHistogram();
 }
