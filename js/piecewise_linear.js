@@ -6,11 +6,30 @@ function toCanvas(x, y) {
   return [x * canvas_pl.width/ 255.0, canvas_pl.height - (y * canvas_pl.height/ 255.0)]
 }
 
+function organizedCircles() {
+  const aux = circles.sort((a, b) => { return a[0] === b[0] ? a[1] - b[1] : a[0] - b[0] });
+  const removeIndex = new Set();
+  
+  for (let i = 1; i < aux.length; i++) 
+    if(aux[i][0] === aux[i - 1][0] && aux[i][1] === aux[i - 1][1]) removeIndex.add(i);
+  
+  circles = []
+  
+  for(let i = 0; i < aux.length; i++) 
+    if(!removeIndex.has(i)) circles.push(aux[i]);
+}
+
+function deselect() {
+  if(selectedCircle !== -1) {
+    selectedCircle = -1;
+    applyChanges();
+  }
+}
+
 function addcircle() {
   const circle = toCanvas(valueX.value, valueY.value)
   if(selectedCircle === -1) {
     circles.push([circle[0], circle[1]]);
-    circles.sort((a, b) => { return a[0] - b[0] });
     applyChanges();
   }
 }
@@ -75,7 +94,7 @@ function hold(event) {
   
   if (selectedCircleDrag == -1) {
     circles.push([x, y]);
-    circles.sort((a, b) => { return a[0] - b[0] });
+    applyChanges();
     const index = circles.findIndex((element) => { return element[0] === x && element[1] === y })
     selectedCircle = index;
   }  
@@ -106,8 +125,10 @@ function drag(e) {
 
 function applyChanges() {
   context_pl.clearRect(0, 0, canvas_pl.width, canvas_pl.height);
+  organizedCircles();
   drawLine();
   drawCircle();
+  
   if (orchestrator) drawHistogram(orchestrator.intensityHistogram());
   if(selectedCircle !== -1) {
     const circletocartesian = toCartesian(circles[selectedCircle][0], circles[selectedCircle][1])
