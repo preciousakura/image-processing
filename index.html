@@ -35,9 +35,22 @@
         <canvas id="histogram-window" width="250" height="400"></canvas>
         <canvas id="image" width="400" height="400"></canvas>
         <div id="piecewise">
-          <div id="axis-x"></div>
-          <canvas id="piecewise-linear-window" width="392" height="392"></canvas>
-          <div id="axis-y"></div>
+          <div>
+            <div id="axis-x"></div>
+            <canvas id="piecewise-linear-window" width="392" height="392"></canvas>
+            <div id="axis-y"></div>
+          </div>
+          
+          <label>
+            x:
+            <input id="valueX" type="number" onchange="changeX(event.target.value)"/>
+          </label>
+          
+          <label>
+            y:
+            <input id="valueY" type="number" onchange="changeY(event.target.value)"/>
+          </label>
+          <button onclick="addcircle()">add circle</button>
         </div>
         <div id="transformations">
           <h3>Transformations</h3>

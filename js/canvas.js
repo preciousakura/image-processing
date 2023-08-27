@@ -10,7 +10,9 @@ var context_h = canvas_h.getContext("2d", { willReadFrequently: true });
 // piecewise linear
 var canvas_pl = document.getElementById("piecewise-linear-window");
 var context_pl = canvas_pl.getContext("2d", { willReadFrequently: true });
-var circles = [], isDragging = false, selectedCircle = -1;
+var circles = [[0, canvas_pl.height], [canvas_pl.width, 0]], isDragging = false, selectedCircleDrag = -1, selectedCircle = -1;
+var valueX = document.getElementById("valueX")
+var valueY = document.getElementById("valueY")
 
 window.onload = function () {
   applyChanges();
@@ -18,6 +20,7 @@ window.onload = function () {
   canvas_pl.onmouseup = drop;
   canvas_pl.onmouseout = drop;
   canvas_pl.onmousemove = drag;
+  canvas_pl.ondblclick = dblclick;
 };
 
 function undo() {
