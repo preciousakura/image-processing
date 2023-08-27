@@ -89,15 +89,16 @@ function drop() {
 
 function drag(e) {
   if (isDragging && selectedCircleDrag != -1) {
-    let x = e.pageX - canvas_pl.offsetLeft;
-    let y = e.pageY - canvas_pl.offsetTop;
+    const rect = canvas_pl.getBoundingClientRect();
+    let x = e.pageX - rect.left;
+    let y = e.pageY - rect.top;
     
     const x0 = selectedCircleDrag - 1 >= 0 ? circles[selectedCircleDrag - 1][0] : 0;
     const x1 = selectedCircleDrag + 1 < circles.length ? circles[selectedCircleDrag + 1][0] : canvas_pl.width;
 
     if (x < x0) x = x0;
     if (x > x1) x = x1;
-
+        
     circles[selectedCircleDrag] = [x, y];
     applyChanges();
   }
@@ -106,14 +107,12 @@ function drag(e) {
 function applyChanges() {
   context_pl.clearRect(0, 0, canvas_pl.width, canvas_pl.height);
   drawLine();
-
   drawCircle();
   if (orchestrator) drawHistogram(orchestrator.intensityHistogram());
   if(selectedCircle !== -1) {
     const circletocartesian = toCartesian(circles[selectedCircle][0], circles[selectedCircle][1])
     valueX.value = circletocartesian[0]
     valueY.value = circletocartesian[1]
-    
   } else {
     valueX.value = ''
     valueY.value = ''
@@ -151,4 +150,16 @@ function drawCircle() {
     context_pl.arc(circles[i][0], circles[i][1], circleSize, 0, Math.PI * 2, true);
     context_pl.fill();
   }
+}
+
+function closePiecewise() {
+  circles = [[0, canvas_pl.height], [canvas_pl.width, 0]], isDragging = false, selectedCircleDrag = -1, selectedCircle = -1;
+  selectedCircle = -1;
+  applyChanges();
+  
+  dialogpl.style.display = "none";
+}
+
+function openPiecewise() {
+  dialogpl.style.display = "block";
 }

@@ -6,12 +6,38 @@
 }
 
 body {
-  background: #abadbb;
-  max-width: 1051px;
+  background: #262f41;
 }
 
 section {
-  display: flex;
-  justify-content: space-between;
-  align-items: self-start;
+  display: grid;
+  grid-template-columns: 400px 1fr 400px;
+  height: calc(100vh - 35px);
+  justify-items: end;
 }
+
+section .content {
+  display: flex;
+  width: 100%;
+}
+
+
+section .content.right {
+  background: #1a202c;
+  align-items: baseline;
+  flex-direction: column;
+  width: 400px;
+}
+
+section .content.middle {
+  justify-content: center;
+  align-items: center;
+}
+
+section .content.left {
+  background: #1a202c;
+  align-items: baseline;
+  flex-direction: column;
+  width: 400px;
+}
+

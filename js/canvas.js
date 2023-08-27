@@ -8,6 +8,7 @@ var canvas_h = document.getElementById("histogram-window");
 var context_h = canvas_h.getContext("2d", { willReadFrequently: true });
 
 // piecewise linear
+var dialogpl = document.getElementById("piecewise");
 var canvas_pl = document.getElementById("piecewise-linear-window");
 var context_pl = canvas_pl.getContext("2d", { willReadFrequently: true });
 var circles = [[0, canvas_pl.height], [canvas_pl.width, 0]], isDragging = false, selectedCircleDrag = -1, selectedCircle = -1;

@@ -7,7 +7,7 @@ const loadImage = function (event) {
 
         img.src = URL.createObjectURL(event.target.files[0]);
         img.addEventListener("load", () => {
-            const width = img.width > 400 ? 400 : img.width;
+            const width = img.width > 500 ? 500 : img.width;
             const height = (width / img.width) * img.height;
 
             (canvas_img.width = width), (canvas_img.height = height);

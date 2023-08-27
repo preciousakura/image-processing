@@ -1,6 +1,8 @@
 #transformations {
   background: #1a202c;
   padding: 1rem;
+  width: 400px;
+  box-sizing: border-box;
 }
 
 #transformations h3 {
@@ -16,3 +18,38 @@
 
   margin-bottom: 1rem;
 }
+
+#steganography {
+  background: #1a202c;
+  width: 400px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+#steganography > div{
+  display: flex;
+  gap: 1rem;
+}
+
+#steganography textarea{
+  resize: vertical;
+  background: #222832a6;
+  outline: none;
+  color: white;
+  border-color: #080a10;
+  padding: 0.5rem;
+}
+
+#steganography label{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 14px;
+}
+
+

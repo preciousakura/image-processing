@@ -1,6 +1,8 @@
 nav ul {
   display: flex;
+  align-items: center;
   background: #2d3748;
+  height: 35px;
 }
 
 nav ul li {
@@ -26,6 +28,7 @@ nav ul li.archive:hover .submenu {
   position: absolute;
   top: 2rem;
   left: 0;
+  z-index: 10;
 }
 
 nav ul li .submenu {
