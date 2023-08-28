@@ -62,3 +62,44 @@ applyPiecewise.addEventListener("click", () => {
         closePiecewise();
     }
 });
+
+const dimensionGauss = document.getElementById("dimensionGauss");
+const applyGaussianButton = document.getElementById("applyGaussianButton");
+applyGaussianButton.addEventListener("click", () => {
+    if(orchestrator){
+        let n = dimensionGauss.value;
+        let mid = Math.floor(n/2.0);
+        orchestrator.applyKernel(gaussianKernel(n), mid, mid, true);
+    }
+});
+
+const dimensionMean = document.getElementById("dimensionMean");
+const applyMeanButton = document.getElementById("applyMeanButton");
+applyMeanButton.addEventListener("click", () => {
+    if(orchestrator){
+        let n = dimensionMean.value;
+        let mid = Math.floor(n/2.0);
+        orchestrator.applyKernel(meanKernel(n), mid, mid, true);
+    }
+});
+
+const dimensionMedian = document.getElementById("dimensionMedian");
+const applyMedianButton = document.getElementById("applyMedianButton");
+applyMedianButton.addEventListener("click", () => {
+    if(orchestrator){
+        let n = dimensionMedian.value;
+        let mid = Math.floor(n/2.0);
+        orchestrator.medianFilter(n, mid, mid, true);
+    }
+});
+
+const kernelText = document.getElementById("kernelText");
+const kernelTextButton = document.getElementById("kernelTextButton");
+kernelTextButton.addEventListener("click", () => {
+    if(orchestrator){
+        let kernel = JSON.parse(kernelText.value);
+        let n = kernel.length;
+        let mid = Math.floor(n/2.0);
+        orchestrator.applyKernel(kernel, mid, mid, true);
+    }
+});

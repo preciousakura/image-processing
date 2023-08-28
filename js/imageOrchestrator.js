@@ -25,6 +25,24 @@ class imageOrchestrator{
         if(apply) this.do();
     }
 
+    applyKernel(k, ki, kj, apply=false){
+        this.recoverLastImage();
+        this.imgTemp.applyKernel(k, ki, kj);
+        const arrayImage = this.imgTemp.toArrayRGBA();
+        for(let i = 0; i < this.colorBuffer.data.length; i++) this.colorBuffer.data[i] = arrayImage[i];
+        this.showChanges();
+        if(apply) this.do();
+    }
+
+    medianFilter(dimension, ki, kj, apply=false){
+        this.recoverLastImage();
+        this.imgTemp.medianFilter(dimension, ki, kj);
+        const arrayImage = this.imgTemp.toArrayRGBA();
+        for(let i = 0; i < this.colorBuffer.data.length; i++) this.colorBuffer.data[i] = arrayImage[i];
+        this.showChanges();
+        if(apply) this.do();
+    }
+
     do(){
         this.imageHistory.push(new image(this.colorBuffer.data, this.width, this.height));
         this.showChanges();
