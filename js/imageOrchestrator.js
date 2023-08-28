@@ -85,7 +85,7 @@ class imageOrchestrator{
     }
 
     steganographyEncrypt(binaryText){
-        let fullMask = (1<<8)-1;
+        let fullMask = (1<<8)-1; //255
         for(let i = 0; i < this.colorBuffer.data.length; i++){
             let bit = (i < binaryText.length ? binaryText[i] == '1' : false);
             this.colorBuffer.data[i] &= (fullMask^(1-bit));

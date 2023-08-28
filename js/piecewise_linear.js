@@ -1,9 +1,15 @@
+function toCanvas(x, y) {
+  return [x * canvas_pl.width/ 255.0, canvas_pl.height - (y * canvas_pl.height/ 255.0)]
+}
+
 function toCartesian(x, y) {
   return [Math.round((x / (canvas_pl.width/255.0))), Math.round((canvas_pl.height - y) / (canvas_pl.height/255.0))]
 }
 
-function toCanvas(x, y) {
-  return [x * canvas_pl.width/ 255.0, canvas_pl.height - (y * canvas_pl.height/ 255.0)]
+function toCartesian01(x, y){
+    let aux = toCartesian(x, y);
+    aux[0] /= 255.0; aux[1] /= 255.0;
+    return aux;
 }
 
 function organizedCircles() {
@@ -129,7 +135,10 @@ function applyChanges() {
   drawLine();
   drawCircle();
   
-  if (orchestrator) drawHistogram(orchestrator.intensityHistogram());
+  if (orchestrator){
+    orchestrator.intensityTransform(piecewisePixel);
+    drawHistogram(orchestrator.intensityHistogram());
+  }
   if(selectedCircle !== -1) {
     const circletocartesian = toCartesian(circles[selectedCircle][0], circles[selectedCircle][1])
     valueX.value = circletocartesian[0]
@@ -183,4 +192,48 @@ function closePiecewise() {
 
 function openPiecewise() {
   dialogpl.style.display = "block";
+}
+
+//calculate piecewise
+
+function lineEquation(p1, p2){
+    let m = (p2[1]-p1[1])/(p2[0]-p1[0]);
+    let b = p2[1] - m*p2[0];
+    return function(x){
+        return m*x + b;
+    }
+}
+
+function binarySearch(x){
+    let l = 0, r = circles.length, mid;
+    while(l < r-1){
+        mid = Math.floor((l+r)/2);
+        if(toCartesian01(circles[mid][0], 0)[0] > x) r = mid;
+        else l = mid;
+    }
+    return r;
+}
+
+function piecewise(x){
+    let index = binarySearch(x);
+    let p1, p2;
+    if(index == circles.length){
+        p1 = circles[circles.length-1];
+        p2 = [canvas_pl.width, p1[1]];
+    }else if(index == 0){
+        p2 = circles[0];
+        p1 = [0, p2[1]];
+
+    }else{
+        p1 = circles[index-1];
+        p2 = circles[index];
+    }
+    p1 = toCartesian01(p1[0], p1[1]);
+    p2 = toCartesian01(p2[0], p2[1]);
+    const le = lineEquation(p1, p2);
+    return le(x);
+}
+
+function piecewisePixel(px){
+    return new pixel(piecewise(px.r), piecewise(px.g), piecewise(px.b), 1.0);
 }

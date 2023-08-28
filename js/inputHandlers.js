@@ -54,3 +54,11 @@ histogramEqualizationButton.addEventListener("click", () =>{
     if(orchestrator)
         orchestrator.histogramEqualization();
 });
+
+const applyPiecewise = document.getElementById("applyPiecewise");
+applyPiecewise.addEventListener("click", () => {
+    if(orchestrator){
+        orchestrator.do();
+        closePiecewise();
+    }
+});
