@@ -1,6 +1,14 @@
-function gaussianKernel(dimension){
-    //TODO: Calc Kernell for any odd dimension
-    return [[0, 1/8, 0], [1/8, 4/8, 1/8], [0, 1/8, 0]];
+function gaussianKernel(dimension, sigma){
+    let kernel = [];
+	let s = 2.0*sigma*sigma; dimension >>= 1;
+	for(let i = -dimension; i <= dimension; i++){
+        let row = [];
+		for(let j = -dimension; j <= dimension; j++)
+            row.push((Math.exp(-((i*i+j*j)/(s))))/(s*Math.PI));
+        kernel.push(row);
+    }
+    const sum = kernel.flat().reduce((acc, val) => acc + val, 0);
+    return kernel.map(row => row.map(val => val / sum));
 }
 
 function meanKernel(dimension){

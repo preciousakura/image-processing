@@ -64,12 +64,14 @@ applyPiecewise.addEventListener("click", () => {
 });
 
 const dimensionGauss = document.getElementById("dimensionGauss");
+const sigmaGauss = document.getElementById("sigmaGauss");
 const applyGaussianButton = document.getElementById("applyGaussianButton");
 applyGaussianButton.addEventListener("click", () => {
     if(orchestrator){
         let n = parseInt(dimensionGauss.value);
+        let sigma = parseFloat(sigmaGauss.value);
         let mid = Math.floor(n/2.0);
-        orchestrator.applyKernel(gaussianKernel(n), mid, mid, true);
+        orchestrator.applyKernel(gaussianKernel(n, sigma), mid, mid, true);
     }
 });
 

@@ -104,11 +104,11 @@
             
             <button type="button" onclick="openPiecewise()">PIECEWISE LINEAR</button>
 
-            <button type="button" id="histogramEqualizationButton">Histogram Equalization</button>
-
             <label>
               kernell_dimension:
               <input type="number" max="3" min="99" step="2" id="dimensionGauss" value="3"/>
+              sigma: 
+              <input type="number" max="0" min="100" step="1.5" id="sigmaGauss" value="1.5"/>
             </label>
             <button type="button" id="applyGaussianButton">Apply Guassian Filter</button>
                         
