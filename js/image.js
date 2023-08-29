@@ -35,9 +35,14 @@ class image{
     }
 
     applyKernel(k, ki, kj){
-        for(let i = 0; i < this.height; i++)
+        let newImage = [];
+        for(let i = 0; i < this.height; i++){
+            let pxs = [];
             for(let j = 0; j < this.width; j++)
-                this.matrix[i][j] = this.applyKernelPixel(k, ki, kj, i, j);
+                pxs.push(this.applyKernelPixel(k, ki, kj, i, j));
+            newImage.push(pxs);
+        }
+        this.matrix = newImage;
     }
 
     getMedianKernel(n, ki, kj, i, j){
@@ -53,9 +58,14 @@ class image{
     }
 
     medianFilter(dimension, ki, kj){
-        for(let i = 0; i < this.height; i++)
+        let newImage = [];
+        for(let i = 0; i < this.height; i++){
+            let pxs = [];
             for(let j = 0; j < this.width; j++)
-                this.matrix[i][j] = this.getMedianKernel(dimension, ki, kj, i, j);
+                pxs.push(this.getMedianKernel(dimension, ki, kj, i, j));
+            newImage.push(pxs);
+        }
+        this.matrix = newImage;
     }
 
     toArrayRGBA(){
