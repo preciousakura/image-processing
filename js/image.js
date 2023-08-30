@@ -68,14 +68,31 @@ class image{
         this.matrix = newImage;
     }
 
-    toArrayRGBA(){
-        let buffer = [];
+    //isMax = true return max
+    //isMax = false rturn min
+    maxMinIntensity(isMax){
+        let m = (isMax ? Number.MIN_VALUE : Number.MAX_VALUE);
+        let func = (isMax ? Math.max : Math.min);
         for(let i = 0; i < this.height; i++){
             for(let j = 0; j < this.width; j++){
-                buffer.push(Math.round(this.matrix[i][j].r*255));
-                buffer.push(Math.round(this.matrix[i][j].g*255));
-                buffer.push(Math.round(this.matrix[i][j].b*255));
-                buffer.push(Math.round(this.matrix[i][j].a*255));
+                m = func(m, this.matrix[i][j].r);
+                m = func(m, this.matrix[i][j].g);
+                m = func(m, this.matrix[i][j].b);
+            }
+        }
+        return m;
+    }
+
+    toArrayRGBA(){
+        let buffer = [];
+        let min = Math.abs(this.maxMinIntensity(false));
+        let max = this.maxMinIntensity(true)+min;
+        for(let i = 0; i < this.height; i++){
+            for(let j = 0; j < this.width; j++){
+                buffer.push(Math.round(((this.matrix[i][j].r+min)/max)*255));
+                buffer.push(Math.round(((this.matrix[i][j].g+min)/max)*255));
+                buffer.push(Math.round(((this.matrix[i][j].b+min)/max)*255));
+                buffer.push(255);
             }
         }
         return buffer;
