@@ -6,6 +6,14 @@ class pixel{
         this.a = _a;
     }
 
+    addPixel(px){
+        return new pixel(this.r+px.r, this.g+px.g, this.b+px.b, 1.0);
+    }
+
+    multScalar(scalar){
+        return new pixel(this.r*scalar, this.g*scalar, this.b*scalar, 1.0);
+    }
+
     max(){
         return Math.max(this.r, this.g, this.b);
     }

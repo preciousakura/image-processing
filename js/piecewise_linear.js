@@ -6,7 +6,7 @@ function toCartesian(x, y) {
   return [Math.round((x / (canvas_pl.width/255.0))), Math.round((canvas_pl.height - y) / (canvas_pl.height/255.0))]
 }
 
-function toCartesian01(x, y){
+function toCartesian01(x, y) {
     let aux = toCartesian(x, y);
     aux[0] /= 255.0; aux[1] /= 255.0;
     return aux;
