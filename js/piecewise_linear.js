@@ -187,11 +187,7 @@ function closePiecewise() {
   selectedCircle = -1;
   applyChanges();
   
-  dialogpl.style.display = "none";
-}
-
-function openPiecewise() {
-  dialogpl.style.display = "block";
+  closeModal();
 }
 
 //calculate piecewise

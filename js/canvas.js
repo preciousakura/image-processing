@@ -1,3 +1,5 @@
+var modal;
+
 // image
 var orchestrator;
 var canvas_img = document.getElementById("image");
@@ -8,7 +10,6 @@ var canvas_h = document.getElementById("histogram-window");
 var context_h = canvas_h.getContext("2d", { willReadFrequently: true });
 
 // piecewise linear
-var dialogpl = document.getElementById("piecewise");
 var canvas_pl = document.getElementById("piecewise-linear-window");
 var context_pl = canvas_pl.getContext("2d", { willReadFrequently: true });
 var circles = [[0, canvas_pl.height], [canvas_pl.width, 0]], isDragging = false, selectedCircleDrag = -1, selectedCircle = -1;
@@ -28,4 +29,14 @@ function undo() {
   if(!orchestrator) return;
   orchestrator.undo();
   circles = [];
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+function openModal(value) {
+  if(modal) modal.style.display = "none";
+  modal = document.getElementById(value)
+  modal.style.display = "block";
 }

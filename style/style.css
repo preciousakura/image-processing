@@ -41,3 +41,21 @@ section .content.left {
   width: 400px;
 }
 
+button {
+  background: #2d3748;
+  border: 1px solid #262f41;
+  padding: 0.3rem .5rem;
+  color: #f6f6f6;
+  cursor: pointer;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+button:hover {
+  filter: brightness(0.9);
+}
+
+.modal {
+  display: none;
+}
+

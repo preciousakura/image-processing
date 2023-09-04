@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/histogram.css" />
     <link rel="stylesheet" href="style/menu.css" />
     <link rel="stylesheet" href="style/transformations.css" />
+    <link rel="stylesheet" href="style/steganography.css" />
   </head>
 
   <body>
@@ -22,18 +23,30 @@
                 <label for="archive"><a>Open</a></label>
                 <input id="archive" name="archive" type="file" accept="image/*" onchange="loadImage(event)"/>
               </div>
-              <div><a id="save" onclick="saveImage()">Save</a></div>
+              <div onclick="saveImage()"><a id="save" >Save</a></div>
             </div>
           </li>
-          <li><a>Transformations</a></li>
-          <li><a>Histogram</a></li>
+          <li class="transform">
+            <a>Transformations</a>
+            <div class="submenu">
+              <div id="histogramEqualizationButton"><a>Histogram Equalization</a></div>
+              <div onclick="openModal('piecewise')"><a>Piecewise Linear</a></div>
+              <div id="toGrayButton"><a>Gray Scale</a></div>
+              <div id="normalizeButton"><a>Normalize</a></div>
+              <div id="negativeButton"><a>Negative</a></div>
+              <div onclick="openModal('gamma')"><a>Gamma</a></div>
+              <div onclick="openModal('log')"><a>Log</a></div>
+            </div>
+          </li>
+          <li><a>Filters</a></li>
+          <li><a onclick="openModal('steganography')">Steganography</a></li>
           <li><a onclick="undo()">Undo changes</a></li>
         </ul>
       </nav>
 
       <section>
         <div class="content left">          
-          <div id="piecewise">
+          <div class="modal" id="piecewise">
             <div>
               <div id="axis-x"></div>
               <canvas id="piecewise-linear-window" width="392" height="392"></canvas>
@@ -52,7 +65,7 @@
                   <input id="valueY" type="number" onchange="changeY(event.target.value)"/>
                 </label>
                 <button onclick="addcircle()">add circle</button>
-                <button onclick="deselect()">deselect circle</button>
+                <button onclick="deselect()">unselect circle</button>
               </div>
               <div>
                 <button id="applyPiecewise">apply changes</button>
@@ -60,16 +73,39 @@
               </div>
             </div>
           </div>
-          <div id="steganography" open>
+          <div class="modal" id="steganography" open>
             <label for="ste">
               Steganography
               <textarea id="steganographyText" rows="4" cols="50"></textarea>
             </label>
-            
-            <div>
-              <button id="steganographyEncryptButton">Encrypt</button>
-              <button id="steganographyDecryptButton">Decrypt</button>
+            <div class="options">
+
+              <div>
+                <button id="steganographyEncryptButton">encrypt</button>
+                <button id="steganographyDecryptButton">decrypt</button>
+              </div>
+              <button onclick="closeModal()">cancel</button>
             </div>
+
+          </div>
+
+          <div class="modal input" id="gamma" open>
+            <label>
+              gamma:
+              <input type="number" max="100" min="-100" step=".15" id="cGamma" value="1"/>
+              <input type="number" max="100" min="-100" step=".15" id="expGamma" value="1"/>
+            </label>
+            <button type="button" onclick="orchestrator.do()">apply changes</button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
+          <div class="modal input" id="log" open>
+            <label>
+              log:
+              <input type="number" max="100" min="-100" step=".15" id="cLog" value="1"/>
+            </label>
+            <button type="button" onclick="orchestrator.do()">apply changes</button>
+            <button onclick="closeModal()">cancel</button>
           </div>
         </div>
         
@@ -79,34 +115,7 @@
         
         <div class="content right">
           <canvas id="histogram-window" width="400" height="300"></canvas>
-          <div id="transformations">
-            <h3>Transformations</h3>
-            <label>
-              gamma:
-              <input type="number" max="100" min="-100" step=".15" id="cGamma" value="1"/>
-              <input type="number" max="100" min="-100" step=".15" id="expGamma" value="1"/>
-            </label>
-            <button type="button" onclick="orchestrator.do()">Apply Gamma</button>
-    
-            <label>
-              log:
-              <input type="number" max="100" min="-100" step=".15" id="cLog" value="1"/>
-            </label>
-            <button type="button" onclick="orchestrator.do()">Apply Log</button>
-    
-            <button type="button" id="negativeButton">Apply Negative</button>
-    
-            <button type="button" id="toGrayButton">Apply To Gray</button>
-    
-            <button type="button" id="normalizeButton">Normalize Button</button>
-    
-            <button type="button" id="histogramEqualizationButton">Histogram Equalization</button>
-            
-            <button type="button" onclick="openPiecewise()">PIECEWISE LINEAR</button>
-          </div>
         </div>
-        
-
       </section>
     </main>
     <script src="js/canvas.js"></script>

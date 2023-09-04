@@ -1,7 +1,6 @@
 #piecewise {
   background: #222832a6;
   border: none;
-  display: none;
 }
 
 #piecewise-linear-window {
@@ -50,6 +49,7 @@
 #piecewise .options div {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 #piecewise .options div label {
