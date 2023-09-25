@@ -89,12 +89,36 @@ class image{
         let max = this.maxMinIntensity(true)+min;
         for(let i = 0; i < this.height; i++){
             for(let j = 0; j < this.width; j++){
-                buffer.push(Math.round(((this.matrix[i][j].r+min)/max)*255));
-                buffer.push(Math.round(((this.matrix[i][j].g+min)/max)*255));
-                buffer.push(Math.round(((this.matrix[i][j].b+min)/max)*255));
+                // buffer.push(Math.round(((this.matrix[i][j].r+min)/max)*255));
+                // buffer.push(Math.round(((this.matrix[i][j].g+min)/max)*255));
+                // buffer.push(Math.round(((this.matrix[i][j].b+min)/max)*255));
+                // buffer.push(255);
+                buffer.push(Math.round(this.matrix[i][j].r*255));
+                buffer.push(Math.round(this.matrix[i][j].g*255));
+                buffer.push(Math.round(this.matrix[i][j].b*255));
                 buffer.push(255);
             }
         }
         return buffer;
     }
+
+    copyImage(){
+        return new image(this.toArrayRGBA(), this.width, this.height);
+    }
+}
+
+function copyImage(img){
+    return new image(img.toArrayRGBA(), img.width, img.height);
+}
+
+function binOperationIMG(img1, img2, op){
+    if(img1.width != img2.width ||  img1.height != img2.height){
+        alert("img1 and img2 must have the same dimension to do a bin operation");
+        return;
+    }
+    let aux = img1.copyImage();
+    for(let i = 0; i < aux.height; i++)
+        for(let j = 0; j < aux.width; j++)
+            aux.matrix[i][j] = binOperationPX(img1.matrix[i][j], img2.matrix[i][j], op);
+    return aux;
 }

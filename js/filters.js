@@ -22,3 +22,15 @@ function meanKernel(dimension){
     }
     return k;
 }
+
+function laplacianKernel(){
+    return [[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]];
+}
+
+function sobelXKernel(){
+    return [[-1, -2, -1], [0, 0, 0], [1, 2 ,1]];
+}
+
+function sobelYKernel(){
+    return [[-1, 0, 1], [-2, 0, 2], [-1, 0 ,1]];
+}

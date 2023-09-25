@@ -18,3 +18,13 @@ class pixel{
         return Math.max(this.r, this.g, this.b);
     }
 }
+
+function unaryOperationPX(op){
+    return function(px){
+        return new pixel(op(px.r), op(px.g), op(px.b), 1.0);
+    }
+}
+
+function binOperationPX(a, b, op){
+    return new pixel(op(a.r, b.r), op(a.g, b.g), op(a.b, b.b), 1.0);
+}

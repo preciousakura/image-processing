@@ -9,6 +9,12 @@ class imageOrchestrator{
         this.showChanges();
     }
 
+    addImage(img){
+        this.imageHistory.push(img);
+        this.recoverLastImage();
+        this.showChanges();
+    }
+
     recoverLastImage(){
         let lastImage = this.imageHistory[this.imageHistory.length-1];
         let lastBuffer = lastImage.toArrayRGBA();

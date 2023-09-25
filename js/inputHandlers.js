@@ -27,6 +27,14 @@ cLog.addEventListener("change", () => {
         orchestrator.intensityTransform(log2(cLog.value));
 });
 
+const tresholdValue = document.getElementById("tresholdValue");
+tresholdValue.addEventListener("change", () => {
+    if(orchestrator){
+        let t = tresholdValue.value;
+        orchestrator.intensityTransform(treshold(t));
+    }
+});
+
 const steganographyEncryptButton = document.getElementById("steganographyEncryptButton");
 steganographyEncryptButton.addEventListener("click", () => {
     const text = document.getElementById("steganographyText").value;
@@ -105,3 +113,48 @@ kernelTextButton.addEventListener("click", () => {
         orchestrator.applyKernel(kernel, mid, mid, true);
     }
 });
+
+
+function applyLaplacian(){
+    if(orchestrator){
+        let n = 3;
+        let mid = Math.floor(n/2.0);
+        orchestrator.applyKernel(laplacianKernel(), mid, mid, true);
+        //normalize here
+    }
+}
+
+function applyHighBoost(){
+    if(orchestrator){
+        let n = document.getElementById("dimensionHigh").value;
+        let sigma = document.getElementById("sigmaHigh").value;
+        let k = document.getElementById("kHigh").value;
+        let mid = Math.floor(n/2.0);
+        let img = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
+        let imgBlur = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
+        imgBlur.applyKernel(gaussianKernel(n, sigma), mid, mid);
+        let imgMask = binOperationIMG(img, imgBlur, minus);
+        imgMask.intensityTransform(unaryOperationPX(x => k*x));
+        let highboosted = binOperationIMG(img, imgMask, sum);
+        orchestrator.addImage(highboosted);
+        //normalize here
+    }
+}
+
+function applySobel(){
+    if(orchestrator){
+        let n = 3;
+        let mid = Math.floor(n/2.0);
+        let imgA = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
+        let imgB = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
+        imgA.applyKernel(sobelXKernel(), mid, mid);
+        imgB.applyKernel(sobelYKernel(), mid, mid);
+        imgA.intensityTransform(unaryOperationPX(x => x*x));
+        imgB.intensityTransform(unaryOperationPX(x => x*x));
+        let imgC = binOperationIMG(imgA, imgB, sum);
+        imgC.intensityTransform(unaryOperationPX(x => Math.sqrt(x)));
+        orchestrator.addImage(imgC);
+        //normalize here
+    }
+
+}

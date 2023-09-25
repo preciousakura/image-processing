@@ -25,3 +25,14 @@ function normalize(divisor){
         return new pixel(px.r/divisor, px.g/divisor, px.b/divisor, 1.0);
     }
 }
+
+function treshold(t){
+    t = t/255.0;
+    return function(px){
+        if(px.r < t) return new pixel(0.0, 0.0, 0.0, 1.0);
+        return new pixel(1.0, 1.0, 1.0, 1.0);
+    }
+}
+
+function sum(a, b){ return a+b; }
+function minus(a, b){ return a-b; }

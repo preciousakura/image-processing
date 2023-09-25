@@ -36,6 +36,7 @@
               <div id="negativeButton"><a>Negative</a></div>
               <div onclick="openModal('gamma')"><a>Gamma</a></div>
               <div onclick="openModal('log')"><a>Log</a></div>
+              <div onclick="openModal('treshold')"><a>Treshold</a></div>
             </div>
           </li>
           <li class="filter">
@@ -44,6 +45,9 @@
               <div onclick="openModal('gaussian')"><a>Gaussian</a></div>
               <div onclick="openModal('mean')"><a>Mean</a></div>
               <div onclick="openModal('median')"><a>Median</a></div>
+              <div onclick="applySobel()"><a>Sobel</a></div>
+              <div onclick="applyLaplacian()"><a>Laplacian</a></div>
+              <div onclick="openModal('highboost')"><a>High-Boost</a></div>
               <div onclick="openModal('kernel')"><a>Kernel Free</a></div>
             </div>
           </li>
@@ -116,6 +120,16 @@
             <button onclick="closeModal()">cancel</button>
           </div>
 
+          <div class="modal input" id="treshold" open>
+            treshold no intervalo [0,  255], intensidade = intensidade > treshold ? 0 : 255
+            <label>
+              treshold:
+              <input type="number" max="100" min="-100" step=".15" id="tresholdValue" value="0"/>
+            </label>
+            <button type="button" onclick="orchestrator.do()">apply changes</button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
           <div class="modal input" id="gaussian" open>
             <label>
               kernell_dimension:
@@ -142,6 +156,20 @@
               <input type="number" max="3" min="99" step="2" id="dimensionMedian" value="3"/>
             </label>
             <button type="button" id="applyMedianButton">Apply Median Filter</button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
+          <div class="modal input" id="highboost" open>
+            highboost = img + k*img_blur
+            <label>
+              gaussian kernell dimension:
+              <input type="number" max="3" min="99" step="2" id="dimensionHigh" value="3"/>
+              sigma:
+              <input type="number" max="3" min="99" step="2" id="sigmaHigh" value="1.5"/>
+              k:
+              <input type="number" id="kHigh" value="1.2"/>
+            </label>
+            <button type="button" onclick="applyHighBoost()">Apply High-Boost</button>
             <button onclick="closeModal()">cancel</button>
           </div>
 

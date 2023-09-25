@@ -201,7 +201,7 @@ function lineEquation(p1, p2){
 }
 
 function binarySearch(x){
-    let l = 0, r = circles.length, mid;
+    let l = -1, r = circles.length, mid;
     while(l < r-1){
         mid = Math.floor((l+r)/2);
         if(toCartesian01(circles[mid][0], 0)[0] > x) r = mid;

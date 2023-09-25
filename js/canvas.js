@@ -32,6 +32,10 @@ function undo() {
 }
 
 function closeModal() {
+  if(orchestrator){
+    orchestrator.recoverLastImage();
+    orchestrator.showChanges();
+  }
   modal.style.display = "none";
 }
 
