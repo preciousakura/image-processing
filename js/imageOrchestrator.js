@@ -67,6 +67,30 @@ class imageOrchestrator{
         drawHistogram(this.intensityHistogram());
     }
 
+    showNormalized(){
+        let lastImage = this.imageHistory[this.imageHistory.length-1];
+        let lastBuffer = lastImage.toArrayRGBA();
+        let mmin = Number.MAX_VALUE, mmax = Number.MIN_VALUE;
+        for(let i = 0; i < lastBuffer.length; i++) lastBuffer[i] /= 255.0;
+        for(let i = 0; i < lastBuffer.length; i++){
+            if(i%4 == 3) continue;
+            mmin = Math.min(mmin, lastBuffer[i]);
+            mmax = Math.max(mmax, lastBuffer[i]);
+        }
+        mmax += mmin;
+        for(let i = 0; i < lastBuffer.length; i++){
+            if(i%4 == 3) continue;
+            lastBuffer[i] = (lastBuffer[i]+mmin)/mmax;
+        }
+        for(let i = 0; i < lastBuffer.length; i++) this.colorBuffer.data[i] = Math.ceil(lastBuffer[i]*255.0);
+        this.showChanges();
+    }
+
+    showNotNormalized(){
+        this.recoverLastImage();
+        this.showChanges();
+    }
+
     getBiggestIntensity(){
         let maxIntensity = 0.0;
         for(let i = 0; i < this.height; i++)
