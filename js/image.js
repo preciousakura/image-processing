@@ -96,7 +96,7 @@ class image{
                 buffer.push(Math.round(this.matrix[i][j].r*255));
                 buffer.push(Math.round(this.matrix[i][j].g*255));
                 buffer.push(Math.round(this.matrix[i][j].b*255));
-                buffer.push(255);
+                buffer.push(Math.round(this.matrix[i][j].a*255));
             }
         }
         return buffer;
