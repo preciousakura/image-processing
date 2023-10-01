@@ -113,7 +113,7 @@ class image {
     return buffer;
   }
 
-  coloredBox(x, y, radius) {
+  erase(x, y, radius) {
     const startX = x - radius;
     const startY = y - radius;
 

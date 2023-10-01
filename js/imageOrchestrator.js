@@ -182,8 +182,8 @@ class imageOrchestrator {
     return encryptedText;
   }
 
-  coloredBox(x, y, radius) {
-    this.imgTemp.coloredBox(x, y, radius);
+  erase(x, y, radius) {
+    this.imgTemp.erase(x, y, radius);
     const arrayImage = this.imgTemp.toArrayRGBA();
     for (let i = 0; i < this.colorBuffer.data.length; i++)
       this.colorBuffer.data[i] = arrayImage[i];

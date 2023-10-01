@@ -1,6 +1,8 @@
-let lastPositionX,
-  lastPositionY,
-  radius = 25;
+let lastPositionX, lastPositionY;
+
+function changeRadius(e) {
+  radius = e;
+}
 
 function eraser_hold(e) {
   const rect = canvas_eraser.getBoundingClientRect();
@@ -21,6 +23,6 @@ function eraser_drag(e) {
     let x = e.pageX - rect.left;
     let y = e.pageY - rect.top;
 
-    erased_image_data.coloredBox(x, y, radius);
+    erased_image_data.erase(x, y, radius);
   }
 }

@@ -21,6 +21,7 @@ var canvas_eraser = document.getElementById('eraser');
 var context_eraser = canvas_eraser.getContext('2d', { willReadFrequently: true })
 var erased_image_data;
 var is_erasing = false;
+var radius = 3;
 
 window.onload = function () {
   applyChanges();
