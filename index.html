@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style/menu.css" />
     <link rel="stylesheet" href="style/transformations.css" />
     <link rel="stylesheet" href="style/steganography.css" />
+    <link rel="stylesheet" href="style/eraser.css" />
   </head>
 
   <body>
@@ -58,7 +59,9 @@
       </nav>
 
       <section>
-        <div class="content left">          
+        <div class="content left">
+          <canvas id="eraser" width="400" height="400"></canvas>
+                  
           <div class="modal" id="piecewise">
             <div>
               <div id="axis-x"></div>
@@ -198,6 +201,7 @@
     <script src="js/piecewise_linear.js"></script>
     <script src="js/histogram.js"></script>
     <script src="js/transformations.js"></script>
+    <script src="js/eraser.js"></script>
 
     <script src="js/pixel.js"></script>
     <script src="js/image.js"></script>

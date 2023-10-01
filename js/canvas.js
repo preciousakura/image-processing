@@ -16,6 +16,12 @@ var circles = [[0, canvas_pl.height], [canvas_pl.width, 0]], isDragging = false,
 var valueX = document.getElementById("valueX")
 var valueY = document.getElementById("valueY")
 
+// eraser
+var canvas_eraser = document.getElementById('eraser');
+var context_eraser = canvas_eraser.getContext('2d', { willReadFrequently: true })
+var erased_image_data;
+var is_erasing = false;
+
 window.onload = function () {
   applyChanges();
   canvas_pl.onmousedown = hold;
@@ -23,6 +29,15 @@ window.onload = function () {
   canvas_pl.onmouseout = drop;
   canvas_pl.onmousemove = drag;
   canvas_pl.ondblclick = dblclick;
+
+  canvas_eraser.onmousedown = eraser_hold;
+  canvas_eraser.onmouseup = eraser_drop;
+  canvas_eraser.onmouseout = eraser_drop;
+  canvas_eraser.onmousemove = eraser_drag;  
+  canvas_eraser.onclick = eraser_click;
+
+  const data_image = context_eraser.createImageData(canvas_eraser.width, canvas_eraser.height);
+  erased_image_data = new imageOrchestrator(data_image, context_eraser);
 };
 
 function undo() {
