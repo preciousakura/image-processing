@@ -2,6 +2,11 @@
   background: white;
 }
 
+#eraser_pincel {
+  background: transparent;
+  position: absolute;
+}
+
 label {
   color: white;
 }
