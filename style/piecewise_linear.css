@@ -42,7 +42,7 @@
   gap: 1rem;
 }
 
-#piecewise .options input {
+#piecewise .options input[type="number"] {
   width: 50px;
 }
 
@@ -52,6 +52,12 @@
   align-items: center;
 }
 
-#piecewise .options div label {
+#piecewise .options label {
   color: white;
+}
+
+#piecewise .options .filters label, #piecewise .options > label {
+  color: white;
+  display: flex;
+  gap: 1rem;
 }
