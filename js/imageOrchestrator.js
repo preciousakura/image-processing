@@ -116,14 +116,11 @@ class imageOrchestrator {
         maxIntensity = Math.max(maxIntensity, this.imgTemp.matrix[i][j].max());
     return maxIntensity;
   }
-
-  intensityHistogram() {
+  // r = 0, b = 1, g = 2
+  intensityHistogram(comp=0) {
     let histogram = new Array(256).fill(0);
-    for (let i = 0; i < this.colorBuffer.data.length; i += 4) {
-      ++histogram[this.colorBuffer.data[i]];
-      // ++histogram[this.colorBuffer.data[i+1]];
-      // ++histogram[this.colorBuffer.data[i+2]];
-    }
+    for (let i = 0; i < this.colorBuffer.data.length; i += 4) 
+      ++histogram[this.colorBuffer.data[i+comp]];
     return histogram;
   }
 
