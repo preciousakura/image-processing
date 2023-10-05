@@ -4,6 +4,12 @@ toGrayButton.addEventListener("click", () => {
             orchestrator.intensityTransform(toGray, true);
 });
 
+const toGrayButtonW = document.getElementById("toGrayButtonW");
+toGrayButtonW.addEventListener("click", () => {
+        if(orchestrator)
+            orchestrator.intensityTransform(toGrayW, true);
+});
+
 const negativeButton = document.getElementById("negativeButton");
 negativeButton.addEventListener("click", () => {
     if(orchestrator)

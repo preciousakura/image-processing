@@ -20,7 +20,7 @@ function fftApply() {
   if(orchestrator) {
     let matrix = []
     let lastImg = orchestrator.imageHistory[orchestrator.imageHistory.length - 1].copyImage();
-    lastImg.intensityTransform(toGray);
+    lastImg.intensityTransform(toGrayW);
 
     lastImg.matrix.forEach(row => {
       const line = []

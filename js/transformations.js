@@ -3,6 +3,11 @@ function toGray(px){
     return new pixel(mean, mean, mean, 1.0);
 }
 
+function toGrayW(px){
+    let mean = px.r*0.2989 + px.g*0.5870 + px.b*0.1140;
+    return new pixel(mean, mean, mean, 1.0);
+}
+
 function negative(px){
     return new pixel(1.0-px.r, 1.0-px.g, 1.0-px.b, 1.0);
 }

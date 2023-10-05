@@ -141,6 +141,8 @@ class image {
   normalize(){
     let mmin = Math.abs(this.maxMinIntensity(false));
     let mmax = this.maxMinIntensity(true)+mmin;
+    console.log(mmin);
+    console.log(mmax);
     for(let i = 0; i < this.height; i++){
       for(let j = 0; j < this.width; j++){
         this.matrix[i][j].r = (this.matrix[i][j].r+mmin)/mmax;
