@@ -39,9 +39,6 @@ window.onload = function () {
   canvas_eraser_pincel.onmouseout = eraser_drop;
   canvas_eraser_pincel.onmousemove = eraser_drag;  
   canvas_eraser_pincel.onclick = eraser_click;
-
-  const data_image = context_eraser.createImageData(canvas_eraser.width, canvas_eraser.height);
-  erased_image_data = new imageOrchestrator(data_image, context_eraser);
 };
 
 function undo() {

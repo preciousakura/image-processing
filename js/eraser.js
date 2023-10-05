@@ -1,7 +1,79 @@
 let lastPositionX, lastPositionY;
+const pencil_type = document.getElementsByName('typepencil');
+let current_pencil = 'rough';
+let pencil_color = 0;
+let fft_result = []
+
+function onChangePencilColor(e) {
+  pencil_color = e;
+}
+
+function onChangePencilType(e) {
+  current_pencil = e;
+}
 
 function changeRadius(e) {
   radius = e;
+}
+
+function fftApply() {
+  if(orchestrator) {
+    let matrix = []
+    let lastImg = orchestrator.imageHistory[orchestrator.imageHistory.length - 1].copyImage();
+    lastImg.intensityTransform(toGray);
+
+    lastImg.matrix.forEach(row => {
+      const line = []
+      row.forEach(col => {
+        line.push(col.r)
+      })
+      matrix.push(line);
+    })
+
+    fft_result = fft2(matrix);
+    fft_result = fftshift(fft_result);
+    let pixels_fft = []
+
+    fft_result.forEach(row => {
+      row.forEach(col => {
+        pixels_fft.push(Math.round(col.a * 255))
+        pixels_fft.push(Math.round(col.a * 255))
+        pixels_fft.push(Math.round(col.a * 255))
+        pixels_fft.push(255)
+      })
+    })
+
+    lastImg = new image(pixels_fft, lastImg.width, lastImg.height);
+    lastImg.normalize();
+
+    canvas_eraser.width = lastImg.width, canvas_eraser.height = lastImg.height;
+    canvas_eraser_pincel.width = lastImg.width, canvas_eraser_pincel.height = lastImg.height;
+    
+    const data_image = context_eraser.getImageData(0, 0, lastImg.width, lastImg.height);
+    erased_image_data = new imageOrchestrator(data_image, context_eraser);
+    erased_image_data.addImage(lastImg);
+
+    openModal('erasermodal')
+  }
+}
+
+function applyInverseFft() {
+  fft_result = fftishift(fft_result);
+  fft_result = fft2(fft_result, true);
+  let pixels_fft = []
+
+  fft_result.forEach(row => {
+    row.forEach(col => {
+      pixels_fft.push(Math.round(col.a * 255))
+      pixels_fft.push(Math.round(col.a * 255))
+      pixels_fft.push(Math.round(col.a * 255))
+      pixels_fft.push(255)
+    })
+  })
+
+  let lastImg = new image(pixels_fft, fft_result[0].length, fft_result.length);
+  orchestrator.addImage(lastImg);
+  closeModal();
 }
 
 function eraser_hold(e) {
@@ -29,7 +101,7 @@ function eraser_drag(e) {
   context_eraser_pincel.stroke();
 
   if(is_erasing) {
-    erased_image_data.erase(x, y, radius);
+    erased_image_data.erase(x, y, radius, pencil_color);
   }
 }
 

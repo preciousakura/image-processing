@@ -10,3 +10,8 @@
 label {
   color: white;
 }
+
+.options {
+  display: flex;
+  flex-direction: column;
+}

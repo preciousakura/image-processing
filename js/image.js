@@ -113,7 +113,7 @@ class image {
     return buffer;
   }
 
-  erase(x, y, radius) {
+  erase(x, y, radius, color) {
     const startX = x - radius;
     const startY = y - radius;
 
@@ -123,7 +123,11 @@ class image {
     for (let i = startY; i < startY + radius * 2; i++) {
       gauss_x = Math.round(gauss.length / 2) - radius;
       for (let j = startX; j < startX + radius * 2; j++) {
-        this.matrix[i][j] = new pixel(gauss[gauss_x][gauss_y] , gauss[gauss_x][gauss_y], gauss[gauss_x][gauss_y], 1);
+        console.log('comeco',this.matrix[i][j])
+        // this.matrix[i][j] = this.matrix[i][j].multScalar(color);
+        console.log('final',this.matrix[i][j])
+
+
         gauss_x++;
       }
       gauss_y++;
@@ -132,6 +136,19 @@ class image {
 
   copyImage() {
     return new image(this.toArrayRGBA(), this.width, this.height);
+  }
+
+  normalize(){
+    let mmin = Math.abs(this.maxMinIntensity(false));
+    let mmax = this.maxMinIntensity(true)+mmin;
+    for(let i = 0; i < this.height; i++){
+      for(let j = 0; j < this.width; j++){
+        this.matrix[i][j].r = (this.matrix[i][j].r+mmin)/mmax;
+        this.matrix[i][j].g = (this.matrix[i][j].g+mmin)/mmax;
+        this.matrix[i][j].b = (this.matrix[i][j].b+mmin)/mmax;
+        this.matrix[i][j].a = 1.0;
+      }
+    }
   }
 }
 

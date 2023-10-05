@@ -48,6 +48,7 @@
               <div onclick="openModal('gamma')"><a>Gamma</a></div>
               <div onclick="openModal('log')"><a>Log</a></div>
               <div onclick="openModal('treshold')"><a>Treshold</a></div>
+              <div onclick="fftApply()"><a>FFT2</a></div>
             </div>
           </li>
           <li class="filter">
@@ -79,12 +80,17 @@
 
       <section>
         <div class="content left">
-          <div  id="erasermodal">
+          <div class="modal" id="erasermodal">
             <div class="pincels">
               <canvas id="eraser_pincel" width="400" height="400"></canvas>
               <canvas id="eraser" width="400" height="400"></canvas>
             </div>
-            <div>
+            <div class="options">
+              <div class="options_pencil">
+                <label><input type="radio" name="typepencil" value="rough" checked onchange="onChangePencilType(event.target.value)"/>Rough Pencil</label>
+                <label><input type="radio" name="typepencil" value="smooth" onchange="onChangePencilType(event.target.value)"/>Smooth Pencil</label>
+              </div>
+
               <label>
                 radius:
                 <input
@@ -93,6 +99,30 @@
                   onchange="changeRadius(event.target.value)"
                 />
               </label>
+
+              <label>
+                color:
+                <input
+                  type="number"
+                  max="1"
+                  min="0"
+                  onchange="onChangePencilColor(event.target.value)"
+                />
+              </label>
+
+              <label>
+                sigma:
+                <input
+                  id="valueX"
+                  type="number"
+                  onchange="changeRadius(event.target.value)"
+                />
+              </label>
+
+              <div>
+                <button onclick="applyInverseFft()">apply inverse fft2</button>
+                <button onclick="closeModal()">cancel</button>
+              </div>
             </div>
           </div>
           <div class="modal" id="piecewise">
@@ -107,6 +137,13 @@
             </div>
 
             <div class="options">
+              <label><input type="checkbox" name="scale" id="scale_check" onchange="changeColorType(event.target.checked)" checked/>gray scale</label>
+
+              <div class="filters">
+                <label><input disabled type="radio" name="rgb" value="red" checked onchange="changeChannel(event.target.value)"/>R</label>
+                <label><input disabled type="radio" name="rgb" value="green" onchange="changeChannel(event.target.value)" />G</label>
+                <label><input disabled type="radio" name="rgb" value="blue" onchange="changeChannel(event.target.value)"/>B</label>
+              </div>
               <div>
                 <label>
                   x:
@@ -116,7 +153,6 @@
                     onchange="changeX(event.target.value)"
                   />
                 </label>
-
                 <label>
                   y:
                   <input
