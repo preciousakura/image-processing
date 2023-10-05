@@ -134,7 +134,7 @@ class image {
     return new image(this.toArrayRGBA(), this.width, this.height);
   }
 
-  scale(swidth, sheight){
+  scale(swidth, sheight, interpolation){
     let zero = new pixel(0, 0, 0, 1);
     let array_pixels = [];
     let width = Math.round(this.width*swidth), height = Math.round(this.height*sheight);
@@ -142,12 +142,20 @@ class image {
     for(let i = 0; i < height; i++){
       for(let j = 0; j < width; j++){
         let x = Math.round(i/sheight), y = Math.round(j/swidth);
-        let px = this.pixelInImage(x, y) ? this.matrix[x][y] : zero;
-        array_pixels.push(Math.round(px.r*255)); array_pixels.push(Math.round(px.g*255)); 
+        let px = interpolation(i, j, this);
+        array_pixels.push(Math.round(px.r*255)); array_pixels.push(Math.round(px.g*255));
         array_pixels.push(Math.round(px.b*255)); array_pixels.push(Math.round(px.a*255));
       }
     }
     return new image(array_pixels, width, height);
+  }
+
+  scaleNone(swidth, sheight){
+    return this.scale(swidth, sheight, nearest_neighborhood);
+  }
+
+  scaleLinear(swidth, sheight){
+    return this.scale(swidth, sheight, bilinear_interpolation);
   }
 }
 

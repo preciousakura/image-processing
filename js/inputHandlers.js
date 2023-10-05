@@ -166,7 +166,7 @@ const scaleNoneButton = document.getElementById("scaleNoneButton");
 scaleNoneButton.addEventListener("click", () => {
   if(orchestrator){
     let imgAux = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
-    let imgScaled = imgAux.scale(scaleWN.value, scaleHN.value);
+    let imgScaled = imgAux.scaleNone(scaleWN.value, scaleHN.value);
     orchestrator.addImage(imgScaled);
   }
 });
