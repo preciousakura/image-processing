@@ -135,7 +135,6 @@ class image {
   }
 
   scale(swidth, sheight, interpolation){
-    let zero = new pixel(0, 0, 0, 1);
     let array_pixels = [];
     let width = Math.round(this.width*swidth), height = Math.round(this.height*sheight);
     for(let i = 0; i < height; i++){
@@ -156,6 +155,43 @@ class image {
   scaleLinear(swidth, sheight){
     return this.scale(swidth, sheight, bilinear_interpolation);
   }
+
+  rotate(x, y, angle){
+    return [x*Math.cos(angle)-y*Math.sin(angle), y*Math.cos(angle)+x*Math.sin(angle)];
+  }
+
+  rotation(angle, interpolation){
+    angle = Math.PI*angle/180;
+    let x, y;
+    let mminx = Number.POSITIVE_INFINITY, mmaxx = Number.NEGATIVE_INFINITY;
+    let mminy = Number.POSITIVE_INFINITY, mmaxy = Number.NEGATIVE_INFINITY;
+    [x, y] = this.rotate(0, 0, angle); mminx = Math.min(mminx, x); mmaxx = Math.max(mmaxx, x); mminy = Math.min(mminy, y); mmaxy = Math.max(mmaxy, y);
+    [x, y] = this.rotate(0, this.width-1, angle); mminx = Math.min(mminx, x); mmaxx = Math.max(mmaxx, x); mminy = Math.min(mminy, y); mmaxy = Math.max(mmaxy, y);
+    [x, y] = this.rotate(this.height-1, 0, angle); mminx = Math.min(mminx, x); mmaxx = Math.max(mmaxx, x); mminy = Math.min(mminy, y); mmaxy = Math.max(mmaxy, y);
+    [x, y] = this.rotate(this.height-1, this.width-1, angle); mminx = Math.min(mminx, x); mmaxx = Math.max(mmaxx, x); mminy = Math.min(mminy, y); mmaxy = Math.max(mmaxy, y);
+
+    angle = 2*Math.PI-angle
+    let array_pixels = [];
+    let width = Math.round(mmaxy-mminy), height = Math.round(mmaxx-mminx);
+    for(let i = 0; i < height; i++){
+      for(let j = 0; j < width; j++){
+        [x, y] = this.rotate(i+mminx, j+mminy, angle);
+        let px = interpolation(x, y, this);
+        array_pixels.push(Math.round(px.r*255)); array_pixels.push(Math.round(px.g*255));
+        array_pixels.push(Math.round(px.b*255)); array_pixels.push(Math.round(px.a*255));
+      }
+    }
+    return new image(array_pixels, width, height);
+  }
+
+  rotationNone(angle){
+    return this.rotation(angle, nearest_neighborhood);
+  }
+
+  rotationLinear(angle){
+    return this.rotation(angle, bilinear_interpolation);
+  }
+
 }
 
 function copyImage(img) {

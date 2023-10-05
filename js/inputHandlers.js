@@ -186,7 +186,9 @@ const angleN = document.getElementById("angleN");
 const rotationNoneButton = document.getElementById("rotationNoneButton");
 rotationNoneButton.addEventListener("click", () => {
   if(orchestrator){
-    
+    let imgAux = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
+    let imgRotated = imgAux.rotationLinear(angleN.value);
+    orchestrator.addImage(imgRotated);
   }
 });
 
@@ -194,6 +196,8 @@ const angleL = document.getElementById("angleL");
 const rotationLinearButton = document.getElementById("rotationLinearButton");
 rotationLinearButton.addEventListener("click", () => {
   if(orchestrator){
-    
+    let imgAux = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
+    let imgRotated = imgAux.rotationLinear(angleL.value);
+    orchestrator.addImage(imgRotated);
   }
 });
