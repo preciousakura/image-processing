@@ -12,8 +12,6 @@ class imageOrchestrator {
 
   addImage(img) {
     this.imageHistory.push(img);
-    console.log("ENTROU");
-    console.log(img);
     this.recoverLastImage();
     this.showChanges();
   }
@@ -21,6 +19,9 @@ class imageOrchestrator {
   recoverLastImage() {
     this.lastImage = this.imageHistory[this.imageHistory.length - 1];
     let lastBuffer = this.lastImage.toArrayRGBA();
+
+    this.colorBuffer = new ImageData(this.lastImage.width, this.lastImage.height);
+
     for (let i = 0; i < this.colorBuffer.data.length; i++)
       this.colorBuffer.data[i] = lastBuffer[i];
     this.imgTemp = new image(lastBuffer, this.lastImage.width, this.lastImage.height);
@@ -72,19 +73,10 @@ class imageOrchestrator {
   }
 
   showChanges() {
-    console.log(this.lastImage.width);
-    console.log(this.lastImage.height);
     canvas_img.width = this.lastImage.width;
     canvas_img.height = this.lastImage.height;
-    this.context.putImageData(
-      this.colorBuffer,
-      0,
-      0,
-      0,
-      0,
-      this.lastImage.width,
-      this.lastImage.height
-    );
+    
+    this.context.putImageData(this.colorBuffer, 0, 0, 0, 0, this.lastImage.width, this.lastImage.height);
     drawHistogram(this.intensityHistogram());
   }
 

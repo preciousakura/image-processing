@@ -138,7 +138,6 @@ class image {
     let zero = new pixel(0, 0, 0, 1);
     let array_pixels = [];
     let width = Math.round(this.width*swidth), height = Math.round(this.height*sheight);
-    console.log(width, this.width);
     for(let i = 0; i < height; i++){
       for(let j = 0; j < width; j++){
         let x = Math.round(i/sheight), y = Math.round(j/swidth);
