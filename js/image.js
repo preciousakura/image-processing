@@ -6,14 +6,14 @@ class image {
     for (let i = 0, c = 0; i < this.height; i++) {
       let row = [];
       for (let j = 0; j < this.width; j++, c += 4)
-        row.push(
-          new pixel(
-            array_pixels[c] / 255.0,
-            array_pixels[c + 1] / 255.0,
-            array_pixels[c + 2] / 255.0,
-            array_pixels[c + 3] / 255.0
-          )
-        );
+      row.push(
+        new pixel(
+          array_pixels[c] / 255.0,
+          array_pixels[c + 1] / 255.0,
+          array_pixels[c + 2] / 255.0,
+          array_pixels[c + 3] / 255.0
+        )
+      );
       this.matrix.push(row);
     }
   }
@@ -24,23 +24,23 @@ class image {
 
   intensityTransform(T) {
     for (let i = 0; i < this.height; i++)
-      for (let j = 0; j < this.width; j++)
-        this.matrix[i][j] = T(this.matrix[i][j]);
+    for (let j = 0; j < this.width; j++)
+    this.matrix[i][j] = T(this.matrix[i][j]);
   }
 
   applyKernelPixel(k, ki, kj, i, j) {
     let n = k.length; //kernel dimension is n x n
     let i_min = i - ki,
-      i_max = i + n - ki - 1;
+    i_max = i + n - ki - 1;
     let j_min = j - kj,
-      j_max = j + n - kj - 1;
+    j_max = j + n - kj - 1;
     let px = new pixel(0.0, 0.0, 0.0, 1.0),
-      zero = new pixel(0.0, 0.0, 0.0, 0.0);
+    zero = new pixel(0.0, 0.0, 0.0, 0.0);
     for (let x = i_min, i = 0; x <= i_max; i++, x++)
-      for (let y = j_min, j = 0; y <= j_max; j++, y++) {
-        let pxImage = this.pixelInImage(x, y) ? this.matrix[x][y] : zero;
-        px = px.addPixel(pxImage.multScalar(k[i][j]));
-      }
+    for (let y = j_min, j = 0; y <= j_max; j++, y++) {
+      let pxImage = this.pixelInImage(x, y) ? this.matrix[x][y] : zero;
+      px = px.addPixel(pxImage.multScalar(k[i][j]));
+    }
     return px;
   }
 
@@ -49,7 +49,7 @@ class image {
     for (let i = 0; i < this.height; i++) {
       let pxs = [];
       for (let j = 0; j < this.width; j++)
-        pxs.push(this.applyKernelPixel(k, ki, kj, i, j));
+      pxs.push(this.applyKernelPixel(k, ki, kj, i, j));
       newImage.push(pxs);
     }
     this.matrix = newImage;
@@ -57,13 +57,13 @@ class image {
 
   getMedianKernel(n, ki, kj, i, j) {
     let i_min = i - ki,
-      i_max = i + n - ki - 1;
+    i_max = i + n - ki - 1;
     let j_min = j - kj,
-      j_max = j + n - kj - 1;
+    j_max = j + n - kj - 1;
     let pxs = [];
     for (let x = i_min; x <= i_max; x++)
-      for (let y = j_min; y <= j_max; y++)
-        if (this.pixelInImage(x, y)) pxs.push(this.matrix[x][y]);
+    for (let y = j_min; y <= j_max; y++)
+    if (this.pixelInImage(x, y)) pxs.push(this.matrix[x][y]);
     pxs.sort((a, b) => a.r + a.g + a.b - (b.r + b.g + b.b));
     return pxs[Math.floor(pxs.length / 2.0)];
   }
@@ -73,7 +73,7 @@ class image {
     for (let i = 0; i < this.height; i++) {
       let pxs = [];
       for (let j = 0; j < this.width; j++)
-        pxs.push(this.getMedianKernel(dimension, ki, kj, i, j));
+      pxs.push(this.getMedianKernel(dimension, ki, kj, i, j));
       newImage.push(pxs);
     }
     this.matrix = newImage;
@@ -133,6 +133,22 @@ class image {
   copyImage() {
     return new image(this.toArrayRGBA(), this.width, this.height);
   }
+
+  scale(swidth, sheight){
+    let zero = new pixel(0, 0, 0, 1);
+    let array_pixels = [];
+    let width = Math.round(this.width*swidth), height = Math.round(this.height*sheight);
+    console.log(width, this.width);
+    for(let i = 0; i < height; i++){
+      for(let j = 0; j < width; j++){
+        let x = Math.round(i/sheight), y = Math.round(j/swidth);
+        let px = this.pixelInImage(x, y) ? this.matrix[x][y] : zero;
+        array_pixels.push(Math.round(px.r*255)); array_pixels.push(Math.round(px.g*255)); 
+        array_pixels.push(Math.round(px.b*255)); array_pixels.push(Math.round(px.a*255));
+      }
+    }
+    return new image(array_pixels, width, height);
+  }
 }
 
 function copyImage(img) {
@@ -146,11 +162,11 @@ function binOperationIMG(img1, img2, op) {
   }
   let aux = img1.copyImage();
   for (let i = 0; i < aux.height; i++)
-    for (let j = 0; j < aux.width; j++)
-      aux.matrix[i][j] = binOperationPX(
-        img1.matrix[i][j],
-        img2.matrix[i][j],
-        op
-      );
+  for (let j = 0; j < aux.width; j++)
+  aux.matrix[i][j] = binOperationPX(
+    img1.matrix[i][j],
+    img2.matrix[i][j],
+    op
+  );
   return aux;
 }

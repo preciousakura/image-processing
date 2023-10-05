@@ -1,28 +1,29 @@
 class imageOrchestrator {
   constructor(_img, _context) {
-    this.width = _img.width;
-    this.height = _img.height;
     this.colorBuffer = _img;
     this.imgTemp = new image(this.colorBuffer.data, _img.width, _img.height);
     this.imageHistory = [
       new image(this.colorBuffer.data, _img.width, _img.height),
     ];
+    this.lastImage = this.imageHistory[this.imageHistory.length - 1];
     this.context = _context;
     this.showChanges();
   }
 
   addImage(img) {
     this.imageHistory.push(img);
+    console.log("ENTROU");
+    console.log(img);
     this.recoverLastImage();
     this.showChanges();
   }
 
   recoverLastImage() {
-    let lastImage = this.imageHistory[this.imageHistory.length - 1];
-    let lastBuffer = lastImage.toArrayRGBA();
+    this.lastImage = this.imageHistory[this.imageHistory.length - 1];
+    let lastBuffer = this.lastImage.toArrayRGBA();
     for (let i = 0; i < this.colorBuffer.data.length; i++)
       this.colorBuffer.data[i] = lastBuffer[i];
-    this.imgTemp = new image(lastBuffer, this.width, this.height);
+    this.imgTemp = new image(lastBuffer, this.lastImage.width, this.lastImage.height);
   }
 
   intensityTransform(T, apply = false) {
@@ -57,7 +58,7 @@ class imageOrchestrator {
 
   do() {
     this.imageHistory.push(
-      new image(this.colorBuffer.data, this.width, this.height)
+      new image(this.colorBuffer.data, this.lastImage.width, this.lastImage.height)
     );
     this.showChanges();
   }
@@ -71,14 +72,18 @@ class imageOrchestrator {
   }
 
   showChanges() {
+    console.log(this.lastImage.width);
+    console.log(this.lastImage.height);
+    canvas_img.width = this.lastImage.width;
+    canvas_img.height = this.lastImage.height;
     this.context.putImageData(
       this.colorBuffer,
       0,
       0,
       0,
       0,
-      this.width,
-      this.height
+      this.lastImage.width,
+      this.lastImage.height
     );
     drawHistogram(this.intensityHistogram());
   }
@@ -111,8 +116,8 @@ class imageOrchestrator {
 
   getBiggestIntensity() {
     let maxIntensity = 0.0;
-    for (let i = 0; i < this.height; i++)
-      for (let j = 0; j < this.width; j++)
+    for (let i = 0; i < this.lastImage.height; i++)
+      for (let j = 0; j < this.lastImage.width; j++)
         maxIntensity = Math.max(maxIntensity, this.imgTemp.matrix[i][j].max());
     return maxIntensity;
   }
@@ -129,7 +134,7 @@ class imageOrchestrator {
 
   intensityProbabilities() {
     let probabilities = this.intensityHistogram();
-    for (let i = 0; i < 256; i++) probabilities[i] /= this.width * this.height;
+    for (let i = 0; i < 256; i++) probabilities[i] /= this.lastImage.width * this.lastImage.height;
     return probabilities;
   }
 

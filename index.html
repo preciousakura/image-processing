@@ -50,6 +50,15 @@
               <div onclick="openModal('treshold')"><a>Treshold</a></div>
             </div>
           </li>
+          <li class="geometric_transform">
+            <a>Geometric Transformations</a>
+            <div class="submenu">
+              <div onclick="openModal('scale_none')"><a>Scale None</a></div>
+              <div onclick="openModal('scale_linear')"><a>Scale Linear</a></div>
+              <div onclick="openModal('rotation_none')"><a>Rotation None</a></div>
+              <div onclick="openModal('rotation_linear')"><a>Rotation Linear</a></div>
+            </div>
+          </li>
           <li class="filter">
             <a>Filters</a>
             <div class="submenu">
@@ -315,7 +324,81 @@
             <button id="kernelTextButton">Apply Kernel</button>
             <button onclick="closeModal()">cancel</button>
           </div>
+
+          <div class="modal input" id="scale_none" open>
+            <label>
+              scale width:
+              <input
+                type="number"
+                id="scaleWN"
+                value="1"
+              />
+              scale heigth:
+              <input
+                type="number"
+                id="scaleHN"
+                value="1"
+              />
+            </label>
+            <button type="button" id="scaleNoneButton">
+              Apply Scale None
+            </button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
+          <div class="modal input" id="scale_linear" open>
+            <label>
+              scale width:
+              <input
+                type="number"
+                id="scaleWL"
+                value="1"
+              />
+              scale heigth:
+              <input
+                type="number"
+                id="scaleHL"
+                value="1"
+              />
+            </label>
+            <button type="button" id="scaleLinearButton">
+              Apply Scale Linear
+            </button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
+          <div class="modal input" id="rotation_none" open>
+            <label>
+              angle in degrees:
+              <input
+                type="number"
+                id="angleN"
+                value="45"
+              />
+            </label>
+            <button type="button" id="rotationNoneButton">
+              Apply None Rotation
+            </button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
+          <div class="modal input" id="rotation_linear" open>
+            <label>
+              angle in degrees:
+              <input
+                type="number"
+                id="angleL"
+                value="45"
+              />
+            </label>
+            <button type="button" id="rotationLinearButton">
+              Apply Linear Rotation
+            </button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
         </div>
+
 
         <div class="content middle">
           <canvas id="image" width="400" height="400"></canvas>

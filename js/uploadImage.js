@@ -7,12 +7,18 @@ const loadImage = function (event) {
 
         img.src = URL.createObjectURL(event.target.files[0]);
         img.addEventListener("load", () => {
-            const width = img.width > 500 ? 500 : img.width;
-            const height = (width / img.width) * img.height;
+            let width = img.width > 500 ? 500 : img.width;
+            let height = (width / img.width) * img.height;
 
             (canvas_img.width = width), (canvas_img.height = height);
-
             context_img.drawImage(img, 0, 0, width, height);
+
+            // width = 512;
+            // height = 512;
+            // canvas_img.width = width;
+            // canvas_img.height = height;
+            // context_img.drawImage(img, 0, 0, width, height);
+
             const data_image = context_img.getImageData(0, 0, width, height);
             orchestrator = new imageOrchestrator(data_image, context_img);
             img.style.display = "none";
