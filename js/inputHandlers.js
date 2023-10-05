@@ -176,7 +176,9 @@ const scaleHL = document.getElementById("scaleHL");
 const scaleLinearButton = document.getElementById("scaleLinearButton");
 scaleLinearButton.addEventListener("click", () => {
   if(orchestrator){
-    
+    let imgAux = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
+    let imgScaled = imgAux.scaleLinear(scaleWL.value, scaleHL.value);
+    orchestrator.addImage(imgScaled);
   }
 });
 

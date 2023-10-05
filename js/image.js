@@ -140,8 +140,8 @@ class image {
     let width = Math.round(this.width*swidth), height = Math.round(this.height*sheight);
     for(let i = 0; i < height; i++){
       for(let j = 0; j < width; j++){
-        let x = Math.round(i/sheight), y = Math.round(j/swidth);
-        let px = interpolation(i, j, this);
+        let x = i/sheight, y = j/swidth;
+        let px = interpolation(x, y, this);
         array_pixels.push(Math.round(px.r*255)); array_pixels.push(Math.round(px.g*255));
         array_pixels.push(Math.round(px.b*255)); array_pixels.push(Math.round(px.a*255));
       }
