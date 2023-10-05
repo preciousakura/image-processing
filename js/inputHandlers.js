@@ -175,9 +175,6 @@ const scaleWL = document.getElementById("scaleWL");
 const scaleHL = document.getElementById("scaleHL");
 const scaleLinearButton = document.getElementById("scaleLinearButton");
 scaleLinearButton.addEventListener("click", () => {
-  console.log("ENTROU");
-  console.log(scaleWL.value);
-  console.log(scaleHL.value);
   if(orchestrator){
     
   }
@@ -186,8 +183,6 @@ scaleLinearButton.addEventListener("click", () => {
 const angleN = document.getElementById("angleN");
 const rotationNoneButton = document.getElementById("rotationNoneButton");
 rotationNoneButton.addEventListener("click", () => {
-  console.log("ENTROU");
-  console.log(angleN.value);
   if(orchestrator){
     
   }
@@ -196,8 +191,6 @@ rotationNoneButton.addEventListener("click", () => {
 const angleL = document.getElementById("angleL");
 const rotationLinearButton = document.getElementById("rotationLinearButton");
 rotationLinearButton.addEventListener("click", () => {
-  console.log("ENTROU");
-  console.log(angleL.value);
   if(orchestrator){
     
   }
