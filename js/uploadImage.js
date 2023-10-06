@@ -13,14 +13,8 @@ const loadImage = function (event) {
             (canvas_img.width = width), (canvas_img.height = height);
             context_img.drawImage(img, 0, 0, width, height);
 
-            // width = 512;
-            // height = 512;
-            // canvas_img.width = width;
-            // canvas_img.height = height;
-            // context_img.drawImage(img, 0, 0, width, height);
-
             const data_image = context_img.getImageData(0, 0, width, height);
-            orchestrator = new imageOrchestrator(data_image, context_img);
+            orchestrator = new imageOrchestrator(data_image, context_img, canvas_img);
             img.style.display = "none";
         });
     }

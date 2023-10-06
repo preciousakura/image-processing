@@ -1,4 +1,4 @@
-let lastPositionX, lastPositionY;
+let lastPositionX, lastPositionY, erased_image_data;
 const pencil_type = document.getElementsByName('typepencil');
 const smooth_options = Array.from(document.getElementsByClassName('smoothoption'))
 
@@ -62,7 +62,7 @@ function fftApply() {
     canvas_eraser_pincel.width = lastImg.width, canvas_eraser_pincel.height = lastImg.height;
     
     const data_image = context_eraser.getImageData(0, 0, lastImg.width, lastImg.height);
-    erased_image_data = new imageOrchestrator(data_image, context_eraser);
+    erased_image_data = new imageOrchestrator(data_image, context_eraser, canvas_eraser, false);
     erased_image_data.addImage(lastImg);
 
     openModal('erasermodal')
