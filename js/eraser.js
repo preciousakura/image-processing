@@ -36,21 +36,21 @@ function fftApply() {
     lastImg.matrix.forEach(row => {
       const line = []
       row.forEach(col => {
-        line.push(col.r)
+        line.push([col.r, 0])
       })
       matrix.push(line);
     })
 
-    // fft_result = fft2(matrix);
-    fft_result = math.fft(matrix);
+    let aux = nj.fft(matrix);
+    fft_result = aux.tolist();
     fft_result = fftshift(fft_result);
     let pixels_fft = []
 
     fft_result.forEach(row => {
       row.forEach(col => {
-        pixels_fft.push(Math.round(col.re * 255))
-        pixels_fft.push(Math.round(col.re * 255))
-        pixels_fft.push(Math.round(col.re * 255))
+        pixels_fft.push(Math.round(col[0] * 255))
+        pixels_fft.push(Math.round(col[0] * 255))
+        pixels_fft.push(Math.round(col[0] * 255))
         pixels_fft.push(255)
       })
     })
@@ -71,15 +71,15 @@ function fftApply() {
 
 function applyInverseFft() {
   fft_result = fftishift(fft_result);
-  // fft_result = fft2(fft_result, true);
-  fft_result = math.ifft(fft_result);
+  let aux = nj.ifft(fft_result);
+  fft_result = aux.tolist();
   let pixels_fft = []
 
   fft_result.forEach(row => {
     row.forEach(col => {
-      pixels_fft.push(Math.round(col.re * 255))
-      pixels_fft.push(Math.round(col.re * 255))
-      pixels_fft.push(Math.round(col.re * 255))
+      pixels_fft.push(Math.round(col[0] * 255))
+      pixels_fft.push(Math.round(col[0] * 255))
+      pixels_fft.push(Math.round(col[0] * 255))
       pixels_fft.push(255)
     })
   })
