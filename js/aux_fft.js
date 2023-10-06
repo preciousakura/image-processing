@@ -27,3 +27,16 @@ function fftishift(img){
             imgs[(i-M2+M)%M][(j-N2+N)%N] = img[i][j];
     return imgs;
 }
+
+function nearest_power2(n){
+  let size = 1;
+  while(size < n) size *= 2;
+  return size;
+}
+
+function transform_array(a){
+  let aux = [...a], size = nearest_power2(a.length);
+  while(aux.length != size) aux.push(0);
+  for(let i = 0; i < size; i++) if(typeof aux[i] != "object") aux[i] = new complex(aux[i], 0);
+  return aux;
+}
