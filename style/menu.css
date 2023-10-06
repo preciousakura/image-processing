@@ -24,6 +24,7 @@ nav ul li a:hover {
 
 nav ul li.archive:hover .submenu, 
 nav ul li.transform:hover .submenu, 
+nav ul li.geometric_transform:hover .submenu, 
 nav ul li.filter:hover .submenu {
   display: flex;
   flex-direction: column;
