@@ -97,37 +97,42 @@
             </div>
             <div class="options">
               <div class="options_pencil">
-                <label><input type="radio" name="typepencil" value="rough" checked onchange="onChangePencilType(event.target.value)"/>Rough Pencil</label>
-                <label><input type="radio" name="typepencil" value="smooth" onchange="onChangePencilType(event.target.value)"/>Smooth Pencil</label>
+                <label><input type="radio" name="typepencil" value="rough" checked onchange="onChangePencilType(event.target.value)"/>rough pencil</label>
+                <label><input type="radio" name="typepencil" value="smooth" onchange="onChangePencilType(event.target.value)"/>smooth pencil</label>
               </div>
 
-              <label>
-                radius:
-                <input
-                  id="valueX"
-                  type="number"
-                  onchange="changeRadius(event.target.value)"
-                />
-              </label>
+              <div class="values">
+                <label>
+                  radius:
+                  <input
+                    type="number"
+                    onchange="changeRadius(event.target.value)"
+                  />
+                </label>
 
-              <label>
-                color:
-                <input
-                  type="number"
-                  max="1"
-                  min="0"
-                  onchange="onChangePencilColor(event.target.value)"
-                />
-              </label>
+                <label>
+                  color:
+                  <input
+                    disabled
+                    class="smoothoption"
+                    type="number"
+                    max="1"
+                    min="0"
+                    step="0.1"
+                    onchange="onChangePencilColor(event.target.value)"
+                  />
+                </label>
 
-              <label>
-                sigma:
-                <input
-                  id="valueX"
-                  type="number"
-                  onchange="changeRadius(event.target.value)"
-                />
-              </label>
+                <label>
+                  sigma:
+                  <input
+                    disabled
+                    class="smoothoption"
+                    type="number"
+                    onchange="changeRadius(event.target.value)"
+                  />
+                </label>
+              </div>
 
               <div>
                 <button onclick="applyInverseFft()">apply inverse fft2</button>

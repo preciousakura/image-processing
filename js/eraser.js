@@ -1,5 +1,7 @@
 let lastPositionX, lastPositionY;
 const pencil_type = document.getElementsByName('typepencil');
+const smooth_options = Array.from(document.getElementsByClassName('smoothoption'))
+
 let current_pencil = 'rough';
 let pencil_color = 0;
 let fft_result = []
@@ -10,6 +12,15 @@ function onChangePencilColor(e) {
 
 function onChangePencilType(e) {
   current_pencil = e;
+  if(e === 'rough') {
+    smooth_options.forEach((value) => {
+      value.setAttribute("disabled", true);
+    });
+  } else {
+    smooth_options.forEach((item) => {
+      item.removeAttribute("disabled");
+    });
+  }
 }
 
 function changeRadius(e) {

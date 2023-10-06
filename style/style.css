@@ -11,9 +11,11 @@ body {
 
 section {
   display: grid;
-  grid-template-columns: 400px 1fr 400px;
+  grid-template-columns: auto 1fr;
   height: calc(100vh - 35px);
   justify-items: end;
+
+  position: relative;
 }
 
 section .content {
@@ -23,10 +25,12 @@ section .content {
 
 
 section .content.right {
+  position: absolute;
+  right: 0;
+  top: 0;
   background: #1a202c;
-  align-items: baseline;
-  flex-direction: column;
   width: 400px;
+  height: 300px;
 }
 
 section .content.middle {
@@ -38,7 +42,7 @@ section .content.left {
   background: #1a202c;
   align-items: baseline;
   flex-direction: column;
-  width: 400px;
+  min-width: 400px;
 }
 
 button {
@@ -57,5 +61,6 @@ button:hover {
 
 .modal {
   display: none;
+  flex-direction: column;
 }
 

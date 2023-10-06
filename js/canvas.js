@@ -58,5 +58,5 @@ function closeModal() {
 function openModal(value) {
   if(modal) modal.style.display = "none";
   modal = document.getElementById(value)
-  modal.style.display = "block";
+  modal.style.display = "flex";
 }
