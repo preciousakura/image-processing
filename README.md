@@ -17,10 +17,10 @@
 - [ ] Cálculo da Transformada Discreta de Fourier 
 - [ ] Exibição e edição do espectro
 - [ ] Transformada Inversa 
-- [ ] Chroma-Key 
+- [x] Chroma-Key 
 - [x] Histograma (R, G, B e I) 
 - [ ] Equalização de Histograma em imagens coloridas (HSI) 
-- [ ] Suavização e Aguçamento em imagens coloridas; 
+- [ ] Suavização e Aguçamento em imagens coloridas 
 - [ ] Ajuste de Matiz 
 - [ ] Saturação e Brilho 
 - [ ] Ajuste de Canal (C/R, M/G, Y/B) 
