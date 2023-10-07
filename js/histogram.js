@@ -22,7 +22,6 @@ let current_channel_histogram = "intensity";
 function drawHistogram(histogram) {
   const { color } = histogram_channels[current_channel_histogram];
 
-  console.log(current_channel_histogram)
 
   let maxFrequency = 0;
   for (let i = 0; i < 256; i++)
