@@ -35,8 +35,8 @@ const loadChromaKeyImage = (event) => {
       img.src = URL.createObjectURL(event.target.files[0]);
 
       img.addEventListener("load", () => {
-        let width = canvas_img.width;
-        let height = (width / img.width) * img.height;
+        let width = img.width;
+        let height = img.height;
 
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
@@ -46,6 +46,11 @@ const loadChromaKeyImage = (event) => {
 
         const data_image = context.getImageData(0, 0, width, height);
         image_chromaK = new image(data_image.data, width, height);
+        
+        const scale_x = canvas_img.width/width;
+        const scale_y = canvas_img.height/height;
+        image_chromaK = image_chromaK.scaleNone(scale_x, scale_y);
+        
         openModal("pickerchromakey");
         orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
         img.style.display = "none";
