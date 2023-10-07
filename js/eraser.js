@@ -99,6 +99,7 @@ function eraser_hold(e) {
 function eraser_click(e) {}
 
 function eraser_drop() {
+  clear()
   is_erasing = false;
 }
 

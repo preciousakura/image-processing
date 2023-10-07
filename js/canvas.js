@@ -38,6 +38,10 @@ window.onload = function () {
   canvas_eraser_pincel.onmouseout = eraser_drop;
   canvas_eraser_pincel.onmousemove = eraser_drag;  
   canvas_eraser_pincel.onclick = eraser_click;
+
+  canvas_img.onmousemove = pick_move;  
+  canvas_img.onmouseout = pick_drop;
+  canvas_img.onclick = pick_color;
 };
 
 function undo() {

@@ -68,8 +68,12 @@
             <div class="submenu">
               <div onclick="openModal('scale_none')"><a>Scale None</a></div>
               <div onclick="openModal('scale_linear')"><a>Scale Linear</a></div>
-              <div onclick="openModal('rotation_none')"><a>Rotation None</a></div>
-              <div onclick="openModal('rotation_linear')"><a>Rotation Linear</a></div>
+              <div onclick="openModal('rotation_none')">
+                <a>Rotation None</a>
+              </div>
+              <div onclick="openModal('rotation_linear')">
+                <a>Rotation Linear</a>
+              </div>
             </div>
           </li>
           <li class="filter">
@@ -108,8 +112,23 @@
             </div>
             <div class="options">
               <div class="options_pencil">
-                <label><input type="radio" name="typepencil" value="rough" checked onchange="onChangePencilType(event.target.value)"/>rough pencil</label>
-                <label><input type="radio" name="typepencil" value="smooth" onchange="onChangePencilType(event.target.value)"/>smooth pencil</label>
+                <label
+                  ><input
+                    type="radio"
+                    name="typepencil"
+                    value="rough"
+                    checked
+                    onchange="onChangePencilType(event.target.value)"
+                  />rough pencil</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="typepencil"
+                    value="smooth"
+                    onchange="onChangePencilType(event.target.value)"
+                  />smooth pencil</label
+                >
               </div>
 
               <div class="values">
@@ -163,12 +182,45 @@
             </div>
 
             <div class="options">
-              <label><input type="checkbox" name="scale" id="scale_check" onchange="changeColorType(event.target.checked)" checked/>gray scale</label>
+              <label
+                ><input
+                  type="checkbox"
+                  name="scale"
+                  id="scale_check"
+                  onchange="changeColorType(event.target.checked)"
+                  checked
+                />gray scale</label
+              >
 
               <div class="filters">
-                <label><input disabled type="radio" name="rgb" value="red" checked onchange="changeChannel(event.target.value)"/>R</label>
-                <label><input disabled type="radio" name="rgb" value="green" onchange="changeChannel(event.target.value)" />G</label>
-                <label><input disabled type="radio" name="rgb" value="blue" onchange="changeChannel(event.target.value)"/>B</label>
+                <label
+                  ><input
+                    disabled
+                    type="radio"
+                    name="rgb"
+                    value="red"
+                    checked
+                    onchange="changeChannel(event.target.value)"
+                  />R</label
+                >
+                <label
+                  ><input
+                    disabled
+                    type="radio"
+                    name="rgb"
+                    value="green"
+                    onchange="changeChannel(event.target.value)"
+                  />G</label
+                >
+                <label
+                  ><input
+                    disabled
+                    type="radio"
+                    name="rgb"
+                    value="blue"
+                    onchange="changeChannel(event.target.value)"
+                  />B</label
+                >
               </div>
               <div>
                 <label>
@@ -378,44 +430,25 @@
               <button id="kernelTextButton">Apply Kernel</button>
               <button onclick="closeModal()">cancel</button>
             </div>
-
           </div>
 
           <div class="modal input" id="scale_none" open>
             <label>
               scale width:
-              <input
-                type="number"
-                id="scaleWN"
-                value="1"
-              />
+              <input type="number" id="scaleWN" value="1" />
               scale heigth:
-              <input
-                type="number"
-                id="scaleHN"
-                value="1"
-              />
+              <input type="number" id="scaleHN" value="1" />
             </label>
-            <button type="button" id="scaleNoneButton">
-              Apply Scale None
-            </button>
+            <button type="button" id="scaleNoneButton">Apply Scale None</button>
             <button onclick="closeModal()">cancel</button>
           </div>
 
           <div class="modal input" id="scale_linear" open>
             <label>
               scale width:
-              <input
-                type="number"
-                id="scaleWL"
-                value="1"
-              />
+              <input type="number" id="scaleWL" value="1" />
               scale heigth:
-              <input
-                type="number"
-                id="scaleHL"
-                value="1"
-              />
+              <input type="number" id="scaleHL" value="1" />
             </label>
             <button type="button" id="scaleLinearButton">
               Apply Scale Linear
@@ -426,11 +459,7 @@
           <div class="modal input" id="rotation_none" open>
             <label>
               angle in degrees:
-              <input
-                type="number"
-                id="angleN"
-                value="45"
-              />
+              <input type="number" id="angleN" value="45" />
             </label>
             <button type="button" id="rotationNoneButton">
               Apply None Rotation
@@ -441,29 +470,34 @@
           <div class="modal input" id="rotation_linear" open>
             <label>
               angle in degrees:
-              <input
-                type="number"
-                id="angleL"
-                value="45"
-              />
+              <input type="number" id="angleL" value="45" />
             </label>
             <button type="button" id="rotationLinearButton">
               Apply Linear Rotation
             </button>
             <button onclick="closeModal()">cancel</button>
           </div>
-
-          <div class="picker">
-            <div class="picked-color"></div>
-            <div class="options">
-              <label>
-                R: <input type="number" />
-              </label>
+          <div class="modal" id="pickerchromakey">
+            <div class="picker">
+              <div id="picked-color"></div>
+              <div class="right-element">
+                <div class="options">
+                  <label><span>R:</span><input id="r_picker" onchange="onChangeR(event.target.value)" max="255" min="0" value="0" type="number" /> </label>
+                  <label><span>G:</span><input id="g_picker" onchange="onChangeG(event.target.value)" max="255" min="0" value="255" type="number" /> </label>
+                  <label><span>B:</span><input id="b_picker" onchange="onChangeB(event.target.value)" max="255" min="0" value="1" type="number" /> </label>
+                  <label class="distance"><span>Distance:</span><input onchange="onChangeDistance(event.target.value)" max="255" min="0" value="0" type="number" /></label>
+                </div>
+                <div class="buttons">
+                  <button onclick="pick()">pick color</button>
+                  <div>
+                    <button onclick="chromaKeyApply()">apply</button>
+                    <button onclick="closeChromaKey()">cancel</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
         </div>
-
 
         <div class="content middle">
           <canvas id="image" width="400" height="400"></canvas>
@@ -473,15 +507,42 @@
           <div id="histogram">
             <canvas id="histogram-window" width="400" height="300"></canvas>
             <div class="options">
-              <label><input type="radio" name="rgb_histogram" value="red" onchange="changeHistogram(event.target.value)"/>Red</label>
-              <label><input type="radio" name="rgb_histogram" value="green" onchange="changeHistogram(event.target.value)" />Green</label>
-              <label><input type="radio" name="rgb_histogram" value="blue" onchange="changeHistogram(event.target.value)"/>Blue</label>
-              <label><input type="radio" name="rgb_histogram" value="intensity" onchange="changeHistogram(event.target.value)" checked/>I</label>
+              <label
+                ><input
+                  type="radio"
+                  name="rgb_histogram"
+                  value="red"
+                  onchange="changeHistogram(event.target.value)"
+                />Red</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="rgb_histogram"
+                  value="green"
+                  onchange="changeHistogram(event.target.value)"
+                />Green</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="rgb_histogram"
+                  value="blue"
+                  onchange="changeHistogram(event.target.value)"
+                />Blue</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="rgb_histogram"
+                  value="intensity"
+                  onchange="changeHistogram(event.target.value)"
+                  checked
+                />I</label
+              >
             </div>
           </div>
-          <button class="expand" onclick="expandHistogram()">
-            +
-          </button>
+          <button class="expand" onclick="expandHistogram()">+</button>
         </div>
       </section>
     </main>
@@ -504,6 +565,6 @@
     <script src="js/aux_fft.js"></script>
 
     <script src="js/interpolation.js"></script>
-    <script src="js/chroma_key,js"></script>
+    <script src="js/chroma_key.js"></script>
   </body>
 </html>
