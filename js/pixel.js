@@ -17,6 +17,10 @@ class pixel{
     max(){
         return Math.max(this.r, this.g, this.b);
     }
+
+    equal(px) {
+        return this.r === px.r && this.g === px.g && this.b === px.b;
+    }
 }
 
 function unaryOperationPX(op){

@@ -51,6 +51,16 @@
               <div onclick="openModal('log')"><a>Log</a></div>
               <div onclick="openModal('treshold')"><a>Treshold</a></div>
               <div onclick="fftApply()"><a>FFT2</a></div>
+              <div>
+                <label for="chromakey"><a>Chroma key</a></label>
+                <input
+                  id="chromakey"
+                  name="archive"
+                  type="file"
+                  accept="image/*"
+                  onchange="loadChromaKeyImage(event)"
+                />
+              </div>
             </div>
           </li>
           <li class="geometric_transform">
@@ -482,5 +492,6 @@
     <script src="js/aux_fft.js"></script>
 
     <script src="js/interpolation.js"></script>
+    <script src="js/chroma_key,js"></script>
   </body>
 </html>

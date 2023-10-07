@@ -1,10 +1,6 @@
 const loadImage = function (event) {
     if(event.target.files.length > 0) {
         const img = new Image();
-        img.onload = function () {
-            URL.revokeObjectURL(img.src);
-        };
-
         img.src = URL.createObjectURL(event.target.files[0]);
         img.addEventListener("load", () => {
             let width = img.width > 500 ? 500 : img.width;

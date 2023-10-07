@@ -1,0 +1,23 @@
+let image_chromaK;
+
+const loadChromaKeyImage = (event) => {
+  if (event.target.files.length > 0) {
+    const img = new Image();
+    img.src = URL.createObjectURL(event.target.files[0]);
+
+    img.addEventListener("load", () => {
+      let width = img.width > 500 ? 500 : img.width;
+      let height = (width / img.width) * img.height;
+
+      const data_image = context_img.getImageData(0, 0, width, height);
+      chromaKeyApply(new image(data_image.data, width, height))
+      console.log(data_image)
+      img.style.display = "none";
+    });
+  }
+}
+
+
+function chromaKeyApply(bgImage) {
+  orchestrator.chromaKey(bgImage, new pixel(0, 255, 1, 1));
+}
