@@ -21,6 +21,10 @@ class pixel{
     equal(px) {
         return this.r === px.r && this.g === px.g && this.b === px.b;
     }
+
+    distance(px) {
+        return Math.sqrt(Math.pow((this.r - px.r), 2) + Math.pow((this.g - px.g), 2) + Math.pow((this.b - px.b), 2))
+    }
 }
 
 function unaryOperationPX(op){

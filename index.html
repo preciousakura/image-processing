@@ -374,8 +374,11 @@
 [[0, 0.125, 0], [0.125, 0.5, 0.125], [0, 0.125, 0]]</textarea
               >
             </label>
-            <button id="kernelTextButton">Apply Kernel</button>
-            <button onclick="closeModal()">cancel</button>
+            <div class="options">
+              <button id="kernelTextButton">Apply Kernel</button>
+              <button onclick="closeModal()">cancel</button>
+            </div>
+
           </div>
 
           <div class="modal input" id="scale_none" open>
@@ -448,6 +451,15 @@
               Apply Linear Rotation
             </button>
             <button onclick="closeModal()">cancel</button>
+          </div>
+
+          <div class="picker">
+            <div class="picked-color"></div>
+            <div class="options">
+              <label>
+                R: <input type="number" />
+              </label>
+            </div>
           </div>
 
         </div>

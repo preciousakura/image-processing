@@ -24,12 +24,21 @@ class image {
 
   chromaKey(bgImage, px) {
     const image_matrix = bgImage.matrix;
+    const bg_width = Math.floor(bgImage.width);
+    const bg_height = Math.floor(bgImage.height);
+
+    let bg_i = 0, bg_j = 0;
+    console.log(bg_width, bg_height);
+    console.log(this.width, this.height)
+
     for (let i = 0; i < this.height; i++) {
+      bg_j = 0;
+      if(bg_i > bg_height - 1) bg_i = 0;
       for (let j = 0; j < this.width; j++) {
         const current_pixel = this.matrix[i][j];
-        if(current_pixel.equal(px)) 
-          this.matrix = image_matrix[i][j];
-      }
+        if (current_pixel.distance(px) <= 200/255) this.matrix[i][j] = image_matrix[bg_i][bg_j];
+        bg_j++;
+      } bg_i++;
     }
   }
 
