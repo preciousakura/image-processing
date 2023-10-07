@@ -1,30 +1,30 @@
 # image-processing
-- [ ] Negativo
-- [ ] Transformações logarítmicas
-- [ ] Potência (correção de gama)
-- [ ] Linear definidas por partes
-- [ ] Esteganografia
-- [ ] Histograma 
-- [ ] Equalização de histograma
-- [ ] Limiarização 
-- [ ] Aplicação de filtro genérico por convolução
-- [ ] Filtro de suavização da média (simples e ponderado) 
-- [ ] Filtragem pela mediana 
-- [ ] Aguçamento (nitidez) por Laplaciano 
-- [ ] High-Boost 
-- [ ] Filtros de Sobel 
+- [x] Negativo
+- [x] Transformações logarítmicas
+- [x] Potência (correção de gama)
+- [x] Linear definidas por partes
+- [x] Esteganografia
+- [x] Histograma 
+- [x] Equalização de histograma
+- [x] Limiarização 
+- [x] Aplicação de filtro genérico por convolução
+- [x] Filtro de suavização da média (simples e ponderado) 
+- [x] Filtragem pela mediana 
+- [x] Aguçamento (nitidez) por Laplaciano 
+- [x] High-Boost 
+- [x] Filtros de Sobel 
 - [ ] Detecção não linear de bordas pelo gradiente (magnitude) 
 - [ ] Cálculo da Transformada Discreta de Fourier 
 - [ ] Exibição e edição do espectro
 - [ ] Transformada Inversa 
 - [ ] Chroma-Key 
-- [ ] Histograma (R, G, B e I) 
+- [x] Histograma (R, G, B e I) 
 - [ ] Equalização de Histograma em imagens coloridas (HSI) 
 - [ ] Suavização e Aguçamento em imagens coloridas; 
 - [ ] Ajuste de Matiz 
 - [ ] Saturação e Brilho 
 - [ ] Ajuste de Canal (C/R, M/G, Y/B) 
 - [ ] Sépia 
-- [ ] Escala  
+- [x] Escala  
 - [ ] Rotação com interpolação pelo vizinho mais próximo 
 - [ ] Linear 
