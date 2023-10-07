@@ -23,6 +23,7 @@ function onChangeB(value) {
 
 function onChangeDistance(value) {
   distance = value;
+  orchestrator.chromaKey(image_chromaK, new pixel(r_picked, g_picked, b_picked, 1), distance);
 }
 
 const loadChromaKeyImage = (event) => {
@@ -56,7 +57,8 @@ function chromaKeyApply() {
   orchestrator.chromaKey(
     image_chromaK,
     new pixel(r_picked, g_picked, b_picked, 1),
-    distance
+    distance,
+    true
   );
   closeChromaKey();
 }
