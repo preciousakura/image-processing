@@ -23,7 +23,9 @@ function onChangeB(value) {
 
 function onChangeDistance(value) {
   distance = value;
-  orchestrator.chromaKey(image_chromaK, new pixel(r_picked, g_picked, b_picked, 1), distance);
+  orchestrator.recoverLastImage();
+  orchestrator.showChanges();
+  orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
 }
 
 const loadChromaKeyImage = (event) => {
@@ -45,6 +47,7 @@ const loadChromaKeyImage = (event) => {
         const data_image = context.getImageData(0, 0, width, height);
         image_chromaK = new image(data_image.data, width, height);
         openModal("pickerchromakey");
+        orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
         img.style.display = "none";
 
         canvas.remove();
@@ -54,12 +57,7 @@ const loadChromaKeyImage = (event) => {
 };
 
 function chromaKeyApply() {
-  orchestrator.chromaKey(
-    image_chromaK,
-    new pixel(r_picked, g_picked, b_picked, 1),
-    distance,
-    true
-  );
+  orchestrator.chromaKey(image_chromaK, new pixel(r_picked, g_picked, b_picked, 1), distance, true);
   closeChromaKey();
 }
 
@@ -72,6 +70,8 @@ function closeChromaKey() {
 
 function pick() {
   isPicking = true;
+  orchestrator.recoverLastImage();
+  orchestrator.showChanges();
 }
 
 function pick_move(event) {
@@ -110,7 +110,9 @@ function pick_color(event) {
     r_picked = data[0];
     g_picked = data[1];
     b_picked = data[2];
-    
+
+    orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
+
     isPicking = false;
   }
 }

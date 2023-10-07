@@ -194,8 +194,8 @@ class imageOrchestrator {
     this.do();
   }
 
-  chromaKey(bgImage, px, distance, apply = false) {
-    this.imgTemp.chromaKey(bgImage, new pixel(px.r/255, px.g/255, px.b/255, 1), distance/255);
+  chromaKey(bgImage, r, g, b, distance, apply = false) {
+    this.imgTemp.chromaKey(bgImage, new pixel(r/255, g/255, b/255, 1), distance/255);
     const arrayImage = this.imgTemp.toArrayRGBA();
     for (let i = 0; i < this.colorBuffer.data.length; i++)
       this.colorBuffer.data[i] = arrayImage[i];
