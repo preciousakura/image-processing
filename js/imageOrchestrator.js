@@ -1,5 +1,5 @@
 class imageOrchestrator {
-  constructor(_img, _context, _canvas, _hasHistogram = true) {
+  constructor(_img, _context, _canvas, _hasHistogram = true, _channel = 'intensity') {
     this.colorBuffer = _img;
     this.imgTemp = new image(this.colorBuffer.data, _img.width, _img.height);
     this.imageHistory = [
@@ -9,6 +9,7 @@ class imageOrchestrator {
     this.context = _context;
     this.canvas = _canvas;
     this.hasHistogram = _hasHistogram;
+    this.channel = _channel;
     this.showChanges();
   }
 
@@ -79,7 +80,14 @@ class imageOrchestrator {
     this.canvas.height = this.lastImage.height;
     
     this.context.putImageData(this.colorBuffer, 0, 0, 0, 0, this.lastImage.width, this.lastImage.height);
-    if(this.hasHistogram) drawHistogram(this.intensityHistogram());
+    if(this.hasHistogram) drawHistogram(this.intensityHistogram(this.channel));
+  }
+
+  changeHistogramChannel(comp) {
+    if(this.hasHistogram) {
+      this.channel = comp;
+      drawHistogram(this.intensityHistogram(comp));
+    }
   }
 
   showNormalized() {

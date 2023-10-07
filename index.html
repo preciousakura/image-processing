@@ -448,7 +448,15 @@
         </div>
 
         <div class="content right">
-          <canvas id="histogram-window" width="400" height="300"></canvas>
+          <div id="histogram">
+            <canvas id="histogram-window" width="400" height="300"></canvas>
+            <div class="options">
+              <label><input type="radio" name="rgb_histogram" value="red" onchange="changeHistogram(event.target.value)"/>Red</label>
+              <label><input type="radio" name="rgb_histogram" value="green" onchange="changeHistogram(event.target.value)" />Green</label>
+              <label><input type="radio" name="rgb_histogram" value="blue" onchange="changeHistogram(event.target.value)"/>Blue</label>
+              <label><input type="radio" name="rgb_histogram" value="intensity" onchange="changeHistogram(event.target.value)" checked/>I</label>
+            </div>
+          </div>
         </div>
       </section>
     </main>

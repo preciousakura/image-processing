@@ -5,3 +5,19 @@
     linear-gradient(to bottom, #222832a6 1px, transparent 1px);
 }
 
+#histogram .options {
+  padding: 1rem;
+  display: flex;
+  width: fit-content;
+  gap: 2rem;
+}
+
+#histogram .options label {
+  color: white;
+}
+
+#histogram .options .filters label, #histogram .options > label {
+  color: white;
+  display: flex;
+  gap: 1rem;
+}

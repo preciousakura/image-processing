@@ -220,10 +220,7 @@ function applyChanges() {
   drawLine();
   drawCircle();
 
-  if (orchestrator) {
-    orchestrator.intensityTransform(piecewisePixel);
-    drawHistogram(orchestrator.intensityHistogram());
-  }
+  if (orchestrator) orchestrator.intensityTransform(piecewisePixel);
   if (selectedCircle !== -1) {
     const circletocartesian = toCartesian(
       channels[current_channel].circles[selectedCircle][0],
