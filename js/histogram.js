@@ -1,3 +1,5 @@
+const right_content = document.getElementsByClassName("right");
+
 let histogram_channels = {
   intensity: {
     color: "#4a5568",
@@ -21,7 +23,6 @@ let current_channel_histogram = "intensity";
 
 function drawHistogram(histogram) {
   const { color } = histogram_channels[current_channel_histogram];
-
 
   let maxFrequency = 0;
   for (let i = 0; i < 256; i++)
@@ -61,4 +62,8 @@ function changeHistogram(value) {
     current_channel_histogram = value;
     orchestrator.changeHistogramChannel(histogram_channels[value].comp);
   }
+}
+
+function expandHistogram() {
+  right_content.item(0).style.right = right_content.item(0).style.right === '0px' ? '-400px' : '0px';
 }

@@ -5,11 +5,16 @@
     linear-gradient(to bottom, #222832a6 1px, transparent 1px);
 }
 
+#histogram {
+  background: #262f41;
+}
+
 #histogram .options {
   padding: 1rem;
   display: flex;
   width: fit-content;
   gap: 2rem;
+  width: 100%;
 }
 
 #histogram .options label {
