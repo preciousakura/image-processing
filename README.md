@@ -19,7 +19,8 @@
 - [ ] Transformada Inversa 
 - [x] Chroma-Key 
 - [x] Histograma (R, G, B e I) 
-- [ ] Equalização de Histograma em imagens coloridas (HSI) 
+- [x] Equalização de Histograma em imagens coloridas (RGB) 
+- [] Equalização de Histograma em imagens coloridas (HSI) 
 - [x] Suavização e Aguçamento em imagens coloridas 
 - [ ] Ajuste de Matiz 
 - [ ] Saturação e Brilho 

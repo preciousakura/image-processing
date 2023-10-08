@@ -124,22 +124,22 @@ class imageOrchestrator {
     return maxIntensity;
   }
   // r = 0, b = 1, g = 2
-  intensityHistogram(comp=0) {
+  intensityHistogram(comp) {
     let histogram = new Array(256).fill(0);
     for (let i = 0; i < this.colorBuffer.data.length; i += 4) 
       ++histogram[this.colorBuffer.data[i+comp]];
     return histogram;
   }
 
-  intensityProbabilities() {
-    let probabilities = this.intensityHistogram();
+  intensityProbabilities(comp) {
+    let probabilities = this.intensityHistogram(comp);
     for (let i = 0; i < 256; i++) probabilities[i] /= this.lastImage.width * this.lastImage.height;
     return probabilities;
   }
 
-  histogramEqualizationMap() {
+  histogramEqualizationMap(comp) {
     let map = new Array(256).fill(0);
-    let prefixSumProbabilities = this.intensityProbabilities();
+    let prefixSumProbabilities = this.intensityProbabilities(comp);
     for (let i = 1; i < 256; i++)
       prefixSumProbabilities[i] += prefixSumProbabilities[i - 1];
     for (let i = 0; i < 256; i++)
@@ -147,13 +147,12 @@ class imageOrchestrator {
     return map;
   }
 
-  histogramEqualization() {
-    let map = this.histogramEqualizationMap();
+  histogramEqualization(comp) {
+    let map = this.histogramEqualizationMap(comp);
     for (let i = 0; i < this.colorBuffer.data.length; i++) {
-      if (i % 4 == 3) continue;
+      if (i%4 != comp) continue;
       this.colorBuffer.data[i] = map[this.colorBuffer.data[i]];
     }
-    this.do();
   }
 
   steganographyEncrypt(text) {

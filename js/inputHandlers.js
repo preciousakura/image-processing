@@ -79,8 +79,12 @@ normalizeButton.addEventListener("click", () => {
 
 const histogramEqualizationButton = document.getElementById("histogramEqualizationButton");
 histogramEqualizationButton.addEventListener("click", () =>{
-  if(orchestrator)
-    orchestrator.histogramEqualization();
+  if(orchestrator){
+    orchestrator.histogramEqualization(0);
+    orchestrator.histogramEqualization(1);
+    orchestrator.histogramEqualization(2);
+    orchestrator.do();
+  }
 });
 
 const applyPiecewise = document.getElementById("applyPiecewise");
@@ -149,7 +153,6 @@ function applyHighBoost(){
     let sigma = document.getElementById("sigmaHigh").value;
     let k = document.getElementById("kHigh").value;
     let mid = Math.floor(n/2.0);
-    console.log(n, sigma, k, mid);
     let img = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
     let imgBlur = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
     imgBlur.applyKernel(gaussianKernel(n, sigma), mid, mid);
