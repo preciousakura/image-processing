@@ -50,6 +50,7 @@
               <div onclick="openModal('gamma')"><a>Gamma</a></div>
               <div onclick="openModal('log')"><a>Log</a></div>
               <div onclick="openModal('treshold')"><a>Treshold</a></div>
+              <div onclick="openModal('sepia')" id="sepia_button"><a>Sepia</a></div>
               <div onclick="fftApply()"><a>FFT2</a></div>
               <div>
                 <label for="chromakey"><a>Chroma key</a></label>
@@ -321,6 +322,15 @@
               />
             </label>
             <button type="button" onclick="orchestrator.do()">
+              apply changes
+            </button>
+            <button onclick="closeModal()">cancel</button>
+          </div>
+
+          <div class="modal input" id="sepia" open>
+            <label><span>R:</span><input id="r_sepia"  min="0" value="1" type="number" /> </label>
+            <label><span>G:</span><input id="g_sepia"  min="0" value="1" type="number" /> </label>
+            <button type="button" onclick="orchestrator.do(); closeModal();">
               apply changes
             </button>
             <button onclick="closeModal()">cancel</button>

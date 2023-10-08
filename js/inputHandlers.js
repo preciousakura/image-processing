@@ -41,6 +41,20 @@ tresholdValue.addEventListener("change", () => {
   }
 });
 
+const sepia_button = document.getElementById("sepia_button");
+sepia_button.addEventListener("click", () => {
+  if(orchestrator)
+    orchestrator.intensityTransform(toGrayW, true);
+});
+const r_sepia = document.getElementById("r_sepia");
+const g_sepia = document.getElementById("g_sepia");
+r_sepia.addEventListener("change", sepia_action);
+g_sepia.addEventListener("change", sepia_action);
+function sepia_action(){
+  if(orchestrator)
+    orchestrator.intensityTransform(multiply(r_sepia.value, g_sepia.value, 1.0));
+}
+
 const steganographyEncryptButton = document.getElementById("steganographyEncryptButton");
 steganographyEncryptButton.addEventListener("click", () => {
   const text = document.getElementById("steganographyText").value;

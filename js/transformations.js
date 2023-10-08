@@ -39,5 +39,11 @@ function treshold(t){
     }
 }
 
+function multiply(rf, gf, bf){
+  return function(px){
+    return new pixel(px.r*rf, px.g*gf, px.b*bf, 1.0);
+  }
+}
+
 function sum(a, b){ return a+b; }
 function minus(a, b){ return a-b; }
