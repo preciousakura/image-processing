@@ -149,12 +149,13 @@ function applyHighBoost(){
     let sigma = document.getElementById("sigmaHigh").value;
     let k = document.getElementById("kHigh").value;
     let mid = Math.floor(n/2.0);
+    console.log(n, sigma, k, mid);
     let img = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
     let imgBlur = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length-1]);
     imgBlur.applyKernel(gaussianKernel(n, sigma), mid, mid);
-    let imgMask = binOperationIMG(img, imgBlur, minus);
+    let imgMask = binOperationIMG(img, imgBlur, (a, b) => a-b);
     imgMask.intensityTransform(unaryOperationPX(x => k*x));
-    let highboosted = binOperationIMG(img, imgMask, sum);
+    let highboosted = binOperationIMG(img, imgMask, (a, b) => a+b);
     orchestrator.addImage(highboosted);
     //normalize here
   }
