@@ -67,7 +67,7 @@ function binOperationPX(a, b, op){
   return new pixel(op(a.r, b.r), op(a.g, b.g), op(a.b, b.b), 1.0);
 }
 
-function toHSI(r, g, b){
+function rgbToHSI(r, g, b){
   let i = (r+g+b)/3.0;
   let s = (i == 0 ? 0 : 1-i*Math.min(r, g, b));
   let h = 0;
@@ -82,7 +82,7 @@ function toHSI(r, g, b){
   return [h, s, i];
 }
 
-function toHSV(r, g, b){
+function rgbToHSV(r, g, b){
   let mmax = Math.max(r, g, b), mmin = Math.min(r, g, b);
   let v = Math.max(r, g, b);
   let s = (v == 0) ? 0 : (v-mmin)/v;
@@ -94,4 +94,66 @@ function toHSV(r, g, b){
   }
   if(h < 0) h += 360;
   return [h, s, v];
+}
+
+
+function hsiToRGB(H, S, I) {
+  H = (H + 360) % 360;
+
+  S = Math.min(Math.max(S, 0), 1);
+  I = Math.min(Math.max(I, 0), 1);
+
+  let R, G, B;
+
+  if(S === 0){
+    R = G = B = I;
+  }else{
+    const H_prime = H / 60;
+    const chroma = (1 - Math.abs(2 * I - 1)) * S;
+    const X = chroma * (1 - Math.abs((H_prime % 2) - 1));
+
+    if (H_prime >= 0 && H_prime < 1) [R, G, B] = [chroma, X, 0];
+    else if (H_prime >= 1 && H_prime < 2) [R, G, B] = [X, chroma, 0];
+    else if (H_prime >= 2 && H_prime < 3) [R, G, B] = [0, chroma, X];
+    else if (H_prime >= 3 && H_prime < 4) [R, G, B] = [0, X, chroma];
+    else if (H_prime >= 4 && H_prime < 5) [R, G, B] = [X, 0, chroma];
+    else [R, G, B] = [chroma, 0, X];
+
+    const m = I-(chroma/2);
+    R += m;
+    G += m;
+    B += m;
+  }
+
+  R = Math.round(R * 255);
+  G = Math.round(G * 255);
+  B = Math.round(B * 255);
+
+  return {R, G, B};
+}
+
+function hsvToRGB(H, S, V) {
+  H = (H + 360) % 360;
+
+  S = Math.min(Math.max(S, 0), 1);
+  V = Math.min(Math.max(V, 0), 1);
+
+  let R, G, B;
+
+  const C = V * S;
+  const X = C * (1 - Math.abs(((H / 60) % 2) - 1));
+  const m = V - C;
+
+  if (H >= 0 && H < 60) [R, G, B] = [C, X, 0];
+  else if (H >= 60 && H < 120) [R, G, B] = [X, C, 0];
+  else if (H >= 120 && H < 180) [R, G, B] = [0, C, X];
+  else if (H >= 180 && H < 240) [R, G, B] = [0, X, C];
+  else if (H >= 240 && H < 300) [R, G, B] = [X, 0, C];
+  else [R, G, B] = [C, 0, X];
+
+  R = Math.round((R + m) * 255);
+  G = Math.round((G + m) * 255);
+  B = Math.round((B + m) * 255);
+
+  return {R, G, B};
 }
