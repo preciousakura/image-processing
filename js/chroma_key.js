@@ -11,14 +11,17 @@ let isPicking = false;
 function onChangeR(value) {
   picked_color.style.background = `rgb(${value}, ${g_picked}, ${b_picked})`;
   r_picked = value;
+  orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
 }
 function onChangeG(value) {
   picked_color.style.background = `rgb(${r_picked}, ${value}, ${b_picked})`;
   g_picked = value;
+  orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
 }
 function onChangeB(value) {
   picked_color.style.background = `rgb(${r_picked}, ${g_picked}, ${value})`;
   b_picked = value;
+  orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
 }
 
 function onChangeDistance(value) {
