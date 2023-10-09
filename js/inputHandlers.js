@@ -225,3 +225,11 @@ rotationLinearButton.addEventListener("click", () => {
     orchestrator.addImage(imgRotated);
   }
 });
+
+const cFFT = document.getElementById("cFFT");
+const expFFT = document.getElementById("expFFT");
+cFFT.addEventListener('change', changeImageFFT)
+expFFT.addEventListener('change', changeImageFFT)
+function changeImageFFT(){
+  erased_image_data.intensityTransform(gamma(cFFT.value, expFFT.value));
+}

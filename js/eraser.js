@@ -89,6 +89,7 @@ function fftApply(method) {
 
     lastImg = new image(pixels_fft, fft_result[0].length, fft_result.length);
     lastImg.normalize();
+    lastImg.intensityTransform(gamma(2, 1.75));
 
     canvas_eraser.width = lastImg.width, canvas_eraser.height = lastImg.height;
     canvas_eraser_pincel.width = lastImg.width, canvas_eraser_pincel.height = lastImg.height;
