@@ -40,3 +40,19 @@ function transform_array(a){
   for(let i = 0; i < size; i++) if(typeof aux[i] != "object") aux[i] = new complex(aux[i], 0);
   return aux;
 }
+
+function padding_array(a, n){
+  while(a.length != n) a.push(0);
+}
+
+function transform_image(m){
+  let aux = [];
+  let N = m.length, M = m[0].length;
+  let dimension = nearest_power2(Math.max(N, M));
+  for(let i = 0; i < dimension; i++){
+    let row = (i < N ? [...m[i]] : []);
+    padding_array(row, dimension);
+    aux.push(row);
+  }
+  return aux;
+}

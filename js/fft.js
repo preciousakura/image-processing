@@ -11,7 +11,7 @@ function calc_fft(a, invert){
   calc_fft(a0, invert);
   calc_fft(a1, invert);
 
-  let ang = 2 * Math.PI / n * (invert ? -1 : 1);
+  let ang = 2 * Math.PI / n * (invert ? 1 : -1);
   let w = new complex(1, 0), wn = new complex(Math.cos(ang), Math.sin(ang));
 
   for(let i = 0; 2 * i < n; i++){
@@ -32,8 +32,9 @@ function fft(a, invert=false){
 }
 
 function fft2(img, invert){
-  let aux = [], N = img[0].length, M = img.length;
-  for(let i = 0; i < M; i++) aux.push(fft(img[i], invert));
+  let img_aux = transform_image(img);
+  let aux = [], N = img_aux[0].length, M = img_aux.length;
+  for(let i = 0; i < M; i++) aux.push(fft(img_aux[i], invert));
   for(let j = 0; j < N; j++){
     let column = [];
     for(let i = 0; i < M; i++) column.push(aux[i][j]);
