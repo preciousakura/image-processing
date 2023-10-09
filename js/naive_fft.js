@@ -18,7 +18,7 @@ function F(u, v, inverse){
     return acm;
 }
 
-function naive_fft(a, inverse=false){
+function naive_fft2(a, inverse=false){
     transform_complex(a);
     let fft = [];
     for(let u = 0; u < M; u++){

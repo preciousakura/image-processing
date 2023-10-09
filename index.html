@@ -37,21 +37,17 @@
           <li class="transform">
             <a>Transformations</a>
             <div class="submenu">
-              <div id="histogramEqualizationButton">
-                <a>Histogram Equalization</a>
-              </div>
-              <div onclick="openModal('piecewise')">
-                <a>Piecewise Linear</a>
-              </div>
-              <div id="toGrayButton"><a>Gray Scale Arithmetic</a></div>
-              <div id="toGrayButtonW"><a>Gray Scale Weigthed</a></div>
+              Intensity
+              <div id="histogramEqualizationButton"><a>Histogram Equalization</a></div>
               <div id="normalizeButton"><a>Normalize</a></div>
               <div id="negativeButton"><a>Negative</a></div>
               <div onclick="openModal('gamma')"><a>Gamma</a></div>
               <div onclick="openModal('log')"><a>Log</a></div>
               <div onclick="openModal('treshold')"><a>Treshold</a></div>
+              <div onclick="openModal('piecewise')"><a>Piecewise Linear</a></div>
+              <div id="toGrayButton"><a>Gray Scale Arithmetic</a></div>
+              <div id="toGrayButtonW"><a>Gray Scale Weigthed</a></div>
               <div onclick="openModal('sepia')" id="sepia_button"><a>Sepia</a></div>
-              <div onclick="fftApply()"><a>FFT2</a></div>
               <div>
                 <label for="chromakey"><a>Chroma key</a></label>
                 <input
@@ -62,19 +58,17 @@
                   onchange="loadChromaKeyImage(event)"
                 />
               </div>
-            </div>
-          </li>
-          <li class="geometric_transform">
-            <a>Geometric Transformations</a>
-            <div class="submenu">
+              <hr>
+              Frequency Domain
+              <div onclick="fftApply(0)"><a>Naive FFT</a></div>
+              <div onclick="fftApply(1)"><a>FFT Cooley-Tukey</a></div>
+              <div onclick="fftApply(2)"><a>FFT Library</a></div>
+              <hr>
+              Geometric
               <div onclick="openModal('scale_none')"><a>Scale None</a></div>
               <div onclick="openModal('scale_linear')"><a>Scale Linear</a></div>
-              <div onclick="openModal('rotation_none')">
-                <a>Rotation None</a>
-              </div>
-              <div onclick="openModal('rotation_linear')">
-                <a>Rotation Linear</a>
-              </div>
+              <div onclick="openModal('rotation_none')"><a>Rotation None</a></div>
+              <div onclick="openModal('rotation_linear')"><a>Rotation Linear</a></div>
             </div>
           </li>
           <li class="filter">
