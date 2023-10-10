@@ -37,38 +37,38 @@
           <li class="transform">
             <a>Transformations</a>
             <div class="submenu">
-              Intensity
-              <div id="histogramEqualizationButton"><a>Histogram Equalization</a></div>
+              <span>Intensity</span>
+              <div id="histogramEqualizationButton">
+                <a>Histogram Equalization</a>
+              </div>
               <div id="normalizeButton"><a>Normalize</a></div>
               <div id="negativeButton"><a>Negative</a></div>
               <div onclick="openModal('gamma')"><a>Gamma</a></div>
               <div onclick="openModal('log')"><a>Log</a></div>
               <div onclick="openModal('treshold')"><a>Treshold</a></div>
-              <div onclick="openModal('piecewise')"><a>Piecewise Linear</a></div>
+              <div onclick="openModal('piecewise')">
+                <a>Piecewise Linear</a>
+              </div>
               <div id="toGrayButton"><a>Gray Scale Arithmetic</a></div>
               <div id="toGrayButtonW"><a>Gray Scale Weigthed</a></div>
-              <div onclick="openModal('sepia')" id="sepia_button"><a>Sepia</a></div>
-              <div>
-                <label for="chromakey"><a>Chroma key</a></label>
-                <input
-                  id="chromakey"
-                  name="archive"
-                  type="file"
-                  accept="image/*"
-                  onchange="loadChromaKeyImage(event)"
-                />
+              <div onclick="openModal('sepia')" id="sepia_button">
+                <a>Sepia</a>
               </div>
-              <hr>
-              Frequency Domain
+              <hr />
+              <span>Frequency Domain</span>
               <div onclick="fftApply(0)"><a>Naive FFT</a></div>
               <div onclick="fftApply(1)"><a>FFT Cooley-Tukey</a></div>
               <div onclick="fftApply(2)"><a>FFT Library</a></div>
-              <hr>
-              Geometric
+              <hr />
+              <span>Geometric</span>
               <div onclick="openModal('scale_none')"><a>Scale None</a></div>
               <div onclick="openModal('scale_linear')"><a>Scale Linear</a></div>
-              <div onclick="openModal('rotation_none')"><a>Rotation None</a></div>
-              <div onclick="openModal('rotation_linear')"><a>Rotation Linear</a></div>
+              <div onclick="openModal('rotation_none')">
+                <a>Rotation None</a>
+              </div>
+              <div onclick="openModal('rotation_linear')">
+                <a>Rotation Linear</a>
+              </div>
             </div>
           </li>
           <li class="filter">
@@ -81,6 +81,18 @@
               <div onclick="applyLaplacian()"><a>Laplacian</a></div>
               <div onclick="openModal('highboost')"><a>High-Boost</a></div>
               <div onclick="openModal('kernel')"><a>Kernel Free</a></div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <label for="chromakey"><a>Chroma key</a></label>
+              <input
+                id="chromakey"
+                name="archive"
+                type="file"
+                accept="image/*"
+                onchange="loadChromaKeyImage(event)"
+              />
             </div>
           </li>
           <li><a onclick="openModal('steganography')">Steganography</a></li>
@@ -125,42 +137,65 @@
                     onchange="onChangePencilType(event.target.value)"
                   />smooth pencil</label
                 >
-
               </div>
 
               <div class="values">
-                <label>
-                  dimension:
-                  <input
-                    value="3"
-                    type="number"
-                    onchange="changeDimension(event.target.value)"
-                  />
-                </label>
+                <div>
+                  <label>
+                    dimension:
+                    <input
+                      value="3"
+                      type="number"
+                      onchange="changeDimension(event.target.value)"
+                    />
+                  </label>
 
-                <label>
-                  color:
-                  <input
-                    type="number"
-                    max="1"
-                    min="0"
-                    step="0.1"
-                    value="0"
-                    onchange="onChangePencilColor(event.target.value)"
-                  />
-                </label>
+                  <label>
+                    color:
+                    <input
+                      type="number"
+                      max="1"
+                      min="0"
+                      step="0.1"
+                      value="0"
+                      onchange="onChangePencilColor(event.target.value)"
+                    />
+                  </label>
 
-                <label>
-                  sigma:
-                  <input
-                    disabled
-                    class="smoothoption"
-                    type="number"
-                    onchange="changeDimension(event.target.value)"
-                  />
-                </label>
-                <label><input type="number" max="100" min="-100" step=".15" id="cFFT"value="1"/> constant gamma </label>
-                <label><input type="number" max="100" min="-100" step=".15" id="expFFT"value="1"/> exp gamma </label>
+                  <label>
+                    sigma:
+                    <input
+                      disabled
+                      class="smoothoption"
+                      type="number"
+                      onchange="changeDimension(event.target.value)"
+                    />
+                  </label>
+                </div>
+                <div>
+                  <label
+                    >constant gamma:
+                    <input
+                      type="number"
+                      max="100"
+                      min="-100"
+                      step=".15"
+                      id="cFFT"
+                      value="1"
+                    />
+                  </label>
+                  <label
+                    >exp gamma:
+                    <input
+                      type="number"
+                      max="100"
+                      min="-100"
+                      step=".15"
+                      id="expFFT"
+                      value="1"
+                    />
+                  </label>
+                </div>
               </div>
 
               <div>
@@ -326,8 +361,14 @@
           </div>
 
           <div class="modal input" id="sepia" open>
-            <label><span>R:</span><input id="r_sepia"  min="0" value="1" type="number" /> </label>
-            <label><span>G:</span><input id="g_sepia"  min="0" value="1" type="number" /> </label>
+            <label
+              ><span>R:</span
+              ><input id="r_sepia" min="0" value="1" type="number" />
+            </label>
+            <label
+              ><span>G:</span
+              ><input id="g_sepia" min="0" value="1" type="number" />
+            </label>
             <button type="button" onclick="orchestrator.do(); closeModal();">
               apply changes
             </button>
@@ -490,10 +531,48 @@
               <div id="picked-color"></div>
               <div class="right-element">
                 <div class="options">
-                  <label><span>R:</span><input id="r_picker" onchange="onChangeR(event.target.value)" max="255" min="0" value="0" type="number" /> </label>
-                  <label><span>G:</span><input id="g_picker" onchange="onChangeG(event.target.value)" max="255" min="0" value="255" type="number" /> </label>
-                  <label><span>B:</span><input id="b_picker" onchange="onChangeB(event.target.value)" max="255" min="0" value="1" type="number" /> </label>
-                  <label class="distance"><span>Distance:</span><input onchange="onChangeDistance(event.target.value)" max="255" min="0" value="0" type="number" /></label>
+                  <label
+                    ><span>R:</span
+                    ><input
+                      id="r_picker"
+                      onchange="onChangeR(event.target.value)"
+                      max="255"
+                      min="0"
+                      value="0"
+                      type="number"
+                    />
+                  </label>
+                  <label
+                    ><span>G:</span
+                    ><input
+                      id="g_picker"
+                      onchange="onChangeG(event.target.value)"
+                      max="255"
+                      min="0"
+                      value="255"
+                      type="number"
+                    />
+                  </label>
+                  <label
+                    ><span>B:</span
+                    ><input
+                      id="b_picker"
+                      onchange="onChangeB(event.target.value)"
+                      max="255"
+                      min="0"
+                      value="1"
+                      type="number"
+                    />
+                  </label>
+                  <label class="distance"
+                    ><span>Distance:</span
+                    ><input
+                      onchange="onChangeDistance(event.target.value)"
+                      max="255"
+                      min="0"
+                      value="0"
+                      type="number"
+                  /></label>
                 </div>
                 <div class="buttons">
                   <button onclick="pick()">pick color</button>

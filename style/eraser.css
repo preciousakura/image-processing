@@ -34,8 +34,14 @@
   color: white;
 }
 
-#erasermodal .options .values {
+#erasermodal .options .values + div{
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+#erasermodal .options .values {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 }
