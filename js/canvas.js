@@ -23,7 +23,7 @@ var context_eraser_pincel = canvas_eraser_pincel.getContext('2d', { willReadFreq
 var canvas_eraser = document.getElementById('eraser');
 var context_eraser = canvas_eraser.getContext('2d', { willReadFrequently: true })
 var is_erasing = false;
-var radius = 3;
+var dimension = 3;
 
 window.onload = function () {
   applyChanges();

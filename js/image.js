@@ -125,21 +125,18 @@ class image {
     return buffer;
   }
 
-  erase(x, y, radius, color) {
-    const startX = x - radius;
-    const startY = y - radius;
+  erase(x, y, dimension, color) {
+    const startX = x - Math.round(dimension/2);
+    const startY = y - Math.round(dimension/2);
 
-    const gauss = gaussianKernel(radius * 2, 1);
-    let gauss_x = Math.round(gauss.length / 2) - radius,
-      gauss_y = Math.round(gauss.length / 2) - radius;
+    const gauss = gaussianKernel(dimension, 1);
+    let gauss_x = Math.round(gauss.length / 2) - dimension,
+      gauss_y = Math.round(gauss.length / 2) - dimension;
 
-    for (let i = startY; i < startY + radius * 2; i++) {
-      gauss_x = Math.round(gauss.length / 2) - radius;
-      for (let j = startX; j < startX + radius * 2; j++) {
-        console.log("comeco", this.matrix[i][j]);
-        // this.matrix[i][j] = this.matrix[i][j].multScalar(color);
-        console.log("final", this.matrix[i][j]);
-
+    for (let i = startY; i < startY + dimension; i++) {
+      gauss_x = Math.round(gauss.length / 2) - dimension;
+      for (let j = startX; j < startX + dimension; j++) {
+        this.matrix[i][j] = this.matrix[i][j].multScalar(color);
         gauss_x++;
       }
       gauss_y++;
