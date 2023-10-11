@@ -87,6 +87,14 @@ histogramEqualizationButton.addEventListener("click", () =>{
   }
 });
 
+const histogramEqualizationHSIButton = document.getElementById("histogramEqualizationHSIButton");
+histogramEqualizationHSIButton.addEventListener("click", () =>{
+  if(orchestrator){
+    orchestrator.histogramEqualization(3);
+    orchestrator.do();
+  }
+});
+
 const applyPiecewise = document.getElementById("applyPiecewise");
 applyPiecewise.addEventListener("click", () => {
   if(orchestrator){

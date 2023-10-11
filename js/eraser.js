@@ -153,6 +153,11 @@ function eraser_drag(e) {
 
   if(is_erasing) {
     const kernel = (current_pencil === 'rough' ? Array(dimension).fill(Array(dimension).fill(pencil_color)) : gaussianKernel(dimension, sigma));
+    if(current_pencil !== 'rough'){
+      for(let i = 0; i < kernel.length; i++)
+        for(let j = 0; j < kernel[0].length; j++)
+          kernel[i][j] = 1-kernel[i][j];
+    }
     erased_image_data.erase(x, y, dimension, kernel);
     applyKernelPixel(kernel, Math.round(kernel.length/2), Math.round(kernel.length/2), x, y);
   }

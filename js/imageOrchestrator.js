@@ -123,11 +123,17 @@ class imageOrchestrator {
         maxIntensity = Math.max(maxIntensity, this.imgTemp.matrix[i][j].max());
     return maxIntensity;
   }
-  // r = 0, b = 1, g = 2
+  // r = 0, b = 1, g = 2, hsI = 3
   intensityHistogram(comp) {
     let histogram = new Array(256).fill(0);
-    for (let i = 0; i < this.colorBuffer.data.length; i += 4) 
-      ++histogram[this.colorBuffer.data[i+comp]];
+    for (let i = 0; i < this.colorBuffer.data.length; i += 4) {
+      if(comp == 3){
+        let px = new pixel(this.colorBuffer.data[i]/255.0, this.colorBuffer.data[i+1]/255.0, this.colorBuffer.data[i+2]/255.0, 1.0);
+        ++histogram[Math.floor(px.toHSI()[2]*255)];
+      }else{
+        ++histogram[this.colorBuffer.data[i+comp]];
+      }
+    }
     return histogram;
   }
 
@@ -149,9 +155,27 @@ class imageOrchestrator {
 
   histogramEqualization(comp) {
     let map = this.histogramEqualizationMap(comp);
-    for (let i = 0; i < this.colorBuffer.data.length; i++) {
-      if (i%4 != comp) continue;
-      this.colorBuffer.data[i] = map[this.colorBuffer.data[i]];
+    if(comp == 3){
+      for (let i = 0; i < this.colorBuffer.data.length; i+=4) {
+        let px = new pixel(this.colorBuffer.data[i]/255.0, this.colorBuffer.data[i+1]/255.0, this.colorBuffer.data[i+2]/255.0, 1.0);
+        let h, s, I; [h, s, I] = px.toHSI();
+        I = Math.floor(I*255);
+        I = map[I];
+        I /= 255;
+        let r, g, b; [r, g, b] = hsiToRGB(h, s, I);
+        let m = (r+g+b)/3.0;
+        this.colorBuffer.data[i] = Math.floor(m*255);
+        this.colorBuffer.data[i+1] = Math.floor(m*255);
+        this.colorBuffer.data[i+2] = Math.floor(m*255);
+        // this.colorBuffer.data[i] = Math.floor(r*255);
+        // this.colorBuffer.data[i+1] = Math.floor(g*255);
+        // this.colorBuffer.data[i+2] = Math.floor(b*255);
+      }
+    }else{
+      for (let i = 0; i < this.colorBuffer.data.length; i++) {
+        if (i%4 != comp) continue;
+        this.colorBuffer.data[i] = map[this.colorBuffer.data[i]];
+      }
     }
   }
 

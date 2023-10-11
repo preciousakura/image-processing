@@ -27,17 +27,17 @@ class pixel{
   }
 
   toHSI(){
+    let r = this.r, g = this.g, b = this.b;
     let i = (r+g+b)/3.0;
     let s = (i == 0 ? 0 : 1-i*Math.min(r, g, b));
     let h = 0;
-    if(s != 0){
-      let numerator = (0.5*((r-g)+(r-b)));
-      let denominator = Math.sqrt((r-g)*(r-g)+(r-b)*(g-b));
-      let theta = Math.acos(numerator/denominator);
-      h = theta;
-      h = (180*h/Math.PI); //converting to degree
-      h = ((b <= g) ? h : 360-h);
-    }
+    let numerator = (0.5*((r-g)+(r-b)));
+    let eps = 1e-9;
+    let denominator = Math.sqrt((r-g)*(r-g)+(r-b)*(g-b))+eps;
+    let theta = Math.acos(numerator/denominator);
+    h = theta;
+    h = (180*h/Math.PI); //converting to degree
+    h = ((b <= g) ? h : 360-h);
     return [h, s, i];
   }
 
@@ -71,14 +71,13 @@ function rgbToHSI(r, g, b){
   let i = (r+g+b)/3.0;
   let s = (i == 0 ? 0 : 1-i*Math.min(r, g, b));
   let h = 0;
-  if(s != 0){
-    let numerator = (0.5*((r-g)+(r-b)));
-    let denominator = Math.sqrt((r-g)*(r-g)+(r-b)*(g-b));
-    let theta = Math.acos(numerator/denominator);
-    h = theta;
-    h = (180*h/Math.PI); //converting to degree
-    h = ((b <= g) ? h : 360-h);
-  }
+  let numerator = (0.5*((r-g)+(r-b)));
+  let eps = 1e-9;
+  let denominator = Math.sqrt((r-g)*(r-g)+(r-b)*(g-b))+eps;
+  let theta = Math.acos(numerator/denominator);
+  h = theta;
+  h = (180*h/Math.PI); //converting to degree
+  h = ((b <= g) ? h : 360-h);
   return [h, s, i];
 }
 
@@ -125,11 +124,7 @@ function hsiToRGB(H, S, I) {
     B += m;
   }
 
-  R = Math.round(R * 255);
-  G = Math.round(G * 255);
-  B = Math.round(B * 255);
-
-  return {R, G, B};
+  return [R, G, B];
 }
 
 function hsvToRGB(H, S, V) {
@@ -151,9 +146,5 @@ function hsvToRGB(H, S, V) {
   else if (H >= 240 && H < 300) [R, G, B] = [X, 0, C];
   else [R, G, B] = [C, 0, X];
 
-  R = Math.round((R + m) * 255);
-  G = Math.round((G + m) * 255);
-  B = Math.round((B + m) * 255);
-
-  return {R, G, B};
+  return [R, G, B];
 }
