@@ -34,8 +34,8 @@ function normalize(divisor){
 function treshold(t){
     t = t/255.0;
     return function(px){
-        if(px.r < t) return new pixel(0.0, 0.0, 0.0, 1.0);
-        return new pixel(1.0, 1.0, 1.0, 1.0);
+        if(Math.min(px.r, px.g, px.b) < t) return new pixel(0.0, 0.0, 0.0, 1.0);
+        return px;
     }
 }
 
