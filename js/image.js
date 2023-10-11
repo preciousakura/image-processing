@@ -44,7 +44,7 @@ class image {
         this.matrix[i][j] = T(this.matrix[i][j]);
   }
 
-  applyKernelPixel(k, ki, kj, i, j) {
+  applyKernelPixel(k, ki, kj, i, j){
     let n = k.length; //kernel dimension is n x n
     let i_min = i - ki,
       i_max = i + n - ki - 1;
@@ -125,21 +125,14 @@ class image {
     return buffer;
   }
 
-  erase(x, y, dimension, color) {
+  erase(x, y, dimension, k) {
     const startX = x - Math.round(dimension/2);
     const startY = y - Math.round(dimension/2);
-
-    const gauss = gaussianKernel(dimension, 1);
-    let gauss_x = Math.round(gauss.length / 2) - dimension,
-      gauss_y = Math.round(gauss.length / 2) - dimension;
-
-    for (let i = startY; i < startY + dimension; i++) {
-      gauss_x = Math.round(gauss.length / 2) - dimension;
-      for (let j = startX; j < startX + dimension; j++) {
-        this.matrix[i][j] = this.matrix[i][j].multScalar(color);
-        gauss_x++;
+    for (let i = startY, x = 0; i < startY + dimension; i++, x++) {
+      for (let j = startX, y = 0; j < startX + dimension; j++, y++) {
+        if(!this.pixelInImage(i, j)) continue;
+        this.matrix[i][j] = this.matrix[i][j].multScalar(k[x][y]);
       }
-      gauss_y++;
     }
   }
 

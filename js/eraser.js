@@ -5,7 +5,7 @@ const smooth_options = Array.from(document.getElementsByClassName('smoothoption'
 let lastImg;
 let op = 0, original_width, original_height;
 let current_pencil = 'rough';
-let pencil_color = 0;
+let pencil_color = 0, sigma = 1.5;
 let fft_result = []
 
 function onChangePencilColor(e) {
@@ -27,6 +27,10 @@ function onChangePencilType(e) {
 
 function changeDimension(e) {
   dimension = Number(e);
+}
+
+function changeSigma(e) {
+  sigma = Number(e);
 }
 
 function applyFFT(matrix){
@@ -148,8 +152,8 @@ function eraser_drag(e) {
   context_eraser_pincel.stroke();
 
   if(is_erasing) {
-    erased_image_data.erase(x, y, dimension, pencil_color);
-    const kernel = current_pencil === 'rough' ? Array(dimension).fill(Array(dimension).fill(pencil_color)) : [];
+    const kernel = (current_pencil === 'rough' ? Array(dimension).fill(Array(dimension).fill(pencil_color)) : gaussianKernel(dimension, sigma));
+    erased_image_data.erase(x, y, dimension, kernel);
     applyKernelPixel(kernel, Math.round(kernel.length/2), Math.round(kernel.length/2), x, y);
   }
 }
@@ -160,14 +164,16 @@ function clear() {
 
 function applyKernelPixel(k, ki, kj, i, j) {
   let n = k.length; //kernel dimension is n x n
-  let i_min = i - ki,
-    i_max = i + n - ki - 1;
-  let j_min = j - kj,
-    j_max = j + n - kj - 1;
+  let i_min = i - ki, i_max = i + n - ki - 1;
+  let j_min = j - kj, j_max = j + n - kj - 1;
   for (let x = i_min, i = 0; x <= i_max; i++, x++)
     for (let y = j_min, j = 0; y <= j_max; j++, y++) {
-      if(!lastImg.pixelInImage(x, y))
-        continue;
-      fft_result[x][y] *= k[i][j];
+      if(!lastImg.pixelInImage(x, y)) continue;
+      let nv;
+      if(op == 2)
+        nv = [fft_result[x][y][0]*k[i][j], fft_result[x][y][1]*k[i][j]];
+      else
+        nv = {a: fft_result[x][y].a*k[i][j], b:fft_result[x][y].b*k[i][j]};
+      fft_result[x][y] = nv;
     }
 }
