@@ -13,15 +13,16 @@
 - [x] Aguçamento (nitidez) por Laplaciano 
 - [x] High-Boost 
 - [x] Filtros de Sobel 
-- [ ] Detecção não linear de bordas pelo gradiente (magnitude) 
-- [ ] Cálculo da Transformada Discreta de Fourier 
-- [ ] Exibição e edição do espectro
-- [ ] Transformada Inversa 
+- [x] Detecção não linear de bordas pelo gradiente (magnitude) 
+- [x] Cálculo da Transformada Discreta de Fourier 
+- [x] Exibição e edição do espectro
+- [x] Transformada Inversa 
 - [x] Chroma-Key 
 - [x] Histograma (R, G, B e I) 
 - [x] Equalização de Histograma em imagens coloridas (RGB) 
-- [ ] Equalização de Histograma em imagens coloridas (HSI) 
+- [x] Equalização de Histograma em imagens coloridas (HSI) 
 - [x] Suavização e Aguçamento em imagens coloridas 
+- [ ] Ferramenta para transformação entre sistemas de cores: RGB<->HSV
 - [ ] Ajuste de Matiz 
 - [ ] Saturação e Brilho 
 - [ ] Ajuste de Canal (C/R, M/G, Y/B) 

@@ -97,7 +97,8 @@ function rgbToHSV(r, g, b){
 
 
 function hsiToRGB(H, S, I) {
-  H = (H + 360) % 360;
+  H = H + 360;
+  H -= Math.floor(H/360)*360;
 
   S = Math.min(Math.max(S, 0), 1);
   I = Math.min(Math.max(I, 0), 1);
