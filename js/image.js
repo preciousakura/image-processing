@@ -95,8 +95,6 @@ class image {
     this.matrix = newImage;
   }
 
-  //isMax = true return max
-  //isMax = false rturn min
   maxMinIntensity(isMax) {
     let m = isMax ? Number.MIN_VALUE : Number.MAX_VALUE;
     let func = isMax ? Math.max : Math.min;
@@ -130,6 +128,7 @@ class image {
     const startY = y - Math.round(dimension/2);
     for (let i = startY, x = 0; i < startY + dimension; i++, x++) {
       for (let j = startX, y = 0; j < startX + dimension; j++, y++) {
+        i = Math.round(i), j = Math.round(j);
         if(!this.pixelInImage(i, j)) continue;
         this.matrix[i][j] = this.matrix[i][j].multScalar(k[x][y]);
       }

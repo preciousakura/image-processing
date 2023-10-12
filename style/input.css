@@ -1,0 +1,37 @@
+textarea,
+input[type="number"] {
+  background: var(--primary-700);
+  border: 1px solid var(--primary-200);
+  outline: none;
+  color: var(--secondary-100);
+  padding: 0.2rem;
+}
+
+input[type="number"] {
+  width: 70px;
+}
+
+textarea {
+    resize: none;
+}
+
+label {
+  color: var(--secondary-100);
+  display: flex;
+  gap: 0.5rem;
+}
+
+label.textarea {
+  color: var(--secondary-100);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+button {
+  color: var(--secondary-100);
+  background: var(--primary-700);
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  border: 1px solid var(--primary-200);
+}

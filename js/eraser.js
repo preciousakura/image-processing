@@ -1,3 +1,11 @@
+const canvas_eraser_pincel = document.getElementById('eraser_pincel');
+const context_eraser_pincel = canvas_eraser_pincel.getContext('2d', { willReadFrequently: true })
+
+const canvas_eraser = document.getElementById('eraser');
+const context_eraser = canvas_eraser.getContext('2d', { willReadFrequently: true })
+let is_erasing = false;
+let dimension = 3;
+
 let lastPositionX, lastPositionY, erased_image_data;
 const pencil_type = document.getElementsByName('typepencil');
 const smooth_options = Array.from(document.getElementsByClassName('smoothoption'))
@@ -7,6 +15,12 @@ let op = 0, original_width, original_height;
 let current_pencil = 'rough';
 let pencil_color = 0, sigma = 1.5;
 let fft_result = []
+
+canvas_eraser_pincel.onmousedown = eraser_hold;
+canvas_eraser_pincel.onmouseup = eraser_drop;
+canvas_eraser_pincel.onmouseout = eraser_drop;
+canvas_eraser_pincel.onmousemove = eraser_drag;  
+canvas_eraser_pincel.onclick = eraser_click;
 
 function onChangePencilColor(e) {
   pencil_color = e;
@@ -102,7 +116,8 @@ function fftApply(method) {
     erased_image_data = new imageOrchestrator(data_image, context_eraser, canvas_eraser, false);
     erased_image_data.addImage(lastImg);
     
-    openModal('erasermodal')
+    openPopup('fftPopup');
+    closeSubmenu();
   }
 }
 
@@ -123,7 +138,7 @@ function applyInverseFft() {
   let lastImg = new image(pixels_fft, original_width, original_height);
 
   orchestrator.addImage(lastImg);
-  closeModal();
+  closePopup();
 }
 
 function eraser_hold(e) {
@@ -173,6 +188,9 @@ function applyKernelPixel(k, ki, kj, i, j) {
   let j_min = j - kj, j_max = j + n - kj - 1;
   for (let x = i_min, i = 0; x <= i_max; i++, x++)
     for (let y = j_min, j = 0; y <= j_max; j++, y++) {
+      i = Math.round(i), j = Math.round(j);
+      x = Math.round(x), y = Math.round(y);
+
       if(!lastImg.pixelInImage(x, y)) continue;
       let nv;
       if(op == 2)

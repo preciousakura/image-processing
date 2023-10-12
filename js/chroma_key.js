@@ -8,6 +8,10 @@ const picked_color = document.getElementById("picked-color");
 let distance = 0;
 let isPicking = false;
 
+canvas_img.onmousemove = pick_move;  
+canvas_img.onmouseout = pick_drop;
+canvas_img.onclick = pick_color;
+
 function onChangeR(value) {
   picked_color.style.background = `rgb(${value}, ${g_picked}, ${b_picked})`;
   r_picked = value;
@@ -54,7 +58,7 @@ const loadChromaKeyImage = (event) => {
         const scale_y = canvas_img.height/height;
         image_chromaK = image_chromaK.scaleNone(scale_x, scale_y);
         
-        openModal("pickerchromakey");
+        openPopup('chromakeyPopup')
         orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
         img.style.display = "none";
 
@@ -73,7 +77,7 @@ function closeChromaKey() {
   isPicking = false;
   image_chromaK = undefined;
   r_picked = 0, g_picked = 255, b_picked = 1;
-  closeModal();
+  closePopup();
 }
 
 function pick() {

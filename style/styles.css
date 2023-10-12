@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&display=swap");
+
+:root {
+  --primary-900: #11151cff;
+  --primary-800: #151b25ff;
+  --primary-700: #19212eff;
+  --primary-600: #212d40ff;
+  --primary-500: #273246ff;
+  --primary-400: #2c374bff;
+  --primary-300: #313c51ff;
+  --primary-200: #343f54ff;
+  --primary-100: #364156ff;
+  --primary-50: #485265ff;
+
+  --secondary-100: #eceff4;
+  --secondary-200: #e5e9f0;
+  --secondary-300: #d8dee9;
+
+  --black: #000000;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Gabarito", sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 32px 1fr;
+  height: 100vh;
+  background: var(--primary-900);
+  position: relative;
+  overflow: hidden;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: auto;
+}

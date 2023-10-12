@@ -1,0 +1,58 @@
+nav > ul {
+  display: flex;
+  align-items: center;
+  background: var(--primary-800);
+}
+
+nav > ul > li > button {
+  color: var(--secondary-100);
+  position: relative;
+  background: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+}
+
+nav > ul > li > button:hover {
+  background: var(--primary-700);
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  background: var(--primary-700);
+  z-index: 10;
+}
+
+.submenu ul li button {
+  color: var(--secondary-100);
+  background: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.submenu ul li button a {
+  color: var(--white);
+}
+
+.submenu ul li label, nav ul li label {
+  cursor: pointer;
+}
+
+.submenu ul li button:hover {
+  background: var(--primary-600);
+}
+
+.submenu .section span {
+  background-color: var(--primary-800);
+  color: var(--secondary-100);
+  padding: 0.7rem 0.5rem;
+  display: block;
+}
+
+input[type="file"] {
+  display: none;
+}

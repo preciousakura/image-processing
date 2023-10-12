@@ -1,3 +1,15 @@
+
+const canvas_pl = document.getElementById("piecewise-linear");
+const context_pl = canvas_pl.getContext("2d", { willReadFrequently: true });
+
+let isDragging = false, selectedCircleDrag = -1, selectedCircle = -1;
+const valueX = document.getElementById("valueX")
+const valueY = document.getElementById("valueY")
+
+const radio_channel = document.getElementsByName("rgb");
+const check_color_type = document.getElementById("scale_check");
+let current_channel = "gray";
+
 let channels = {
   gray: {
     color: '#a0aec0',
@@ -33,9 +45,11 @@ let channels = {
   },
 };
 
-const radio_channel = document.getElementsByName("rgb");
-const check_color_type = document.getElementById("scale_check");
-let current_channel = "gray";
+canvas_pl.onmousedown = hold;
+canvas_pl.onmouseup = drop;
+canvas_pl.onmouseout = drop;
+canvas_pl.onmousemove = drag;
+canvas_pl.ondblclick = dblclick;
 
 function changeColorType(e) {
   if (e) {
@@ -287,8 +301,6 @@ function closePiecewise() {
   closeModal();
 }
 
-//calculate piecewise
-
 function lineEquation(p1, p2) {
   let m = (p2[1] - p1[1]) / (p2[0] - p1[0]);
   let b = p2[1] - m * p2[0];
@@ -329,6 +341,5 @@ function piecewise(x) {
 }
 
 function piecewisePixel(px) {
-  // let imgaux = orchestrator.imageHistory[orchestrator.imageHistory.length - 1].copyImage();
   return channels[current_channel].piecewise(px);
 }
