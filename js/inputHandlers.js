@@ -72,6 +72,14 @@ function histogramEq() {
   closeSubmenu();
 }
 
+function histogramHSIEq() {
+  if(orchestrator){
+    orchestrator.histogramEqualization(3);
+    orchestrator.do();
+  }
+  closeSubmenu();
+}
+
 function normalize() {
   if (orchestrator) {
     let divisor = orchestrator.getBiggestIntensity();
