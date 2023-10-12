@@ -92,7 +92,7 @@ function rgbToHSV(r, g, b){
     else h = 60*(4+(r-g)/(mmax-mmin));
   }
   if(h < 0) h += 360;
-  return [h, s, v];
+  return [Math.round(h), Math.round(s * 100), Math.round(v/255 * 100)];
 }
 
 
@@ -129,7 +129,8 @@ function hsiToRGB(H, S, I) {
 }
 
 function hsvToRGB(H, S, V) {
-  H = (H + 360) % 360;
+  S = S/100;
+  V = V/100;
 
   S = Math.min(Math.max(S, 0), 1);
   V = Math.min(Math.max(V, 0), 1);
@@ -147,5 +148,5 @@ function hsvToRGB(H, S, V) {
   else if (H >= 240 && H < 300) [R, G, B] = [X, 0, C];
   else [R, G, B] = [C, 0, X];
 
-  return [R, G, B];
+  return [Math.round((R + m) * 255), Math.round((G + m) * 255), Math.round((B + m) * 255)]
 }

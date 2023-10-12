@@ -53,3 +53,9 @@
 #eraser_pincel {
   position: absolute;
 }
+
+#transform-color {
+  background: rgb(255, 255, 255);
+  width: 100%;
+  height: 100px;
+}

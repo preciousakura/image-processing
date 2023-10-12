@@ -76,6 +76,7 @@ function closePopup() {
     orchestrator.recoverLastImage();
     orchestrator.showChanges();
   }
+  closeSubmenu();
 }
 
 function minimizeHistogram() {

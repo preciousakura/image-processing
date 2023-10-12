@@ -94,16 +94,26 @@
           </div>
         </li>
         <li>
-          <button>
-            <label for="chromakey">Chroma Key</label>
-            <input
-              id="chromakey"
-              name="chromakey"
-              type="file"
-              accept="image/*"
-              onchange="loadChromaKeyImage(event)"
-            />
-          </button>
+          <button onclick="openSubmenu('colors')">Colors</button>
+          <div class="submenu" id="colors">
+            <ul>
+              <li>
+                <button>
+                  <label for="chromakey">Chroma Key</label>
+                  <input
+                    id="chromakey"
+                    name="chromakey"
+                    type="file"
+                    accept="image/*"
+                    onchange="loadChromaKeyImage(event)"
+                  />
+                </button>
+              </li>
+              <li><button onclick="openPopup('rgbPopup')">Channel Adjustment (RGB)</button></li>
+              <li><button onclick="openPopup('hslPopup')">Adjust Hue, Saturation and Brightness (HSL)</button></li>
+              <li><button onclick="openPopup('colorTransformPopup')">Color transformation (RGB/HSV)</button></li>
+            </ul>
+          </div>
         </li>
         <li>
           <button onclick="openSubmenu('steganography')">Steganography</button>
@@ -507,6 +517,70 @@
           <div class="buttons">
             <button onclick="applyInverseFft()">Apply</button>
             <button onclick="closePopup()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup" id="rgbPopup">
+        <div class="popup__options" id="rgbPopup_options">
+          <i class="ph ph-x" onclick="closePopup()"></i>
+        </div>
+        <div class="header">
+          <h3>Channel Adjustment (RGB)</h3>
+        </div>
+        <div class="content">
+          <div class="options">
+            <label>dimension:<input type="number" max="3" min="99" step="2" id="dimensionGauss" value="3"/></label>
+            <label>sigma:<input type="number" max="0" min="100" step="1.5" id="sigmaGauss" value="1.5"/></label>
+          </div>
+          <div class="buttons">
+            <button onclick="gaussian()">Apply</button>
+            <button onclick="closePopup()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup" id="hslPopup">
+        <div class="popup__options" id="hslPopup_options">
+          <i class="ph ph-x" onclick="closePopup()"></i>
+        </div>
+        <div class="header">
+          <h3>Hue, Saturation and Brightness</h3>
+        </div>
+        <div class="content">
+          <div class="options">
+            <label>dimension:<input type="number" max="3" min="99" step="2" id="dimensionGauss" value="3"/></label>
+            <label>sigma:<input type="number" max="0" min="100" step="1.5" id="sigmaGauss" value="1.5"/></label>
+          </div>
+          <div class="buttons">
+            <button onclick="gaussian()">Apply</button>
+            <button onclick="closePopup()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup" id="colorTransformPopup">
+        <div class="popup__options" id="colorTransformPopup_options">
+          <i class="ph ph-x" onclick="closePopup()"></i>
+        </div>
+        <div class="header">
+          <h3>Color Transform</h3>
+        </div>
+        <div class="content">
+          <div id="transform-color"></div>
+          <div class="options">
+            <div>
+              <label>R:<input type="number" max="255" min="0" id="transform_r" value="255"/></label>
+              <label>H:<input type="number" max="360" min="0" id="transform_h" value="0"/>º</label>
+            </div>
+            <div>
+              <label>G:<input type="number" max="255" min="0" id="transform_g" value="255"/></label>
+              <label>S:<input type="number" max="100" min="0" id="transform_s" value="0"/>%</label>
+            </div>
+            <div>
+              <label>B:<input type="number" max="255" min="0" id="transform_b" value="255"/></label>
+              <label>V:<input type="number" max="100" min="0" id="transform_v" value="100"/>%</label>
+            </div>
           </div>
         </div>
       </div>
