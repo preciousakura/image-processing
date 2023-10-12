@@ -33,8 +33,8 @@ function encrypt() {
 
 function decrypt() {
   if (orchestrator) {
-    openPopup('decryptPopup')
     document.getElementById("steMessage").innerHTML = orchestrator.steganographyDecrypt();
+    openPopup('decryptPopup')
   }
   closeSubmenu();
 }
