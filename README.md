@@ -22,7 +22,7 @@
 - [x] Equalização de Histograma em imagens coloridas (RGB) 
 - [x] Equalização de Histograma em imagens coloridas (HSI) 
 - [x] Suavização e Aguçamento em imagens coloridas 
-- [ ] Ferramenta para transformação entre sistemas de cores: RGB<->HSV
+- [x] Ferramenta para transformação entre sistemas de cores: RGB<->HSV
 - [ ] Ajuste de Matiz 
 - [ ] Saturação e Brilho 
 - [ ] Ajuste de Canal (C/R, M/G, Y/B) 
