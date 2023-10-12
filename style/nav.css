@@ -22,6 +22,8 @@ nav > ul > li > button:hover {
   position: absolute;
   background: var(--primary-700);
   z-index: 10;
+  max-height: calc(100vh - 60px);
+  overflow: auto;
 }
 
 .submenu ul li button {
