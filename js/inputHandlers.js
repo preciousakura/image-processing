@@ -27,6 +27,7 @@ function encrypt() {
   if (orchestrator)
     orchestrator.steganographyEncrypt(text);
   closeSubmenu();
+  closePopup();
 }
 
 function decrypt() {
