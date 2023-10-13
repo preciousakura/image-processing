@@ -14,7 +14,6 @@ cLog.addEventListener("change", () => {
   if (orchestrator) orchestrator.intensityTransform(log2(cLog.value));
 });
 
-
 const tresholdValue = document.getElementById("tresholdValue");
 tresholdValue.addEventListener("change", () => {
   if (orchestrator) {
@@ -33,8 +32,9 @@ function encrypt() {
 
 function decrypt() {
   if (orchestrator) {
-    document.getElementById("steMessage").innerHTML = orchestrator.steganographyDecrypt();
-    openPopup('decryptPopup')
+    document.getElementById("steMessage").innerHTML =
+      orchestrator.steganographyDecrypt();
+    openPopup("decryptPopup");
   }
   closeSubmenu();
 }
@@ -73,7 +73,7 @@ function histogramEq() {
 }
 
 function histogramHSIEq() {
-  if(orchestrator){
+  if (orchestrator) {
     orchestrator.histogramEqualization(3);
     orchestrator.do();
   }
@@ -91,7 +91,7 @@ function normalize() {
 const dimensionGauss = document.getElementById("dimensionGauss");
 const sigmaGauss = document.getElementById("sigmaGauss");
 function gaussian() {
-    if (orchestrator) {
+  if (orchestrator) {
     let n = parseInt(dimensionGauss.value);
     let sigma = parseFloat(sigmaGauss.value);
     let mid = Math.floor(n / 2.0);
@@ -136,7 +136,7 @@ function applyLaplacian() {
     let n = 3;
     let mid = Math.floor(n / 2.0);
     orchestrator.applyKernel(laplacianKernel(), mid, mid, true);
-    closeSubmenu()
+    closeSubmenu();
   }
 }
 
@@ -178,7 +178,7 @@ function applySobel() {
     let imgC = binOperationIMG(imgA, imgB, sum);
     imgC.intensityTransform(unaryOperationPX((x) => Math.sqrt(x)));
     orchestrator.addImage(imgC);
-    closeSubmenu()
+    closeSubmenu();
   }
 }
 
@@ -240,75 +240,177 @@ function changeImageFFT() {
   erased_image_data.intensityTransform(gamma(cFFT.value, expFFT.value));
 }
 
-const transform_r = document.getElementById('transform_r')
-const transform_g = document.getElementById('transform_g')
-const transform_b = document.getElementById('transform_b')
+const transform_r = document.getElementById("transform_r");
+const transform_g = document.getElementById("transform_g");
+const transform_b = document.getElementById("transform_b");
 
-const transform_h = document.getElementById('transform_h')
-const transform_s = document.getElementById('transform_s')
-const transform_v = document.getElementById('transform_v')
+const transform_h = document.getElementById("transform_h");
+const transform_s = document.getElementById("transform_s");
+const transform_v = document.getElementById("transform_v");
 
-const transform_color = document.getElementById('transform-color')
+const transform_color = document.getElementById("transform-color");
 
 transform_r.addEventListener("change", (e) => {
   const color = e.target.value;
-  const transformedColor = rgbToHSV(color, transform_g.value, transform_b.value);
+  const transformedColor = rgbToHSV(
+    color,
+    transform_g.value,
+    transform_b.value
+  );
 
   transform_h.value = transformedColor[0];
   transform_s.value = transformedColor[1];
   transform_v.value = transformedColor[2];
 
-  transform_color.style.background = `rgb(${color}, ${transform_g.value}, ${transform_b.value})`
+  transform_color.style.background = `rgb(${color}, ${transform_g.value}, ${transform_b.value})`;
 });
 transform_g.addEventListener("change", (e) => {
   const color = e.target.value;
-  const transformedColor = rgbToHSV(transform_r.value, color, transform_b.value);
+  const transformedColor = rgbToHSV(
+    transform_r.value,
+    color,
+    transform_b.value
+  );
 
   transform_h.value = transformedColor[0];
   transform_s.value = transformedColor[1];
   transform_v.value = transformedColor[2];
 
-  transform_color.style.background = `rgb(${transform_r.value}, ${color}, ${transform_b.value})`
+  transform_color.style.background = `rgb(${transform_r.value}, ${color}, ${transform_b.value})`;
 });
 transform_b.addEventListener("change", (e) => {
   const color = e.target.value;
-  const transformedColor = rgbToHSV(transform_r.value, transform_g.value, color);
+  const transformedColor = rgbToHSV(
+    transform_r.value,
+    transform_g.value,
+    color
+  );
 
   transform_h.value = transformedColor[0];
   transform_s.value = transformedColor[1];
   transform_v.value = transformedColor[2];
 
-  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${color})`
+  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${color})`;
 });
 
 transform_h.addEventListener("change", (e) => {
   const color = e.target.value;
-  const transformedColor = hsvToRGB(color, transform_s.value, transform_v.value);
+  const transformedColor = hsvToRGB(
+    color,
+    transform_s.value,
+    transform_v.value
+  );
 
   transform_r.value = transformedColor[0];
   transform_g.value = transformedColor[1];
   transform_b.value = transformedColor[2];
 
-  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`
+  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`;
 });
 transform_s.addEventListener("change", (e) => {
   const color = e.target.value;
-  const transformedColor = hsvToRGB(transform_h.value, color, transform_v.value)
+  const transformedColor = hsvToRGB(
+    transform_h.value,
+    color,
+    transform_v.value
+  );
 
   transform_r.value = transformedColor[0];
   transform_g.value = transformedColor[1];
   transform_b.value = transformedColor[2];
 
-  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`
+  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`;
 });
 transform_v.addEventListener("change", (e) => {
   const color = e.target.value;
-  const transformedColor = hsvToRGB(transform_h.value, transform_s.value, color)
+  const transformedColor = hsvToRGB(
+    transform_h.value,
+    transform_s.value,
+    color
+  );
 
   transform_r.value = transformedColor[0];
   transform_g.value = transformedColor[1];
   transform_b.value = transformedColor[2];
 
-  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`
+  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`;
 });
 
+const hsl_h = document.getElementById("hsl_h");
+const hsl_s = document.getElementById("hsl_s");
+const hsl_l = document.getElementById("hsl_l");
+const transform_hsl = document.getElementById("hsl-color");
+
+hsl_h.addEventListener("change", (_) => {
+  const h = hsl_h.value;
+  const s = hsl_s.value / 100;
+  const l = hsl_l.value / 100;
+
+  const color = hsiToRGB(h, s, l);
+  transform_hsl.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${
+    color[2] * 255
+  })`;
+
+  orchestrator.intensityTransform(transformHsl(h, s, l));
+});
+
+hsl_s.addEventListener("change", (_) => {
+  const h = hsl_h.value;
+  const s = hsl_s.value / 100;
+  const l = hsl_l.value / 100;
+
+  const color = hsiToRGB(h, s, l);
+  transform_hsl.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${
+    color[2] * 255
+  })`;
+
+  orchestrator.intensityTransform(transformHsl(h, s, l));
+});
+
+hsl_l.addEventListener("change", (_) => {
+  const h = hsl_h.value;
+  const s = hsl_s.value / 100;
+  const l = hsl_l.value / 100;
+
+  const color = hsiToRGB(h, s, l);
+  transform_hsl.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${
+    color[2] * 255
+  })`;
+
+  orchestrator.intensityTransform(transformHsl(h, s, l));
+});
+
+const rgb_r = document.getElementById("rgb_r");
+const rgb_g = document.getElementById("rgb_g");
+const rgb_b = document.getElementById("rgb_b");
+const transform_rgb = document.getElementById("rgb-color");
+
+rgb_r.addEventListener("change", (_) => {
+  const r = rgb_r.value;
+  const g = rgb_g.value;
+  const b = rgb_b.value;
+
+  transform_rgb.style.background = `rgb(${r}, ${g}, ${b})`;
+
+  orchestrator.intensityTransform(transformRGB(r, g, b));
+});
+
+rgb_g.addEventListener("change", (_) => {
+  const r = rgb_r.value;
+  const g = rgb_g.value;
+  const b = rgb_b.value;
+
+  transform_rgb.style.background = `rgb(${r}, ${g}, ${b})`;
+
+  orchestrator.intensityTransform(transformRGB(r, g, b));
+});
+
+rgb_b.addEventListener("change", (_) => {
+  const r = rgb_r.value;
+  const g = rgb_g.value;
+  const b = rgb_b.value;
+
+  transform_rgb.style.background = `rgb(${r}, ${g}, ${b})`;
+
+  orchestrator.intensityTransform(transformRGB(r, g, b));
+});

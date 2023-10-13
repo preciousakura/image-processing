@@ -529,12 +529,14 @@
           <h3>Channel Adjustment (RGB)</h3>
         </div>
         <div class="content">
+          <div id="rgb-color"></div>
           <div class="options">
-            <label>dimension:<input type="number" max="3" min="99" step="2" id="dimensionGauss" value="3"/></label>
-            <label>sigma:<input type="number" max="0" min="100" step="1.5" id="sigmaGauss" value="1.5"/></label>
+            <label>R:<input type="number" max="255" min="0" id="rgb_r" value="0"/></label>
+            <label>G:<input type="number" max="255" min="0" id="rgb_g" value="0"/></label>
+            <label>B:<input type="number" max="255" min="0" id="rgb_b" value="0"/></label>
           </div>
           <div class="buttons">
-            <button onclick="gaussian()">Apply</button>
+            <button onclick="apply()">Apply</button>
             <button onclick="closePopup()">Cancel</button>
           </div>
         </div>
@@ -548,12 +550,14 @@
           <h3>Hue, Saturation and Brightness</h3>
         </div>
         <div class="content">
+          <div id="hsl-color"></div>
           <div class="options">
-            <label>dimension:<input type="number" max="3" min="99" step="2" id="dimensionGauss" value="3"/></label>
-            <label>sigma:<input type="number" max="0" min="100" step="1.5" id="sigmaGauss" value="1.5"/></label>
+            <label>Hue:<input type="number" max="360" min="0" id="hsl_h" value="0"/>º</label>
+            <label>Saturation:<input type="number" max="100" min="0" id="hsl_s" value="0"/>%</label>
+            <label>Brightness:<input type="number" max="100" min="0" id="hsl_l" value="0"/>%</label>
           </div>
           <div class="buttons">
-            <button onclick="gaussian()">Apply</button>
+            <button onclick="apply()">Apply</button>
             <button onclick="closePopup()">Cancel</button>
           </div>
         </div>

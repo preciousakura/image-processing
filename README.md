@@ -23,9 +23,8 @@
 - [x] Equalização de Histograma em imagens coloridas (HSI) 
 - [x] Suavização e Aguçamento em imagens coloridas 
 - [x] Ferramenta para transformação entre sistemas de cores: RGB<->HSV
-- [ ] Ajuste de Matiz 
-- [ ] Saturação e Brilho 
-- [ ] Ajuste de Canal (C/R, M/G, Y/B) 
+- [ ] Ajuste de Matiz, Saturação e Brilho 
+- [x] Ajuste de Canal (C/R, M/G, Y/B) 
 - [x] Sépia 
 - [x] Escala com interpolação pelo vizinho mais próximo 
 - [x] Escala com interpolação linear

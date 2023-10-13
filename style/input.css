@@ -19,6 +19,7 @@ label {
   color: var(--secondary-100);
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 label.textarea {
