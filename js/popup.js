@@ -48,6 +48,7 @@ main.addEventListener("mousemove", (event) => {
 });
 
 function openPopup(value) {
+  closePopup();
   if (orchestrator) {
     if (popup) popup.style.display = "none";
     popup = document.getElementById(value);
