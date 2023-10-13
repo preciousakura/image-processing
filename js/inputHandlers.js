@@ -24,9 +24,8 @@ tresholdValue.addEventListener("change", () => {
 
 function encrypt() {
   const text = document.getElementById("steganographyText").value;
-  if (orchestrator) {
+  if (orchestrator)
     orchestrator.steganographyEncrypt(text);
-  }
   closeSubmenu();
 }
 
