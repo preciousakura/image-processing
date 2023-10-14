@@ -206,7 +206,7 @@
               <label><span>G:</span><input id="g_picker" onchange="onChangeG(event.target.value)" max="255" min="0" value="255" type="number"/></label>
               <label><span>B:</span><input id="b_picker" onchange="onChangeB(event.target.value)" max="255" min="0" value="1" type="number"/></label>
             </div>
-            <label class="distance"><span>Distance:</span><input oninput="onChangeDistance(event.target.value)" max="500" min="0" value="0" type="range"/><span class="value" id="distance_value">0</span></label>
+            <div class="range-label"><label><span>Distance:</span><input oninput="onChangeDistance(event.target.value)" max="500" min="0" value="0" type="range"/></label><span class="value" id="distance_value">0</span></div>
             <div><button onclick="pick()">pick color</button></div>
           </div>
           <div class="buttons">
@@ -531,9 +531,9 @@
         <div class="content">
           <div id="rgb-color"></div>
           <div class="options">
-            <label>R:<input type="range" max="255" min="0" id="rgb_r" value="0"/><span class="value" id="rgb_r_value">0</span></label>
-            <label>G:<input type="range" max="255" min="0" id="rgb_g" value="0"/><span class="value" id="rgb_g_value">0</span></label>
-            <label>B:<input type="range" max="255" min="0" id="rgb_b" value="0"/><span class="value" id="rgb_b_value">0</span></label>
+            <div class="range-label"><label>R:<input type="range" max="255" min="0" id="rgb_r" value="0"/></label><span class="value" id="rgb_r_value">0</span></div>
+            <div class="range-label"><label>G:<input type="range" max="255" min="0" id="rgb_g" value="0"/></label><span class="value" id="rgb_g_value">0</span></div>
+            <div class="range-label"><label>B:<input type="range" max="255" min="0" id="rgb_b" value="0"/></label><span class="value" id="rgb_b_value">0</span></div>
           </div>
           <div class="buttons">
             <button onclick="apply()">Apply</button>
@@ -552,9 +552,9 @@
         <div class="content">
           <div id="hsv-color"></div>
           <div class="options">
-            <label>Hue:<input type="range" max="360" min="0" step="1" id="hsv_h" value="0"/><span class="value" id="hsv_h_value">0º</span></label>
-            <label>Saturation:<input type="range" max="100" min="0" step="1" id="hsv_s" value="0"/><span class="value" id="hsv_s_value">0%</span></label>
-            <label>Value:<input type="range" max="100" min="0" step="1" id="hsv_v" value="0"/><span class="value" id="hsv_v_value">0%</span></label>
+            <div class="range-label"><label>H:<input type="range" max="360" min="0" step="1" id="hsv_h" value="0"/></label><span class="value" id="hsv_h_value">0º</span></div>
+            <div class="range-label"><label>S:<input type="range" max="100" min="0" step="1" id="hsv_s" value="0"/></label><span class="value" id="hsv_s_value">0%</span></div>
+            <div class="range-label"><label>V:<input type="range" max="100" min="0" step="1" id="hsv_v" value="0"/></label><span class="value" id="hsv_v_value">0%</span></div>
           </div>
           <div class="buttons">
             <button onclick="apply()">Apply</button>

@@ -10,9 +10,14 @@ input[type="number"] {
 input[type="number"] {
   width: 70px;
 }
-
 .value {
-  width: 33px;
+  text-align: right;
+}
+
+.range-label {
+  display: grid !important;
+  grid-template-columns: 1fr 35px;
+  align-items: center;
 }
 
 input[type="range"] {
