@@ -65,7 +65,7 @@ function minus(a, b) {
 function transformhsv(h, s, l) {
   return function (px) {
     const hsv_px = rgbToHSV(px.r, px.g, px.b);
-    const rgb_px = hsvToRGB(hsv_px[0] + h, hsv_px[1] + s, hsv_px[2] + l);
+    const rgb_px = hsvToRGB(hsv_px[0] + Number(h), hsv_px[1] + Number(s), hsv_px[2] + Number(l));
 
     return new pixel(rgb_px[0], rgb_px[1], rgb_px[2], 1);
   };
