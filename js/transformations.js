@@ -62,10 +62,10 @@ function minus(a, b) {
   return a - b;
 }
 
-function transformHsl(h, s, l) {
+function transformhsv(h, s, l) {
   return function (px) {
-    const hsi_px = rgbToHSI(px.r, px.g, px.b);
-    const rgb_px = hsiToRGB(hsi_px[0] + h, hsi_px[1] + s, hsi_px[2] + l);
+    const hsv_px = rgbToHSV(px.r, px.g, px.b);
+    const rgb_px = hsvToRGB(hsv_px[0] + h, hsv_px[1] + s, hsv_px[2] + l);
 
     return new pixel(rgb_px[0], rgb_px[1], rgb_px[2], 1);
   };

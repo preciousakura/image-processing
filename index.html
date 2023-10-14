@@ -110,7 +110,7 @@
                 </button>
               </li>
               <li><button onclick="openPopup('rgbPopup')">Channel Adjustment (RGB)</button></li>
-              <li><button onclick="openPopup('hslPopup')">Adjust Hue, Saturation and Brightness (HSL)</button></li>
+              <li><button onclick="openPopup('hsvPopup')">Adjust Hue, Saturation and Value (HSV)</button></li>
               <li><button onclick="openPopup('colorTransformPopup')">Color transformation (RGB/HSV)</button></li>
             </ul>
           </div>
@@ -542,19 +542,19 @@
         </div>
       </div>
 
-      <div class="popup" id="hslPopup">
-        <div class="popup__options" id="hslPopup_options">
+      <div class="popup" id="hsvPopup">
+        <div class="popup__options" id="hsvPopup_options">
           <i class="ph ph-x" onclick="closePopup()"></i>
         </div>
         <div class="header">
-          <h3>Hue, Saturation and Brightness</h3>
+          <h3>Hue, Saturation and Value</h3>
         </div>
         <div class="content">
-          <div id="hsl-color"></div>
+          <div id="hsv-color"></div>
           <div class="options">
-            <label>Hue:<input type="number" max="360" min="0" id="hsl_h" value="0"/>º</label>
-            <label>Saturation:<input type="number" max="100" min="0" id="hsl_s" value="0"/>%</label>
-            <label>Brightness:<input type="number" max="100" min="0" id="hsl_l" value="0"/>%</label>
+            <label>Hue:<input type="number" max="360" min="0" id="hsv_h" value="0"/>º</label>
+            <label>Saturation:<input type="number" max="100" min="0" id="hsv_s" value="0"/>%</label>
+            <label>Value:<input type="number" max="100" min="0" id="hsv_l" value="0"/>%</label>
           </div>
           <div class="buttons">
             <button onclick="apply()">Apply</button>

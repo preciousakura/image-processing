@@ -251,133 +251,125 @@ const transform_v = document.getElementById("transform_v");
 const transform_color = document.getElementById("transform-color");
 
 transform_r.addEventListener("change", (e) => {
-  const color = e.target.value;
-  const transformedColor = rgbToHSV(
-    color,
-    transform_g.value,
-    transform_b.value
-  );
+  const r = transform_r.value;
+  const g = transform_g.value;
+  const b = transform_b.value;
+  
+  const transformedColor = rgbToHSV(r/255, g/255, b/255);
 
-  transform_h.value = transformedColor[0];
-  transform_s.value = transformedColor[1];
-  transform_v.value = transformedColor[2];
+  transform_h.value = Math.round(transformedColor[0]);
+  transform_s.value = Math.round(transformedColor[1] * 100);
+  transform_v.value = Math.round(transformedColor[2] * 100);
 
-  transform_color.style.background = `rgb(${color}, ${transform_g.value}, ${transform_b.value})`;
+  transform_color.style.background = `rgb(${r}, ${g}, ${b})`;
 });
+
 transform_g.addEventListener("change", (e) => {
-  const color = e.target.value;
-  const transformedColor = rgbToHSV(
-    transform_r.value,
-    color,
-    transform_b.value
-  );
+  const r = transform_r.value;
+  const g = transform_g.value;
+  const b = transform_b.value;
+  
+  const transformedColor = rgbToHSV(r/255, g/255, b/255);
 
-  transform_h.value = transformedColor[0];
-  transform_s.value = transformedColor[1];
-  transform_v.value = transformedColor[2];
+  transform_h.value = Math.round(transformedColor[0]);
+  transform_s.value = Math.round(transformedColor[1] * 100);
+  transform_v.value = Math.round(transformedColor[2] * 100);
 
-  transform_color.style.background = `rgb(${transform_r.value}, ${color}, ${transform_b.value})`;
+  transform_color.style.background = `rgb(${r}, ${g}, ${b})`;
 });
+
 transform_b.addEventListener("change", (e) => {
-  const color = e.target.value;
-  const transformedColor = rgbToHSV(
-    transform_r.value,
-    transform_g.value,
-    color
-  );
+  const r = transform_r.value;
+  const g = transform_g.value;
+  const b = transform_b.value;
+  
+  const transformedColor = rgbToHSV(r/255, g/255, b/255);
 
-  transform_h.value = transformedColor[0];
-  transform_s.value = transformedColor[1];
-  transform_v.value = transformedColor[2];
+  transform_h.value = Math.round(transformedColor[0]);
+  transform_s.value = Math.round(transformedColor[1] * 100);
+  transform_v.value = Math.round(transformedColor[2] * 100);
 
-  transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${color})`;
+  transform_color.style.background = `rgb(${r}, ${g}, ${b})`;
 });
 
 transform_h.addEventListener("change", (e) => {
-  const color = e.target.value;
-  const transformedColor = hsvToRGB(
-    color,
-    transform_s.value,
-    transform_v.value
-  );
-
-  transform_r.value = transformedColor[0];
-  transform_g.value = transformedColor[1];
-  transform_b.value = transformedColor[2];
+  const h = transform_h.value;
+  const s = transform_s.value;
+  const v = transform_v.value;
+  
+  const transformedColor = hsvToRGB(h, s/100, v/100);
+  
+  transform_r.value = Math.round(transformedColor[0] * 255);
+  transform_g.value = Math.round(transformedColor[1] * 255);
+  transform_b.value = Math.round(transformedColor[2] * 255);
 
   transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`;
 });
+
 transform_s.addEventListener("change", (e) => {
-  const color = e.target.value;
-  const transformedColor = hsvToRGB(
-    transform_h.value,
-    color,
-    transform_v.value
-  );
-
-  transform_r.value = transformedColor[0];
-  transform_g.value = transformedColor[1];
-  transform_b.value = transformedColor[2];
+  const h = transform_h.value;
+  const s = transform_s.value;
+  const v = transform_v.value;
+  
+  const transformedColor = hsvToRGB(h, s/100, v/100);
+  
+  transform_r.value = Math.round(transformedColor[0] * 255);
+  transform_g.value = Math.round(transformedColor[1] * 255);
+  transform_b.value = Math.round(transformedColor[2] * 255);
 
   transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`;
 });
+
 transform_v.addEventListener("change", (e) => {
-  const color = e.target.value;
-  const transformedColor = hsvToRGB(
-    transform_h.value,
-    transform_s.value,
-    color
-  );
-
-  transform_r.value = transformedColor[0];
-  transform_g.value = transformedColor[1];
-  transform_b.value = transformedColor[2];
+  const h = transform_h.value;
+  const s = transform_s.value;
+  const v = transform_v.value;
+  
+  const transformedColor = hsvToRGB(h, s/100, v/100);
+  
+  transform_r.value = Math.round(transformedColor[0] * 255);
+  transform_g.value = Math.round(transformedColor[1] * 255);
+  transform_b.value = Math.round(transformedColor[2] * 255);
 
   transform_color.style.background = `rgb(${transform_r.value}, ${transform_g.value}, ${transform_b.value})`;
 });
 
-const hsl_h = document.getElementById("hsl_h");
-const hsl_s = document.getElementById("hsl_s");
-const hsl_l = document.getElementById("hsl_l");
-const transform_hsl = document.getElementById("hsl-color");
+const hsv_h = document.getElementById("hsv_h");
+const hsv_s = document.getElementById("hsv_s");
+const hsv_l = document.getElementById("hsv_l");
+const transform_hsv = document.getElementById("hsv-color");
 
-hsl_h.addEventListener("change", (_) => {
-  const h = hsl_h.value;
-  const s = hsl_s.value / 100;
-  const l = hsl_l.value / 100;
+hsv_h.addEventListener("change", (_) => {
+  const h = hsv_h.value;
+  const s = hsv_s.value / 100;
+  const l = hsv_l.value / 100;
+  
+  const color = hsvToRGB(h, s, l);
+  transform_hsv.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${color[2] * 255})`;
 
-  const color = hsiToRGB(h, s, l);
-  transform_hsl.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${
-    color[2] * 255
-  })`;
-
-  orchestrator.intensityTransform(transformHsl(h, s, l));
+  orchestrator.intensityTransform(transformhsv(h, s, l));
 });
 
-hsl_s.addEventListener("change", (_) => {
-  const h = hsl_h.value;
-  const s = hsl_s.value / 100;
-  const l = hsl_l.value / 100;
+hsv_s.addEventListener("change", (_) => {
+  const h = hsv_h.value;
+  const s = hsv_s.value / 100;
+  const l = hsv_l.value / 100;
 
-  const color = hsiToRGB(h, s, l);
-  transform_hsl.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${
-    color[2] * 255
-  })`;
+  const color = hsvToRGB(h, s, l);
+  transform_hsv.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${color[2] * 255})`;
 
-  orchestrator.intensityTransform(transformHsl(h, s, l));
+  orchestrator.intensityTransform(transformhsv(h, s, l));
 });
 
-hsl_l.addEventListener("change", (_) => {
-  const h = hsl_h.value;
-  const s = hsl_s.value / 100;
-  const l = hsl_l.value / 100;
+hsv_l.addEventListener("change", (_) => {
+  const h = hsv_h.value;
+  const s = hsv_s.value / 100;
+  const l = hsv_l.value / 100;
 
-  const color = hsiToRGB(h, s, l);
-  transform_hsl.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${
-    color[2] * 255
-  })`;
+  const color = hsvToRGB(h, s, l);
+  transform_hsv.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${color[2] * 255})`;
 
-  orchestrator.intensityTransform(transformHsl(h, s, l));
+  orchestrator.intensityTransform(transformhsv(h, s, l));
 });
 
 const rgb_r = document.getElementById("rgb_r");
