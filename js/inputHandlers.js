@@ -336,40 +336,46 @@ transform_v.addEventListener("change", (e) => {
 
 const hsv_h = document.getElementById("hsv_h");
 const hsv_s = document.getElementById("hsv_s");
-const hsv_l = document.getElementById("hsv_l");
+const hsv_v = document.getElementById("hsv_v");
 const transform_hsv = document.getElementById("hsv-color");
 
-hsv_h.addEventListener("change", (_) => {
+hsv_h.addEventListener("input", (_) => {
   const h = hsv_h.value;
   const s = hsv_s.value / 100;
-  const l = hsv_l.value / 100;
+  const v = hsv_v.value / 100;
   
-  const color = hsvToRGB(h, s, l);
+  document.getElementById("hsv_h_value").innerHTML = h + 'º';
+  
+  const color = hsvToRGB(h, s, v);
   transform_hsv.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${color[2] * 255})`;
 
-  orchestrator.intensityTransform(transformhsv(h, s, l));
+  orchestrator.intensityTransform(transformhsv(h, s, v));
 });
 
-hsv_s.addEventListener("change", (_) => {
+hsv_s.addEventListener("input", (_) => {
   const h = hsv_h.value;
   const s = hsv_s.value / 100;
-  const l = hsv_l.value / 100;
+  const v = hsv_v.value / 100;
+  
+  document.getElementById("hsv_s_value").innerHTML = hsv_s.value + '%';
 
-  const color = hsvToRGB(h, s, l);
+  const color = hsvToRGB(h, s, v);
   transform_hsv.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${color[2] * 255})`;
 
-  orchestrator.intensityTransform(transformhsv(h, s, l));
+  orchestrator.intensityTransform(transformhsv(h, s, v));
 });
 
-hsv_l.addEventListener("change", (_) => {
+hsv_v.addEventListener("input", (_) => {
   const h = hsv_h.value;
   const s = hsv_s.value / 100;
-  const l = hsv_l.value / 100;
+  const v = hsv_v.value / 100;
+  
+  document.getElementById("hsv_v_value").innerHTML = hsv_v.value + '%';
 
-  const color = hsvToRGB(h, s, l);
+  const color = hsvToRGB(h, s, v);
   transform_hsv.style.background = `rgb(${color[0] * 255}, ${color[1] * 255}, ${color[2] * 255})`;
 
-  orchestrator.intensityTransform(transformhsv(h, s, l));
+  orchestrator.intensityTransform(transformhsv(h, s, v));
 });
 
 const rgb_r = document.getElementById("rgb_r");
@@ -377,30 +383,36 @@ const rgb_g = document.getElementById("rgb_g");
 const rgb_b = document.getElementById("rgb_b");
 const transform_rgb = document.getElementById("rgb-color");
 
-rgb_r.addEventListener("change", (_) => {
+rgb_r.addEventListener("input", (_) => {
   const r = rgb_r.value;
   const g = rgb_g.value;
   const b = rgb_b.value;
+  
+  document.getElementById("rgb_r_value").innerHTML = r;
 
   transform_rgb.style.background = `rgb(${r}, ${g}, ${b})`;
 
   orchestrator.intensityTransform(transformRGB(r, g, b));
 });
 
-rgb_g.addEventListener("change", (_) => {
+rgb_g.addEventListener("input", (_) => {
   const r = rgb_r.value;
   const g = rgb_g.value;
   const b = rgb_b.value;
+  
+  document.getElementById("rgb_g_value").innerHTML = g;
 
   transform_rgb.style.background = `rgb(${r}, ${g}, ${b})`;
 
   orchestrator.intensityTransform(transformRGB(r, g, b));
 });
 
-rgb_b.addEventListener("change", (_) => {
+rgb_b.addEventListener("input", (_) => {
   const r = rgb_r.value;
   const g = rgb_g.value;
   const b = rgb_b.value;
+  
+  document.getElementById("rgb_b_value").innerHTML = b;
 
   transform_rgb.style.background = `rgb(${r}, ${g}, ${b})`;
 

@@ -11,6 +11,14 @@ input[type="number"] {
   width: 70px;
 }
 
+.value {
+  width: 33px;
+}
+
+input[type="range"] {
+  width: -webkit-fill-available;
+}
+
 textarea {
     resize: none;
 }
