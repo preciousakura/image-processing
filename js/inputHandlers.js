@@ -80,10 +80,11 @@ function histogramHSIEq() {
   closeSubmenu();
 }
 
-function normalize() {
+function normalize_img(){
   if (orchestrator) {
-    let divisor = orchestrator.getBiggestIntensity();
-    orchestrator.intensityTransform(normalize(divisor), true);
+    let imgAux = copyImage(orchestrator.imageHistory[orchestrator.imageHistory.length - 1]);
+    imgAux.normalize();
+    orchestrator.addImage(imgAux);
   }
   closeSubmenu();
 }
