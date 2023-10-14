@@ -6,7 +6,7 @@ class complex{
 }
 
 function add(n1, n2){ return new complex(n1.a+n2.a, n1.b+n2.b); }
-function minus(n1, n2){ return new complex(n1.a-n2.a, n1.b-n2.b); }
+function minus_c(n1, n2){ return new complex(n1.a-n2.a, n1.b-n2.b); }
 function mult(n1, n2){ return new complex(n1.a*n2.a-n1.b*n2.b, n1.a*n2.b+n1.b*n2.a); }
 function div(n, r){ return new complex(n.a/r, n.b/r); }
 function conjugate(n){ return new complex(n.a, -n.b); }

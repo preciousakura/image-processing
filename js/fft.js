@@ -16,7 +16,7 @@ function calc_fft(a, invert){
 
   for(let i = 0; 2 * i < n; i++){
     a[i] = add(a0[i], mult(w, a1[i]));
-    a[i+n/2] = minus(a0[i], mult(w, a1[i]));
+    a[i+n/2] = minus_c(a0[i], mult(w, a1[i]));
     if (invert) {
       a[i] = div(a[i], 2);
       a[i+n/2] = div(a[i+n/2], 2);

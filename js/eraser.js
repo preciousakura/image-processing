@@ -56,7 +56,6 @@ function applyFFT(matrix){
   }else{
     fft_result = naive_fft2(matrix);
   }
-
   fft_result = fftshift(fft_result);
 }
 
