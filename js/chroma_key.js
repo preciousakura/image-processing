@@ -33,6 +33,7 @@ function onChangeDistance(value) {
   orchestrator.recoverLastImage();
   orchestrator.showChanges();
   orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
+  document.getElementById('distance_value').innerHTML = value;
 }
 
 const loadChromaKeyImage = (event) => {
