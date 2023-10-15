@@ -4,6 +4,10 @@ nav > ul {
   background: var(--primary-800);
 }
 
+li {
+  list-style: none;
+}
+
 nav > ul > li > button {
   color: var(--secondary-100);
   position: relative;
