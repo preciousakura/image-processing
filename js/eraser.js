@@ -147,7 +147,26 @@ function eraser_hold(e) {
   is_erasing = true;
 }
 
-function eraser_click(e) {}
+function eraser_click(e) {
+  clear()
+  const rect = canvas_eraser_pincel.getBoundingClientRect();
+  let x = e.pageX - rect.left;
+  let y = e.pageY - rect.top;
+
+  context_eraser_pincel.strokeStyle = "red";
+  context_eraser_pincel.beginPath();
+  context_eraser_pincel.rect(x - dimension/2, y - dimension/2, dimension, dimension); // rect(x, y, side)
+  context_eraser_pincel.stroke();
+
+  const kernel = (current_pencil === 'rough' ? Array(dimension).fill(Array(dimension).fill(pencil_color)) : gaussianKernel(dimension, sigma));
+  if(current_pencil !== 'rough'){
+    for(let i = 0; i < kernel.length; i++)
+      for(let j = 0; j < kernel[0].length; j++)
+        kernel[i][j] = 1-kernel[i][j];
+  }
+  erased_image_data.erase(x, y, dimension, kernel);
+  applyKernelPixel(kernel, Math.round(kernel.length/2), Math.round(kernel.length/2), x, y);
+}
 
 function eraser_drop() {
   clear()
