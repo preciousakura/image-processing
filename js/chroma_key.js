@@ -111,14 +111,14 @@ function pick_drop() {
 }
 
 function pick_color(event) {
+  const rect = canvas_img.getBoundingClientRect();
+  let x = event.clientX - rect.left,
+      y = event.clientY - rect.top;
+
+  const pixel = context_img.getImageData(x, y, 1, 1);
+  const data = pixel.data;
+
   if (isPicking) {
-    const rect = canvas_img.getBoundingClientRect();
-    let x = event.clientX - rect.left,
-        y = event.clientY - rect.top;
-
-    const pixel = context_img.getImageData(x, y, 1, 1);
-    const data = pixel.data;
-
     picked_color.style.background = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3] / 255 })`;
     r_picked = data[0];
     g_picked = data[1];
@@ -127,6 +127,19 @@ function pick_color(event) {
     orchestrator.chromaKey(image_chromaK, r_picked, g_picked, b_picked, distance);
 
     isPicking = false;
+  }
+
+  if(popup && popup.id === "colorTransformPopup") {
+    transform_color.style.background = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3] / 255 })`;
+    const transformedColor = rgbToHSV(data[0]/255, data[1]/255, data[2]/255);
+  
+    transform_h.value = Math.round(transformedColor[0]);
+    transform_s.value = Math.round(transformedColor[1] * 100);
+    transform_v.value = Math.round(transformedColor[2] * 100);
+  
+    transform_r.value = data[0];
+    transform_g.value = data[1];
+    transform_b.value = data[2];
   }
 }
 
